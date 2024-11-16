@@ -1,0 +1,116 @@
+.accordion-item-group {
+  width: 100%;
+  border-radius: 0.5rem;
+
+  .accordion-item {
+    width: 100%;
+    padding: 0.85rem 0;
+    border-radius: 0.5rem;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0 10px;
+    user-select: none;
+    cursor: pointer;
+
+    .accordion-item-icon {
+      width: 16px;
+      height: 16px;
+      object-fit: cover;
+      color: var(--accordion-group-item-icon-color, var(--color-gray-500));
+    }
+
+    .accordion-item-text {
+      font-size: 1.1rem;
+      font-weight: 400;
+      color: var(--accordion-group-item-text-color, var(--color-gray-500));
+    }
+
+    .accordion-item-group-icon-container {
+      margin-left: auto;
+
+      .accordion-item-group-icon {
+        width: 14px;
+        height: 14px;
+        color: var(--accordion-group-icon-color, var(--color-gray-500));
+      }
+    }
+  }
+
+  &:hover {
+    .accordion-item {
+      .accordion-item-icon {
+        color: var(
+          --accordion-hover-group-item-icon-color,
+          var(--color-gray-400)
+        );
+      }
+
+      .accordion-item-text {
+        color: var(--accordion-hover-item-text-color, var(--color-gray-400));
+      }
+
+      .accordion-item-group-icon-container {
+        .accordion-item-group-icon {
+          color: var(--accordion-hover-group-icon-color, var(--color-gray-400));
+        }
+      }
+    }
+  }
+
+  &.expanded {
+    .accordion-item {
+      .accordion-item-icon {
+        color: var(
+          --accordion-expanded-group-item-icon-color,
+          var(--color-gray-600)
+        );
+      }
+
+      .accordion-item-text {
+        color: var(--accordion-expanded-item-text-color, var(--color-gray-600));
+      }
+
+      .accordion-item-group-icon-container {
+        .accordion-item-group-icon {
+          color: var(
+            --accordion-expanded-group-icon-color,
+            var(--color-gray-600)
+          );
+        }
+      }
+    }
+  }
+
+  .accordion-group-items {
+    /* margin-left: calc(0.85rem + 7px);
+    padding-left: 0.35rem;
+    border-left: 1px dashed var(--color-gray-100); */
+
+    t-accordion-item {
+      position: relative;
+      width: calc(100% - 0.5rem);
+      opacity: 0;
+
+      @keyframes sliding-y-animation {
+        0% {
+          opacity: 0;
+          transform: translateY(-15px);
+        }
+
+        100% {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @for $i from 1 to 25 {
+        &:nth-child($i) {
+          animation: sliding-y-animation 0.4s ease-in-out 0.3333s;
+          animation-fill-mode: forwards;
+          animation-delay: calc($i * 0.05s);
+        }
+      }
+    }
+  }
+}

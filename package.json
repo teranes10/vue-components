@@ -1,0 +1,71 @@
+{
+  "name": "@teranes/basic-components",
+  "version": "4.0.0",
+  "type": "module",
+  "description": "Basic Components",
+  "main": "./dist/basic-components.umd.js",
+  "types": "./dist/types/basic-components.d.ts",
+  "exports": {
+    ".": {
+      "import": "./dist/basic-components.mjs",
+      "require": "./dist/basic-components.umd.js",
+      "types": "./dist/types/basic-components.d.ts"
+    },
+    "./styles.css": "./dist/basic-components-style.css"
+  },
+  "scripts": {
+    "build:vue": "vite build --mode production -c vite-vue.config.ts",
+    "build:web-components": "vite build --mode production -c vite-web-components.config.ts",
+    "build": "npm run build:vue && npm run build:web-components"
+  },
+  "files": [
+    "dist"
+  ],
+  "keywords": [],
+  "author": "Teranes",
+  "license": "ISC",
+  "dependencies": {
+    "@popperjs/core": "^2.11.8",
+    "@teranes/date": "^9.0.0",
+    "@teranes/popper": "^11.0.0",
+    "@teranes/short-unique-id": "^9.0.0",
+    "@teranes/utils": "^10.0.0",
+    "@teranes/vue-composables": "^15.0.0",
+    "flatpickr": "^4.6.13",
+    "lucide-vue-next": "^0.452.0",
+    "reflect-metadata": "^0.2.2",
+    "tippy.js": "^6.3.7",
+    "toastify-js": "^1.12.0",
+    "vue": "^3.5.12",
+    "zoom-vanilla.js": "^2.0.6"
+  },
+  "devDependencies": {
+    "@microsoft/api-extractor": "7.47.11",
+    "@teranes/postcss-variables": "^1.0.1",
+    "@teranes/vite-typed-css-modules": "^1.0.5",
+    "@types/node": "^22.7.5",
+    "@types/postcss-import": "^14.0.3",
+    "@types/tailwindcss": "^3.1.0",
+    "@types/toastify-js": "^1.12.3",
+    "@vitejs/plugin-vue": "^5.1.4",
+    "@vitejs/plugin-vue-jsx": "^4.0.1",
+    "@vue/tsconfig": "^0.5.1",
+    "autoprefixer": "^10.4.20",
+    "cssnano": "^7.0.6",
+    "glob": "^11.0.0",
+    "postcss": "^8.4.47",
+    "postcss-custom-media": "^11.0.3",
+    "postcss-import": "^16.1.0",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^3.4.13",
+    "terser": "^5.34.1",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.8",
+    "vite-plugin-dts": "^4.3.0",
+    "vue-tsc": "^2.1.6"
+  },
+  "packageManager": "pnpm@8.15.6",
+  "engines": {
+    "node": ">=18"
+  }
+}

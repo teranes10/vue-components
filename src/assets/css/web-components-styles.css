@@ -1,0 +1,11 @@
+t-accordion-item-group {
+  width: 100%;
+}
+
+t-accordion-item {
+  width: 100%;
+}
+
+t-tab {
+  flex: 1;
+}

@@ -1,0 +1,9 @@
+.zoom-img-wrap {
+  img {
+    border-radius: 1px !important;
+  }
+}
+
+.zoom-overlay-open .zoom-overlay {
+  background: rgba(52, 58, 64, 0.125);
+}

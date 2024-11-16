@@ -1,0 +1,56 @@
+.alert {
+  padding: 20px;
+
+  .alert-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+
+    .alert-icon {
+      width: 56px;
+      height: 56px;
+      object-fit: cover;
+      color: var(--color-gray-800);
+    }
+
+    .alert-title {
+      font-size: 30px;
+      margin-top: 20px;
+      color: var(--color-gray-700);
+    }
+
+    .alert-text {
+      font-size: 14px;
+      color: var(--color-gray-600);
+    }
+  }
+
+  .alert-actions{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 4px;
+    padding: 20px;
+    text-align: center;
+
+    .alert-action {
+      width: 96px;
+    }
+  }
+}
+
+@mixin alert($type) {
+  .alert-$(type) {
+    .alert-icon{
+      color: var(--color-$(type)-500) !important;
+    }
+  }
+}
+
+@include alert(success);
+@include alert(warning);
+@include alert(info);
+@include alert(danger);

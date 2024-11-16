@@ -1,0 +1,53 @@
+@mixin toast($color) {
+  .toast-$(color) {
+    background: var(--color-$(color)-50);
+    border: 1px solid var(--color-$(color)-100);
+    box-shadow: 0 3px 6px -1px rgba(0, 0, 0, 0.12),
+      0 10px 36px -4px var(--color-$(color)-50);
+    color: var(--color-$(color)-500);
+
+    @content;
+
+    .close-btn {
+      color: var(--color-$(color)-400);
+    }
+  }
+}
+
+.toast {
+  display: inline-flex;
+  vertical-align: top;
+  justify-content: flex-start;
+  align-items: center;
+  min-width: 150px;
+  min-height: 50px;
+  padding: 1rem;
+  border-radius: 0.375rem;
+  font-size: 14px;
+  font-weight: 400;
+
+  .toast-icon {
+    margin-right: 1rem;
+  }
+
+  .toast-close-btn {
+    width: 14px;
+    height: 14px;
+    cursor: pointer;
+    margin-left: auto;
+
+    &:hover {
+      opacity: 0.8;
+    }
+
+    &:active {
+      opacity: 0.6;
+    }
+  }
+}
+
+@include toast(primary);
+@include toast(success);
+@include toast(warning);
+@include toast(info);
+@include toast(danger);

@@ -1,0 +1,30 @@
+.accordion-items-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  overflow: auto;
+  @mixin scrollbar 5px, 0;
+
+  .accordion-item {
+    @keyframes sliding-x-animation {
+      0% {
+        opacity: 0;
+        transform: translateX(25px);
+      }
+
+      100% {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @for $i from 1 to 25 {
+      &:nth-child($i) {
+        animation: sliding-x-animation 0.4s ease-in-out 0.3333s;
+        animation-fill-mode: forwards;
+        animation-delay: calc($i * 0.1s);
+      }
+    }
+  }
+}

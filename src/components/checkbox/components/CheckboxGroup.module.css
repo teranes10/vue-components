@@ -1,0 +1,28 @@
+.checkbox-group {
+  @include input-label-container(checkbox-group) {
+    @include input-label(checkbox-group);
+    @include input-tag(checkbox-group);
+  }
+
+  @include input(checkbox-group-container) {
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.5rem 1rem;
+
+    &.inline {
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+    }
+  }
+
+  .checkbox-group-errors-container {
+    list-style-type: disc;
+    list-style-position: inside;
+    text-align: left;
+  }
+}

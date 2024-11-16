@@ -1,0 +1,31 @@
+.data-table {
+  .toolbar {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    margin-top: 1rem;
+
+    @media (min-width: 768px) {
+      justify-content: space-between;
+    }
+
+    .info-container {
+      display: flex;
+      align-items: center;
+
+      .info {
+        margin: 0 12px;
+        font-size: 14px;
+        font-weight: 400;
+        text-wrap: nowrap;
+        color: var(--color-gray-500);
+      }
+
+      .items-per-page {
+        width: 80px;
+      }
+    }
+  }
+}

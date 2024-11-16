@@ -1,0 +1,110 @@
+@mixin input($input) {
+  .$(input) {
+    width: 100%;
+    height: 38px;
+    outline: none;
+    border-radius: 0.375rem;
+    padding: 8px 10px;
+    font-size: 14px;
+    font-weight: 400;
+    color: var(--color-gray-900);
+    border: 1px solid var(--color-gray-200);
+
+    &:hover {
+      border: 1px solid var(--color-gray-300);
+    }
+
+    &:focus {
+      border: 1px solid var(--color-gray-200);
+      box-shadow: 0 0 0 3px var(--color-gray-100);
+    }
+
+    &:disabled,
+    &.disabled {
+      background-color: var(--color-gray-50);
+      color: var(--color-gray-600);
+    }
+
+    @content;
+  }
+}
+
+@mixin input-label($input) {
+  .$(input)-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-gray-600);
+
+    &.required {
+      &:after {
+        content: "*";
+        margin-left: 0.25rem;
+        color: var(--color-danger);
+      }
+    }
+
+    @content;
+  }
+}
+
+@mixin input-tag($input) {
+  .$(input)-tag {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-gray-900);
+  }
+
+  @content;
+}
+
+@mixin input-label-container($input) {
+  .$(input)-label-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 0.5rem;
+    user-select: none;
+
+    @content;
+  }
+}
+
+@mixin scrollbar(
+  $size: 7.5px,
+  $margin: 40px,
+  $color: var(--color-gray-200),
+  $hover-color: var(--color-gray-300)
+) {
+  &::-webkit-scrollbar {
+    width: $size;
+    height: $size;
+  }
+
+  &::-webkit-scrollbar-track {
+    margin: $margin;
+    border-radius: $size 0 0 $size;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    border-radius: $size 0 0 $size;
+    background-color: $color;
+  }
+
+  &::-webkit-scrollbar-thumb:hover {
+    background-color: $hover-color;
+  }
+}
+
+@mixin click() {
+  cursor: pointer;
+  user-select: none;
+  opacity: 1;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:active {
+    opacity: 0.75;
+  }
+}

@@ -1,0 +1,35 @@
+.currency-field {
+  .currency-field-btn-group {
+    display: inline-flex;
+    vertical-align: top;
+    justify-content: center;
+    align-items: center;
+    margin-right: 0.5rem;
+    gap: 5px;
+    user-select: none;
+
+    .currency-btn {
+      display: inline-flex;
+      vertical-align: top;
+      outline: none;
+      border: none;
+      padding: 0.25rem;
+      margin: 0.125rem;
+      cursor: pointer;
+
+      &:hover {
+        opacity: 0.75;
+      }
+
+      &:active {
+        opacity: 0.5;
+      }
+
+      .currency-btn-icon {
+        width: 14px;
+        height: 14px;
+        color: var(--color-gray-500);
+      }
+    }
+  }
+}

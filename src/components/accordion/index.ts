@@ -1,0 +1,6 @@
+export type { AccordionProps } from './AccordionConfig'
+export { default as Accordion } from './Accordion.vue'
+export type { AccordionItemProps } from './components/accordion-item/AccordionItemConfig'
+export { default as AccordionItem } from './components/accordion-item/AccordionItem.vue'
+export type { AccordionItemGroupProps } from './components/accordion-item-group/AccordionItemGroupConfig'
+export { default as AccordionItemGroup } from './components/accordion-item-group/AccordionItemGroup.vue'

@@ -1,0 +1,43 @@
+@import url("https://fonts.googleapis.com/css2?family=Quicksand:wght@300..700&display=swap");
+@import "tailwindcss/base";
+
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-family: "Quicksand", sans-serif;
+  font-size: 14px;
+}
+
+.form-help {
+  font-size: 12.5px;
+}
+
+.click-eff {
+  cursor: pointer;
+  transition: ease-in-out 0.2s;
+
+  &:hover {
+    opacity: 0.85;
+  }
+
+  &:active {
+    opacity: 0.65;
+    transform: translateY(5px);
+  }
+}
+
+:root {
+  @each $color in getColors() {
+    @each $shade in getColors($color) {
+      @if $shade == DEFAULT {
+        --$(prefix)color-$(color): getColors($color, $shade);
+      } @else  {
+        --$(prefix)color-$(color)-$(shade): getColors($color, $shade);
+      }
+    }
+  }
+}

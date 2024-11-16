@@ -1,0 +1,28 @@
+.radio-group {
+  @include input-label-container(radio-group) {
+    @include input-label(radio-group);
+    @include input-tag(radio-group);
+  }
+
+  @include input(radio-group-container) {
+    height: auto;
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    gap: 0.5rem 1rem;
+
+    &.inline {
+      flex-direction: row;
+      justify-content: flex-start;
+      align-items: center;
+    }
+  }
+
+  .radio-group-errors-container {
+    list-style-type: disc;
+    list-style-position: inside;
+    text-align: left;
+  }
+}

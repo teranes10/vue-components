@@ -1,0 +1,29 @@
+.tab-item {
+  outline: none;
+  list-style: none;
+  flex: 1;
+
+  .tab {
+    width: 100%;
+    cursor: pointer;
+    display: block;
+    appearance: none;
+    padding: 8px 12px;
+    border: none;
+    border-bottom: 2px solid transparent;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    transition:
+      color 0.2s,
+      border-color 0.2s;
+
+    &.active {
+      border-bottom-color: var(--color-primary);
+    }
+
+    .tab-icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+}

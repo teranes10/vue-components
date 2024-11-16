@@ -1,0 +1,45 @@
+.radio {
+  display: inline-flex;
+  vertical-align: top;
+  align-items: center;
+
+  .radio-label {
+    font-size: 12px;
+    font-weight: 500;
+    color: var(--color-gray-600);
+    user-select: none;
+    margin-left: 8px;
+  }
+
+  .radio-input-ui {
+    display: inline-block;
+    vertical-align: top;
+    width: 1.5rem;
+    height: 1.5rem;
+    cursor: pointer;
+    border: none;
+    border-radius: 50% !important;
+    border: 1px solid var(--color-gray-200);
+  }
+
+  .radio-input {
+    display: none;
+
+    &:checked + .radio-input-ui {
+      background-position: center;
+      background-repeat: no-repeat;
+      background-color: var(--radio-active-background, var(--color-gray-200));
+      background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='2' fill='%23FFFFFF'/%3e%3c/svg%3e");
+    }
+  }
+}
+
+@each $color in getComponentColors() {
+  $name: getItem($color, name);
+
+  .radio-$(name) {
+    .radio-input:checked + .radio-input-ui {
+      background-color: getItem($color, color);
+    }
+  }
+}
