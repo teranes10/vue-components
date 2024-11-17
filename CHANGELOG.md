@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.6
+
+### Patch Changes
+
+- 7fb584b: style fix
+
 ## 1.0.5
 
 ### Patch Changes
