@@ -1,17 +1,18 @@
 import './assets/css/base.css'
 import './assets/css/tailwind.css'
+import './assets/css/web-components-styles.css'
 
 import { defineWebComponent, registerWebComponent } from './shared/web-components'
 import { loadScript, loadStyle } from './shared/cdn-loader'
 import webComponents from './exports.json'
 type WebComponent = keyof typeof webComponents
-type RegisterOptions = { prefix?: string, baseUrl?: string, concurrencyLimit?: number }
+type RegisterOptions = { prefix?: string, baseUrl?: string, version?: string, concurrencyLimit?: number }
 
 export { componentColors, type ComponentColor } from './shared/values/colors'
 export { defineWebComponent, registerWebComponent } from './shared/web-components'
 
 export async function register(
-    names: WebComponent[], { prefix = 't', baseUrl = 'https://unpkg.com/@teranes/vue-components/dist', concurrencyLimit = 3 }: RegisterOptions = {},
+    names: WebComponent[], { prefix = 't', baseUrl = 'https://unpkg.com/@teranes/vue-components', version, concurrencyLimit = 5 }: RegisterOptions = {},
 ) {
     const loadQueue = [...names];
 
@@ -20,8 +21,8 @@ export async function register(
         if (!name) return;
 
         const { exports, js, css } = webComponents[name];
-        await loadStyle(baseUrl + '/' + css);
-        await loadScript(baseUrl + '/' + js);
+        await loadStyle(baseUrl + (version ? `@${version}` : '') + '/dist/' + css);
+        await loadScript(baseUrl + (version ? `@${version}` : '') + '/dist/' + js);
 
         for (const [exportName, componentName] of Object.entries(exports)) {
             const component = (window as any)?.WebComponents?.[exportName];

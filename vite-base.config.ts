@@ -130,7 +130,7 @@ function getExtByFormat(format: string) {
 
 const GlobalNames: { [k: string]: string } = {
   'vue': 'Vue',
-  '@popperjs/core': 'popper',
+  '@popperjs/core': 'Popper',
   'tippy.js': 'tippy',
   'reflect-metadata': 'Reflect',
   'flatpickr': 'flatpickr',

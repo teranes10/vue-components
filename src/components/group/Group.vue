@@ -1,8 +1,9 @@
 <template>
-    <div class="inline-flex align-top flex-wrap gap-x-2 gap-y-1 justify-start items-center">
+    <div :class="styles.group">
         <slot />
     </div>
 </template>
 
 <script setup lang="ts">
+import styles from './Group.module.css'
 </script>
