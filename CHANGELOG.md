@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.7
+
+### Patch Changes
+
+- eda065e: umd bundles (js+css)
+
 ## 1.0.6
 
 ### Patch Changes
