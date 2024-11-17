@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.9
+
+### Patch Changes
+
+- 8dc974e: link and group moved to shared web component
+
 ## 1.0.8
 
 ### Patch Changes
