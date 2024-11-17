@@ -1,6 +1,6 @@
 
 import { build } from 'vite'
-import { getBaseConfig, getSubEntries } from './vite-base.config'
+import { type BaseConfigOptions, getBaseConfig, getSubEntries } from './vite-base.config'
 import { toPascalCase, toKebabCase } from '@teranes/utils'
 import { dirname, resolve } from 'path'
 import { fileURLToPath } from 'url'
@@ -30,7 +30,7 @@ function validateComponentExport(name: string) {
     return true
 }
 
-async function buildModule(name: string, filePath: string) {
+async function buildModule(name: string, filePath: string, options: Partial<BaseConfigOptions> = {}) {
     const config = getBaseConfig({
         name: 'WebComponents',
         fileName: name,
@@ -42,10 +42,6 @@ async function buildModule(name: string, filePath: string) {
         external: ['@/shared/values/colors'],
         excludeExternal: ['lucide-vue-next'],
         callback(info) {
-            // if (info.name === 'accordion') {
-            //     console.log(info);
-            // }
-
             for (const exportName of info.exports) {
                 if (validateComponentExport(exportName)) {
                     const moduleName = toPascalCase(info.name);
@@ -58,16 +54,22 @@ async function buildModule(name: string, filePath: string) {
                     componentExports[moduleName]['exports'][exportName] = toKebabCase(exportName)
                 }
             }
-        }
+        },
+        ...options
     })
 
     await build(config)
 }
 
+async function buildBundle(name: string, filePath: string, options: Partial<BaseConfigOptions> = {}) {
+    await buildModule(name, filePath)
+    await buildModule(name, filePath, { combineCss: true })
+}
+
 const entries = getSubEntries(import.meta.url, 'src/components/*/**/index.ts')
 for (const [name, filePath] of Object.entries(entries)) {
-    await buildModule(name, filePath)
+    await buildBundle(name, filePath)
 }
 
 createExportsFile();
-buildModule('web-components', resolve(__dirname, './src/web-components.ts'))
+buildBundle('web-components', resolve(__dirname, './src/web-components.ts'))

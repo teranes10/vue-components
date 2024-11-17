@@ -2,15 +2,16 @@ import { defineConfig } from "vite";
 import vue from "@vitejs/plugin-vue";
 import vueJsx from "@vitejs/plugin-vue-jsx";
 import { URL, fileURLToPath } from "node:url";
-import { PostcssVite, resolvePath } from "./postcss.config";
+import { PostcssVite, resolvePath } from "./postcss-config";
 import typedCssModules from '@teranes/vite-typed-css-modules'
 import dtsPlugin from 'vite-plugin-dts'
 import { toKebabCase } from '@teranes/utils'
 import { glob } from 'glob';
 import { resolve, dirname } from "node:path";
 import { readFileSync } from "node:fs";
+import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
-type BaseConfigOptions = {
+export type BaseConfigOptions = {
   entry: { [key: string]: string },
   subEntries?: string | boolean
   url?: string,
@@ -22,17 +23,28 @@ type BaseConfigOptions = {
   name?: string,
   external?: string[]
   excludeExternal?: string[],
+  combineCss?: boolean,
   callback?: (info: { name: string, exports: string[] }) => void
 }
 
 export function getBaseConfig({
   url = import.meta.url, fileName, entry, subEntries = 'src/components/*/**/index.ts',
   clean = false, customElement = false, dts = false,
-  format = 'umd', name = '', external = [], excludeExternal = [], callback }: BaseConfigOptions) {
+  format = 'umd', name = '', external = [], excludeExternal = [], combineCss, callback }: BaseConfigOptions) {
 
   const _external = getDependencies(url).filter(x => !excludeExternal.includes(x));
   _external.push(...external);
   const _globals = format === 'umd' ? getGlobals(_external) : {}
+
+  const inspectExportsPlugin = {
+    name: 'inspect-module-exports',
+    moduleParsed(moduleInfo: any) {
+      if (moduleInfo.isEntry) {
+        moduleInfo.name = idToName(moduleInfo.id)
+        callback && callback(moduleInfo)
+      }
+    },
+  }
 
   return defineConfig({
     plugins: [
@@ -54,7 +66,8 @@ export function getBaseConfig({
         ],
       }),
       typedCssModules(),
-      ...(dts ? [dtsPlugin({ insertTypesEntry: true, rollupTypes: true, outDir: resolvePath(url, `dist/${format}/types`) })] : [])
+      ...(dts ? [dtsPlugin({ insertTypesEntry: true, rollupTypes: true, outDir: resolvePath(url, `dist/${format}/types`) })] : []),
+      ...(combineCss ? [cssInjectedByJsPlugin()] : [])
     ],
     define: {
       'process.env.NODE_ENV': JSON.stringify('production'),
@@ -66,22 +79,16 @@ export function getBaseConfig({
     },
     build: {
       rollupOptions: {
-        plugins: callback ? [{
-          name: 'inspect-module-exports',
-          moduleParsed(moduleInfo: any) {
-            if (moduleInfo.isEntry) {
-              moduleInfo.name = idToName(moduleInfo.id)
-              callback(moduleInfo)
-            }
-          },
-        }] : [],
+        plugins: [
+          ...(callback ? [inspectExportsPlugin] : []),
+        ],
         external: _external,
         output: {
           inlineDynamicImports: format === 'umd',
           extend: format === 'umd',
           globals: _globals,
           entryFileNames: (info) => {
-            return format + '/js/' + info.name + '.' + getExtByFormat(format)
+            return format + (combineCss ? '/bundle/' : '/js/') + info.name + '.' + getExtByFormat(format)
           },
           chunkFileNames: (info) => {
             let name = info.name
@@ -89,7 +96,7 @@ export function getBaseConfig({
               name = info.name.split('.vue')[0]
             }
 
-            return format + '/js/chunks/' + toKebabCase(name) + '.' + getExtByFormat(format)
+            return format + `/${(combineCss ? 'bundle' : 'js')}/chunks/` + toKebabCase(name) + '.' + getExtByFormat(format)
           },
           assetFileNames: (info) => {
             if (format === 'umd' && info?.name?.endsWith('.css')) {
