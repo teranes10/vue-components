@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.8
+
+### Patch Changes
+
+- ce22534: bundle and loader
+
 ## 1.0.7
 
 ### Patch Changes
