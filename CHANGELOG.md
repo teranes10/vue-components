@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.4
+
+### Patch Changes
+
+- 2587454: unpkg baseurl
+
 ## 1.0.3
 
 ### Patch Changes
