@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.5
+
+### Patch Changes
+
+- aa121ec: accordion and group fix
+
 ## 1.0.4
 
 ### Patch Changes
