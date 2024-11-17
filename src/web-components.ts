@@ -11,7 +11,7 @@ export { componentColors, type ComponentColor } from './shared/values/colors'
 export { defineWebComponent, registerWebComponent } from './shared/web-components'
 
 export async function register(
-    names: WebComponent[], { prefix = 't', baseUrl = 'https://unpkg.com/@teranes/web-components/dist', concurrencyLimit = 3 }: RegisterOptions = {},
+    names: WebComponent[], { prefix = 't', baseUrl = 'https://unpkg.com/@teranes/vue-components/dist', concurrencyLimit = 3 }: RegisterOptions = {},
 ) {
     const loadQueue = [...names];
 
