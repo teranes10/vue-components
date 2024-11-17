@@ -1,12 +1,12 @@
 import { isString } from '@teranes/utils'
-import type { TextFieldColor } from '../text-field/TextFieldConfig'
-import ExcelFileIcon from '../../assets/images/excel-file.webp'
-import WordFileIcon from '../../assets/images/word-file.webp'
-import PdfFileIcon from '../../assets/images/pdf-file.webp'
-import CsvFileIcon from '../../assets/images/csv-file.webp'
-import TextFileIcon from '../../assets/images/txt-file.webp'
-import FileIcon from '../../assets/images/file.webp'
-import type { ValidationProps } from '../../functions/validation/ValidationConfig'
+import type { TextFieldColor } from '@/components/text-field'
+import ExcelFileIcon from '@/assets/images/excel-file.webp'
+import WordFileIcon from '@/assets/images/word-file.webp'
+import PdfFileIcon from '@/assets/images/pdf-file.webp'
+import CsvFileIcon from '@/assets/images/csv-file.webp'
+import TextFileIcon from '@/assets/images/txt-file.webp'
+import FileIcon from '@/assets/images/file.webp'
+import type { ValidationProps } from '@/functions/validation/ValidationConfig'
 
 export type FileUploadProps<T = File | File[]> = ValidationProps<T> & {
   modelValue?: T

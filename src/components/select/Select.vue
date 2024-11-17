@@ -47,7 +47,7 @@ import { useAttrs, computed, ref, watch, type Ref, onMounted, onUnmounted } from
 import { type ComponentType, vModel } from '@teranes/vue-composables'
 import { compare } from '@teranes/utils'
 import { type Popper, popper as usePopper } from '@teranes/popper'
-import TextField from '../text-field/TextField.vue'
+import { TextField } from '@/components/text-field'
 import { getText, getValue } from './SelectConfig'
 import type { SelectEmits, SelectProps, SelectItem, SelectInternalItem } from './SelectConfig'
 import styles from './Select.module.css'

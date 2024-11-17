@@ -9,7 +9,7 @@ import flatpickr from 'flatpickr'
 import { ref, computed, onMounted } from 'vue'
 import { type ComponentType, vModel } from '@teranes/vue-composables'
 import { date } from '@teranes/date'
-import TextField from '../text-field/TextField.vue'
+import { TextField } from '@/components/text-field'
 import { DatePickerDisplayFormat, DatePickerFormat, type DatePickerEmits, type DatePickerProps } from './DatePickerConfig'
 import './DatePickerStyle.css'
 

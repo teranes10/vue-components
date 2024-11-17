@@ -1,8 +1,8 @@
-import { ArchiveXIcon, ArchiveRestoreIcon, Trash2Icon } from 'lucide-vue-next'
+import { ArchiveXIcon, ArchiveRestoreIcon, Trash2Icon } from "lucide-vue-next";
 
-import { useModal } from '../modal/ModalComposable'
-import Alert from './Alert.vue'
-import type { AlertProps } from './AlertConfig'
+import { useModal } from "@/components/modal";
+import Alert from "./Alert.vue";
+import type { AlertProps } from "./AlertConfig";
 
 export function useAlert(options: AlertProps) {
   const props: AlertProps = {
@@ -11,21 +11,21 @@ export function useAlert(options: AlertProps) {
       ? {
           ...options.confirmButton,
           onClick: () => {
-            modal.hide()
-            options.confirmButton?.onClick?.()
+            modal.hide();
+            options.confirmButton?.onClick?.();
           },
         }
       : undefined,
     closeButton: {
       ...options.closeButton,
       text:
-        options.closeButton?.text ?? options.confirmButton ? 'Cancel' : 'Ok',
+        (options.closeButton?.text ?? options.confirmButton) ? "Cancel" : "Ok",
       onClick: () => {
-        modal.hide()
-        options.closeButton?.onClick?.()
+        modal.hide();
+        options.closeButton?.onClick?.();
       },
     },
-  }
+  };
 
   const component = () => (
     <Alert
@@ -36,68 +36,68 @@ export function useAlert(options: AlertProps) {
       confirmButton={props.confirmButton}
       closeButton={props.closeButton}
     />
-  )
+  );
 
-  const modal = useModal(component, { width: 450 })
-  modal.show()
+  const modal = useModal(component, { width: 450 });
+  modal.show();
 }
 
 export function useArchiveAlert(
   onConfirm: () => void,
-  options?: { name?: string },
+  options?: { name?: string }
 ) {
   const message = options?.name
     ? `<span style="font-weight: 600">${options.name}</span>`
-    : 'this item'
+    : "this item";
 
   useAlert({
-    title: 'Are you sure?',
+    title: "Are you sure?",
     text: `Do you really want to archive ${message}?`,
     icon: ArchiveXIcon,
-    type: 'danger',
+    type: "danger",
     confirmButton: {
-      text: 'Archive',
+      text: "Archive",
       onClick: onConfirm,
     },
-  })
+  });
 }
 
 export function useRestoreAlert(
   onConfirm: () => void,
-  options?: { name?: string },
+  options?: { name?: string }
 ) {
   const message = options?.name
     ? `<span style="font-weight: 600">${options.name}</span>`
-    : 'this item'
+    : "this item";
 
   useAlert({
-    title: 'Are you sure?',
+    title: "Are you sure?",
     text: `Do you really want to restore ${message}?`,
     icon: ArchiveRestoreIcon,
-    type: 'info',
+    type: "info",
     confirmButton: {
-      text: 'Restore',
+      text: "Restore",
       onClick: onConfirm,
     },
-  })
+  });
 }
 
 export function useDeleteAlert(
   onConfirm: () => void,
-  options?: { name?: string },
+  options?: { name?: string }
 ) {
   const message = options?.name
     ? `<span style="font-weight: 600">${options.name}</span>`
-    : 'this item'
+    : "this item";
 
   useAlert({
-    title: 'Are you sure?',
+    title: "Are you sure?",
     text: `Do you really want to delete ${message}?`,
     icon: Trash2Icon,
-    type: 'danger',
+    type: "danger",
     confirmButton: {
-      text: 'Delete',
+      text: "Delete",
       onClick: onConfirm,
     },
-  })
+  });
 }

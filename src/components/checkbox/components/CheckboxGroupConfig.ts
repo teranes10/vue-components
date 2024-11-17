@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import type { CheckboxProps } from '../CheckboxConfig'
-import type { ValidationProps } from '../../../functions/validation/ValidationConfig'
+import type { ValidationProps } from '@/functions/validation/ValidationConfig'
 
 export type CheckboxGroupProps<V> = ValidationProps<V[]> & {
   modelValue?: V[]

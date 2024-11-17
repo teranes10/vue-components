@@ -1,5 +1,5 @@
 import { isString, getValueByObjectPath, isFunction } from '@teranes/utils'
-import type { ValidationProps } from '../../functions/validation/ValidationConfig'
+import type { ValidationProps } from '@/functions/validation/ValidationConfig'
 
 export type SelectProps<T, V> = ValidationProps<V> & {
   modelValue?: V

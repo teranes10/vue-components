@@ -21,7 +21,7 @@ export type BaseConfigOptions = {
   dts?: boolean,
   format?: 'umd' | 'es',
   name?: string,
-  external?: string[]
+  external?: string[] | Record<string, string>
   excludeExternal?: string[],
   combineCss?: boolean,
   callback?: (info: { name: string, exports: string[] }) => void
@@ -32,9 +32,12 @@ export function getBaseConfig({
   clean = false, customElement = false, dts = false,
   format = 'umd', name = '', external = [], excludeExternal = [], combineCss, callback }: BaseConfigOptions) {
 
-  const _external = getDependencies(url).filter(x => !excludeExternal.includes(x));
-  _external.push(...external);
-  const _globals = format === 'umd' ? getGlobals(_external) : {}
+  const depExternals = getDependencies(url).filter(x => !excludeExternal.includes(x));
+  const depGlobals = getGlobals(depExternals)
+  const userExternals = Array.isArray(external) ? external : Object.keys(external)
+  const userGlobals = Array.isArray(external) ? {} : external
+  const _external = [...depExternals, ...userExternals]
+  const _globals = { ...depGlobals, ...userGlobals }
 
   const inspectExportsPlugin = {
     name: 'inspect-module-exports',
@@ -157,9 +160,6 @@ const GlobalNames: { [k: string]: string } = {
   "@teranes/date": "DAY",
   '@teranes/short-unique-id': "SHORT_UNIQUE_ID",
   '@teranes/vue-composables': "VUE_COMPOSABLES",
-
-  '@/shared/values/colors': 'WebComponents',
-  '@/shared/web-components': 'WebComponents',
 }
 
 function getGlobals(external: string[]): { [k: string]: string } {

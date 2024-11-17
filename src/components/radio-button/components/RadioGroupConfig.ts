@@ -1,6 +1,6 @@
 import type { Ref } from 'vue'
 import type { RadioButtonProps } from '../RadioButtonConfig'
-import type { ValidationProps } from '../../../functions/validation/ValidationConfig'
+import type { ValidationProps } from '@/functions/validation/ValidationConfig'
 
 export type RadioGroupProps<V> = ValidationProps<V> & {
   modelValue?: V

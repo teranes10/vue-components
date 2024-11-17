@@ -22,10 +22,10 @@
 
 <script setup lang="ts" generic="T, K extends string | number">
 import { computed, useSlots } from 'vue'
-import { Loading } from '../loading'
-import { Select } from "../select"
-import Table from '../table/Table.vue'
-import Pagination from '../pagination/Pagination.vue'
+import { Loading } from '@/components/loading'
+import { Select } from "@/components/select"
+import { Table } from '@/components/table'
+import { Pagination } from '@/components/pagination'
 import type { DataTableEmits, DataTableProps } from './DataTableConfig'
 import styles from './DataTable.module.css'
 import { useDataTableSetup } from './DataTableSetup'

@@ -26,7 +26,7 @@ import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import DefaultImage from "../../assets/images/image-placeholder.webp";
 import { ImageEmits, ImageProps } from './ImageConfig';
 import './Image.css'
-import { getModule } from '../../functions/getModule';
+import { getModule } from '@/functions/getModule';
 
 const props = withDefaults(defineProps<ImageProps>(), {
     width: 36,

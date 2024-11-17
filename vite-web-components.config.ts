@@ -7,6 +7,8 @@ import { fileURLToPath } from 'url'
 import { writeFileSync } from 'fs'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
+const entries = getSubEntries(import.meta.url, 'src/components/*/**/index.ts')
+const externals = Object.keys(entries).map(x => `@/components/${x}`).reduce((r, e) => { r[e] = 'WebComponents'; return r; }, {})
 const componentExports = {}
 
 function createExportsFile() {
@@ -39,19 +41,16 @@ async function buildModule(name: string, filePath: string, options: Partial<Base
             [name]: filePath
         },
         customElement: true,
-        external: ['@/shared/values/colors'],
-        excludeExternal: ['lucide-vue-next'],
+        external: {
+            '@/shared/values/colors': 'WebComponents',
+            '@/shared/web-components': 'WebComponents',
+            ...externals
+        },
+        excludeExternal: ['lucide-vue-next', 'tippy.js', 'toastify-js'],
         callback(info) {
             for (const exportName of info.exports) {
                 if (validateComponentExport(exportName)) {
-                    const moduleName = toPascalCase(info.name);
-                    componentExports[moduleName] ??= {
-                        exports: {},
-                        js: `umd/js/${info.name}.umd.js`,
-                        css: `umd/css/${info.name}.css`
-                    }
-
-                    componentExports[moduleName]['exports'][exportName] = toKebabCase(exportName)
+                    componentExports[exportName] = toKebabCase(exportName)
                 }
             }
         },
@@ -66,7 +65,7 @@ async function buildBundle(name: string, filePath: string, options: Partial<Base
     await buildModule(name, filePath, { combineCss: true })
 }
 
-const entries = getSubEntries(import.meta.url, 'src/components/*/**/index.ts')
+//init
 for (const [name, filePath] of Object.entries(entries)) {
     await buildBundle(name, filePath)
 }

@@ -2,8 +2,8 @@
 import { ref, computed, onMounted } from 'vue'
 import { getScreenWidth } from '@teranes/vue-composables'
 import { useTableSetup } from './TableSetup'
-import { Checkbox } from '../checkbox'
-import { ChevronBtn } from '../button'
+import { Checkbox } from '@/components/checkbox'
+import { ChevronBtn } from '@/components/button'
 
 import styles from './Table.module.css'
 import type { TableHeader, TableProps, TableEmits, TableInternalHeader } from './TableConfig'

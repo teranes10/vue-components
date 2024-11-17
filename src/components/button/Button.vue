@@ -16,8 +16,8 @@
 
 <script setup lang="ts">
 import { vModel } from '@teranes/vue-composables'
-import LoadingIcon from '../loading/components/loading-icon/LoadingIcon.vue'
-import { vTooltip } from '../tooltip/TooltipConfig'
+import { LoadingIcon } from '@/components/loading'
+import { vTooltip } from '@/components/tooltip'
 import { ButtonSizeClasses, ButtonColorClasses } from './ButtonConfig'
 import type { ButtonEmits, ButtonProps, ButtonClickOptions } from './ButtonConfig'
 import styles from './Button.module.css'

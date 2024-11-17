@@ -19,7 +19,7 @@ import { PlusIcon, MinusIcon } from 'lucide-vue-next'
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { type ComponentType, vModel } from '@teranes/vue-composables'
 import { toNumber, toCurrencyString } from '@teranes/utils'
-import TextField from '../text-field/TextField.vue'
+import { TextField } from '@/components/text-field'
 import type { CurrencyFieldProps, CurrencyFieldEmits } from './CurrencyFieldConfig'
 import styles from './CurrencyField.module.css'
 

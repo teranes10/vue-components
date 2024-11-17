@@ -1,4 +1,4 @@
-import type { ValidationProps } from '../../functions/validation/ValidationConfig'
+import type { ValidationProps } from '@/functions/validation/ValidationConfig'
 
 export type TextFieldProps = ValidationProps<string> & {
   modelValue?: string

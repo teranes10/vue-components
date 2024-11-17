@@ -1,6 +1,6 @@
 
 import type { Directive } from 'vue'
-import { getModule } from '../../functions/getModule';
+import tippy, { roundArrow } from 'tippy.js'
 
 export interface TooltipProps {
   text?: string
@@ -19,27 +19,25 @@ export const vTooltip: Directive<HTMLElement, string | TooltipProps> = {
       = typeof binding.value === 'string' ? { text: binding.value } : binding.value || {}
 
     if (text) {
-      getModule('tippy.js', 'tippy').then(tippy => {
-        tippy(el, {
-          theme: 'light',
-          content: text,
-          placement,
-          arrow: tippy.roundArrow,
-          animation: 'scale',
-          animateFill: false,
-          duration: [25, 35],
-          popperOptions: {
-            modifiers: [
-              {
-                name: 'preventOverflow',
-                options: {
-                  rootBoundary: 'viewport',
-                },
+      tippy(el, {
+        theme: 'light',
+        content: text,
+        placement,
+        arrow: roundArrow,
+        animation: 'scale',
+        animateFill: false,
+        duration: [25, 35],
+        popperOptions: {
+          modifiers: [
+            {
+              name: 'preventOverflow',
+              options: {
+                rootBoundary: 'viewport',
               },
-            ],
-          },
-        })
-      });
+            },
+          ],
+        },
+      })
     }
   },
 }

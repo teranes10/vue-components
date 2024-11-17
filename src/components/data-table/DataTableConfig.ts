@@ -1,6 +1,6 @@
 import type { PaginationLoadOptions } from '@teranes/vue-composables'
-import type { ItemIndex } from '../../functions/item/ItemIndex'
-import type { TableHeader } from '../table/TableConfig'
+import type { ItemIndex } from '@/functions/item/ItemIndex'
+import type { TableHeader } from '@/components/table'
 
 export type DataTableProps<T, K> = {
   headers: TableHeader<T, K>[]

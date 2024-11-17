@@ -19,7 +19,7 @@ import { PlusIcon, MinusIcon } from 'lucide-vue-next'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { type ComponentType, vModel } from '@teranes/vue-composables'
 import { toNumber } from '@teranes/utils'
-import TextField from '../text-field/TextField.vue'
+import { TextField } from '@/components/text-field'
 import type { NumberFieldProps, NumberFieldEmits } from './NumberFieldConfig'
 import styles from './NumberField.module.css'
 

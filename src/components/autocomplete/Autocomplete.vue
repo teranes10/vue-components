@@ -14,10 +14,10 @@
 import { useAttrs, ref, computed, getCurrentInstance, onMounted, watch } from 'vue'
 import { debounce } from '@teranes/utils'
 import { type ComponentType, vModel, infiniteScroll, pagination as usePagination, eventListener } from '@teranes/vue-composables'
-import { LoadingIcon } from '../loading'
+import { LoadingIcon } from '@/components/loading'
 import type { AutocompleteEmits, AutocompleteProps, AutocompleteLoadOptions } from './AutocompleteConfig'
-import type { SelectItem } from '../select/SelectConfig'
-import Select from '../select/Select.vue'
+import type { SelectItem } from '@/components/select'
+import Select from '@/components/select/Select.vue'
 import styles from './Autocomplete.module.css'
 
 defineOptions({

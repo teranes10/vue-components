@@ -20,7 +20,7 @@
 </template>
 
 <script setup lang="ts">
-import { Button } from '../button'
+import { Button } from '@/components/button'
 import { type AlertProps, AlertIcons, AlertColorClasses } from './AlertConfig'
 import styles from './Alert.module.css'
 

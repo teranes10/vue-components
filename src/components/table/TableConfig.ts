@@ -1,9 +1,9 @@
 import type { Component } from 'vue'
-import type { ItemValue } from '../../functions/item/ItemValue'
-import type { ItemComponent } from '../../functions/item/ItemComponent'
-import type { Selectable } from '../../functions/selectable/Selectable'
-import type { Expandable } from '../../functions/expandable/Expandable'
-import type { BaseInternalItem } from '../../functions/item/BaseInternalItem'
+import type { ItemValue } from '@/functions/item/ItemValue'
+import type { ItemComponent } from '@/functions/item/ItemComponent'
+import type { Selectable } from '@/functions/selectable/Selectable'
+import type { Expandable } from '@/functions/expandable/Expandable'
+import type { BaseInternalItem } from '@/functions/item/BaseInternalItem'
 
 export type TableProps<T, K extends string | number> = {
   headers?: TableHeader<T, K>[]

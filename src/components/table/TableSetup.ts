@@ -1,9 +1,9 @@
 import { computed, onMounted, ref, useSlots } from 'vue'
 import { vModel } from '@teranes/vue-composables'
-import { getItemKey } from '../../functions/item/ItemKey'
-import { useSelectable } from '../../functions/selectable/Selectable'
-import { useExpandable } from '../../functions/expandable/Expandable'
-import { getItemValue } from '../../functions/item/ItemValue'
+import { getItemKey } from '@/functions/item/ItemKey'
+import { useSelectable } from '@/functions/selectable/Selectable'
+import { useExpandable } from '@/functions/expandable/Expandable'
+import { getItemValue } from '@/functions/item/ItemValue'
 import type { ShortEmits } from '@teranes/vue-composables'
 import type { TableEmits, TableHeader, TableInternalHeader, TableInternalItem, TableProps } from './TableConfig'
 

@@ -37,8 +37,8 @@
 <script setup lang="ts">
 import { ref, computed, shallowRef, onMounted } from 'vue'
 import { vModel } from '@teranes/vue-composables'
-import { type ValidationFieldContext } from '../../functions/validation/ValidationConfig'
-import { useFieldValidation } from '../../functions/validation/Validation'
+import { type ValidationFieldContext } from '@/functions/validation/ValidationConfig'
+import { useFieldValidation } from '@/functions/validation/Validation'
 import { TextFieldBorderClasses, TextFieldsSizesClasses, TextFieldMessageClasses, type TextFieldProps, type TextFieldEmits } from './TextFieldConfig'
 import styles from './TextField.module.css'
 

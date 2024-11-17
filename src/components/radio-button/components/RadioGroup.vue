@@ -18,8 +18,8 @@
 <script setup lang="ts" generic="V">
 import { onMounted, provide, reactive, ref, shallowRef, watch, type Ref } from 'vue'
 import { vModel } from '@teranes/vue-composables'
-import type { ValidationFieldContext } from '../../../functions/validation/ValidationConfig'
-import { useFieldValidation } from '../../../functions/validation/Validation'
+import type { ValidationFieldContext } from '@/functions/validation/ValidationConfig'
+import { useFieldValidation } from '@/functions/validation/Validation'
 import { type RadioGroupProps, type RadioGroupEmits, type RadioGroupContext, RadioGroupContextKey } from './RadioGroupConfig'
 import styles from './RadioGroup.module.css'
 

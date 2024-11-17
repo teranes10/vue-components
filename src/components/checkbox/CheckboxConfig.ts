@@ -1,4 +1,4 @@
-import type { ValidationProps } from '../../functions/validation/ValidationConfig'
+import type { ValidationProps } from '@/functions/validation/ValidationConfig'
 
 export type CheckboxProps<V> = ValidationProps<boolean> & {
   label?: string

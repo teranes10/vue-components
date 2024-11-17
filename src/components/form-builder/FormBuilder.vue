@@ -29,8 +29,8 @@
 import { computed, inject, provide } from 'vue'
 import { vModel } from '@teranes/vue-composables'
 import { setValueByObjectPath, getAccessedProps, objectAssign, cloneDeep } from '@teranes/utils'
-import InputWidget from '../input-widget/InputWidget.vue'
-import { useFormValidation } from '../../functions/validation/Validation'
+import { InputWidget } from '@/components/input-widget'
+import { useFormValidation } from '@/functions/validation/Validation'
 import type { FormBuilderBase, FormBuilderMapper } from './FormBuilderBase'
 import { type FormBuilderProps, type FormBuilderEmits, type FormBuilderContext, type FormBuilderPropsToWatch, SmFormFieldSizeClasses, MdFormFieldSizeClasses, LgFormFieldSizeClasses, FormBuilderContextKey, type FormFieldSize } from './FormBuilderConfig'
 

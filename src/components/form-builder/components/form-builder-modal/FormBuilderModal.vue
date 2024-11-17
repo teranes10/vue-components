@@ -20,9 +20,9 @@
 <script setup lang="ts" generic="T extends FormBuilderBase">
 import { reactive, ref } from 'vue'
 import { type ComponentType, vModel } from '@teranes/vue-composables'
-import { Modal } from '../../../modal'
+import { Modal } from '@/components/modal'
+import { Button } from '@/components/button'
 import FormBuilder from '../../FormBuilder.vue'
-import { Button } from '../../../button'
 import type { FormBuilderBase } from '../../FormBuilderBase'
 import type { FormBuilderModalEmits, FormBuilderModalProps, FormBuilderModalContext, FormBuilderModalConfirm } from './FormBuilderModelConfig'
 

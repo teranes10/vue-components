@@ -1,6 +1,6 @@
 import 'reflect-metadata'
-import type { InputComponentProps } from '../input-widget/InputWidgetConfig'
-import type { ValidationRule } from '../../functions/validation/ValidationConfig'
+import type { InputComponentProps } from '@/components/input-widget'
+import type { ValidationRule } from '@/functions/validation/ValidationConfig'
 import type { FormBuilderBase, Item } from './FormBuilderBase'
 import type { FieldAttrs } from './FormBuilderConfig'
 
