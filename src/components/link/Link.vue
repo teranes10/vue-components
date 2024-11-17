@@ -1,9 +1,10 @@
 <template>
-    <a :class="['font-medium click-eff text-primary underline decoration-dotted', props.class ? props.class : '']"
-        v-text="text" @click="onClick" />
+    <a :class="[styles.link, props.class ? props.class : '']" v-text="text" @click="onClick" />
 </template>
 
 <script setup lang="ts">
+import styles from './Link.module.css'
+
 const props = defineProps<{
     text: string
     class?: string

@@ -66,13 +66,21 @@ export function getBaseConfig({
     },
     build: {
       rollupOptions: {
+        plugins: callback ? [{
+          name: 'inspect-module-exports',
+          moduleParsed(moduleInfo: any) {
+            if (moduleInfo.isEntry) {
+              moduleInfo.name = idToName(moduleInfo.id)
+              callback(moduleInfo)
+            }
+          },
+        }] : [],
         external: _external,
         output: {
           inlineDynamicImports: format === 'umd',
           extend: format === 'umd',
           globals: _globals,
           entryFileNames: (info) => {
-            callback && callback(info)
             return format + '/js/' + info.name + '.' + getExtByFormat(format)
           },
           chunkFileNames: (info) => {
@@ -175,10 +183,14 @@ export function getSubEntries(url: string, path: string) {
   const componentFiles = glob.sync(resolvePath(url, path));
 
   componentFiles.forEach((file) => {
-    const name = file.split('/').slice(-2)[0] // folder name
+    const name = idToName(file)
     const __dirname = dirname(fileURLToPath(url));
     entries[name] = resolve(__dirname, file);
   });
 
   return entries;
+}
+
+function idToName(id: string) {
+  return id.split('/').slice(-2)[0] // folder name
 }

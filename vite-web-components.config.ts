@@ -42,6 +42,10 @@ async function buildModule(name: string, filePath: string) {
         external: ['@/shared/values/colors'],
         excludeExternal: ['lucide-vue-next'],
         callback(info) {
+            // if (info.name === 'accordion') {
+            //     console.log(info);
+            // }
+
             for (const exportName of info.exports) {
                 if (validateComponentExport(exportName)) {
                     const moduleName = toPascalCase(info.name);
