@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.10
+
+### Patch Changes
+
+- 996266d: order of register fix
+
 ## 1.0.9
 
 ### Patch Changes
