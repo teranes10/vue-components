@@ -43,7 +43,6 @@ async function buildModule(name: string, filePath: string, options: Partial<Base
         customElement: true,
         external: {
             '@/shared/values/colors': 'WebComponents',
-            '@/shared/web-components': 'WebComponents',
             ...externals
         },
         excludeExternal: ['lucide-vue-next', 'tippy.js', 'toastify-js'],
