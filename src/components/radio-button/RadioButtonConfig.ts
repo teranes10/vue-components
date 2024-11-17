@@ -1,5 +1,5 @@
 import { toCamelCase } from '@teranes/utils'
-import { componentColors, type ComponentColor } from '../../assets/values/colors'
+import { componentColors, type ComponentColor } from '@/shared/values/colors'
 import styles from './RadioButton.module.css'
 
 export interface RadioButtonProps<V> {

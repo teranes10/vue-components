@@ -7,7 +7,7 @@ import tailwindcssNesting from "tailwindcss/nesting/index.js";
 import tailwindPlugin from "tailwindcss/plugin.js";
 import autoprefixer from "autoprefixer";
 import cssnano from 'cssnano'
-import { colors as defaultColors, getColors, getComponentColors, type ColorOptions } from './src/assets/values/colors'
+import { colors as defaultColors, getColors, getComponentColors, type ColorOptions } from './src/shared/values/colors'
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
 

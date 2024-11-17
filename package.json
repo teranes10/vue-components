@@ -1,21 +1,21 @@
 {
-  "name": "@teranes/basic-components",
-  "version": "4.0.0",
+  "name": "@teranes/vue-components",
+  "version": "1.0.0",
   "type": "module",
-  "description": "Basic Components",
-  "main": "./dist/basic-components.umd.js",
-  "types": "./dist/types/basic-components.d.ts",
+  "description": "Vue Components",
+  "unpkg": "./dist/umd/js/web-components.umd.js",
+  "module": "./dist/es/js/components.mjs",
+  "types": "./dist/es/types/components.d.ts",
   "exports": {
     ".": {
-      "import": "./dist/basic-components.mjs",
-      "require": "./dist/basic-components.umd.js",
-      "types": "./dist/types/basic-components.d.ts"
+      "import": "./dist/es/js/components.mjs",
+      "types": "./dist/es/types/components.d.ts"
     },
-    "./styles.css": "./dist/basic-components-style.css"
+    "./styles.css": "./dist/es/css/style.css"
   },
   "scripts": {
     "build:vue": "vite build --mode production -c vite-vue.config.ts",
-    "build:web-components": "vite build --mode production -c vite-web-components.config.ts",
+    "build:web-components": "tsx vite-web-components.config.ts && cp src/exports.json dist/umd/exports.json",
     "build": "npm run build:vue && npm run build:web-components"
   },
   "files": [

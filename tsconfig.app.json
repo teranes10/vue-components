@@ -1,6 +1,11 @@
 {
   "compilerOptions": {
     "baseUrl": ".",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ],
+    },
     "outDir": "dist",
     "target": "es2022",
     "useDefineForClassFields": true,
@@ -12,6 +17,9 @@
     ],
     "skipLibCheck": true,
     "experimentalDecorators": true,
+    /* JSON */
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     /* Bundler mode */
     "moduleResolution": "bundler",
     "isolatedModules": true,
@@ -31,7 +39,8 @@
   },
   "include": [
     "src/**/*",
-    "types"
+    "src/exports.json",
+    "types",
   ],
   "exclude": [
     "node_modules",

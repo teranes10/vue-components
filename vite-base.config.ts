@@ -20,15 +20,19 @@ type BaseConfigOptions = {
   dts?: boolean,
   format?: 'umd' | 'es',
   name?: string,
+  external?: string[]
+  excludeExternal?: string[],
+  callback?: (info: { name: string, exports: string[] }) => void
 }
 
 export function getBaseConfig({
   url = import.meta.url, fileName, entry, subEntries = 'src/components/*/**/index.ts',
   clean = false, customElement = false, dts = false,
-  format = 'umd', name = '' }: BaseConfigOptions) {
+  format = 'umd', name = '', external = [], excludeExternal = [], callback }: BaseConfigOptions) {
 
-  const external = getDependencies(url);
-  const globals = getGlobals(external)
+  const _external = getDependencies(url).filter(x => !excludeExternal.includes(x));
+  _external.push(...external);
+  const _globals = format === 'umd' ? getGlobals(_external) : {}
 
   return defineConfig({
     plugins: [
@@ -62,11 +66,13 @@ export function getBaseConfig({
     },
     build: {
       rollupOptions: {
-        external,
+        external: _external,
         output: {
           inlineDynamicImports: format === 'umd',
-          globals,
+          extend: format === 'umd',
+          globals: _globals,
           entryFileNames: (info) => {
+            callback && callback(info)
             return format + '/js/' + info.name + '.' + getExtByFormat(format)
           },
           chunkFileNames: (info) => {
@@ -78,13 +84,13 @@ export function getBaseConfig({
             return format + '/js/chunks/' + toKebabCase(name) + '.' + getExtByFormat(format)
           },
           assetFileNames: (info) => {
+            if (format === 'umd' && info?.name?.endsWith('.css')) {
+              return format + '/css/' + `${fileName}.css`;
+            }
+
             if (info.originalFileName?.startsWith('_')) {
               return format + '/css/' + info.originalFileName.replace('.mjs', '.css')
             }
-
-            // if (info?.name?.endsWith('.css')) {
-            //   return format + '/css/' + `${fileName}-style.css`;
-            // }
 
             return format + '/css/' + '[name].[ext]';
           }
@@ -128,12 +134,17 @@ const GlobalNames: { [k: string]: string } = {
   'tippy.js': 'tippy',
   'reflect-metadata': 'Reflect',
   'flatpickr': 'flatpickr',
+  'toastify-js': 'Toastify',
+  'zoom-vanilla.js': 'ZoomVanilla',
 
   '@teranes/utils': 'UTILS',
   '@teranes/popper': 'POPPER',
   "@teranes/date": "DAY",
   '@teranes/short-unique-id': "SHORT_UNIQUE_ID",
   '@teranes/vue-composables': "VUE_COMPOSABLES",
+
+  '@/shared/values/colors': 'WebComponents',
+  '@/shared/web-components': 'WebComponents',
 }
 
 function getGlobals(external: string[]): { [k: string]: string } {
