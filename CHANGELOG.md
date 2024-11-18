@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.11
+
+### Patch Changes
+
+- f3accdc: auto inject logic
+
 ## 1.0.10
 
 ### Patch Changes

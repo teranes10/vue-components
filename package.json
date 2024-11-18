@@ -1,6 +1,6 @@
 {
   "name": "@teranes/vue-components",
-  "version": "1.0.10",
+  "version": "1.0.11",
   "type": "module",
   "description": "Vue Components",
   "unpkg": "./dist/umd/js/web-components.umd.js",
