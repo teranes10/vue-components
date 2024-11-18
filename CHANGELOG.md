@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.12
+
+### Patch Changes
+
+- 9925ebe: optimize deps
+
 ## 1.0.11
 
 ### Patch Changes

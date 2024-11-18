@@ -1,6 +1,6 @@
 {
   "name": "@teranes/vue-components",
-  "version": "1.0.11",
+  "version": "1.0.12",
   "type": "module",
   "description": "Vue Components",
   "unpkg": "./dist/umd/js/web-components.umd.js",
@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build:vue": "vite build --mode production -c vite-vue.config.ts",
-    "build:web-components": "tsx vite-web-components.config.ts && cp src/exports.json dist/umd/exports.json",
+    "build:web-components": "tsx vite-web-components.config.ts",
     "build": "npm run build:vue && npm run build:web-components",
     "release": "changeset && changeset version && changeset publish && git push --follow-tags && git add . && git commit -m \"Automated build commit\" && git push"
   },
