@@ -24,13 +24,14 @@ export type BaseConfigOptions = {
   external?: string[] | Record<string, string>
   excludeExternal?: string[],
   combineCss?: boolean,
-  callback?: (info: { name: string, exports: string[] }) => void
+  callback?: (info: { name: string, exports: string[] }) => void,
+  append?: (chunk: any) => string
 }
 
 export function getBaseConfig({
   url = import.meta.url, fileName, entry, subEntries = 'src/components/*/**/index.ts',
   clean = false, customElement = false, dts = false,
-  format = 'umd', name = '', external = [], excludeExternal = [], combineCss, callback }: BaseConfigOptions) {
+  format = 'umd', name = '', external = [], excludeExternal = [], combineCss, callback, append }: BaseConfigOptions) {
 
   const depExternals = getDependencies(url).filter(x => !excludeExternal.includes(x));
   const depGlobals = getGlobals(depExternals)
@@ -90,6 +91,7 @@ export function getBaseConfig({
           inlineDynamicImports: format === 'umd',
           extend: format === 'umd',
           globals: _globals,
+          ...(append && { footer: append }),
           entryFileNames: (info) => {
             return format + (combineCss ? '/bundle/' : '/js/') + info.name + '.' + getExtByFormat(format)
           },
@@ -199,5 +201,10 @@ export function getSubEntries(url: string, path: string) {
 }
 
 function idToName(id: string) {
-  return id.split('/').slice(-2)[0] // folder name
+  const [folderName, fileName] = id.split('/').slice(-2)
+  if (fileName.startsWith('index')) {
+    return folderName
+  }
+
+  return fileName.split('.')[0]
 }

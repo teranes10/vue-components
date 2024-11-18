@@ -32,7 +32,7 @@ function validateComponentExport(name: string) {
     return true
 }
 
-async function buildModule(name: string, filePath: string, options: Partial<BaseConfigOptions> = {}) {
+async function buildModule(name: string, filePath: string, { combineCss, append }: Partial<BaseConfigOptions> = {}) {
     const config = getBaseConfig({
         name: 'WebComponents',
         fileName: name,
@@ -41,6 +41,7 @@ async function buildModule(name: string, filePath: string, options: Partial<Base
             [name]: filePath
         },
         customElement: true,
+        combineCss,
         external: {
             '@/shared/values/colors': 'WebComponents',
             ...externals
@@ -49,11 +50,43 @@ async function buildModule(name: string, filePath: string, options: Partial<Base
         callback(info) {
             for (const exportName of info.exports) {
                 if (validateComponentExport(exportName)) {
-                    componentExports[exportName] = toKebabCase(exportName)
+                    const moduleName = toPascalCase(info.name);
+                    componentExports[moduleName] ??= {}
+                    componentExports[moduleName][exportName] = toKebabCase(exportName)
                 }
             }
         },
-        ...options
+        append(info) {
+            if (!info.isEntry) {
+                return ''
+            }
+
+            const moduleName = toPascalCase(info.name);
+            const exports = componentExports[moduleName] || {};
+
+            if (!Object.keys(exports).length) {
+                return ''
+            }
+
+            const registerOptionsStr = `(global.WebComponents?.registerOptions || {})`
+            const registerFuncStr = Object.entries(exports).reduce((result, [exportName, componentName]) => {
+                const componentStr = `global.WebComponents.${exportName}`
+                const componentOptionsStr = `global.WebComponents?.componentOptions?.${exportName} || {}`
+                const defineComponentStr = `global.WebComponents.defineWebComponent(${componentStr}, ${componentOptionsStr})`
+                result += `global.WebComponents.registerWebComponent('${componentName}', ${defineComponentStr}, ${registerOptionsStr});`;
+                return result;
+            }, '')
+
+            return `(function (global) {
+                global.WebComponents ??= {}
+                global.WebComponents.registry ??= {};
+                global.WebComponents.registry.${moduleName} = function () { ${registerFuncStr}}
+
+                if(${registerOptionsStr}.autoRegister !== false) {
+                    global.WebComponents.registry.${moduleName}();
+                }
+            })(typeof globalThis !== 'undefined' ? globalThis : self);`
+        },
     })
 
     await build(config)
@@ -69,5 +102,5 @@ for (const [name, filePath] of Object.entries(entries)) {
     await buildBundle(name, filePath)
 }
 
+await buildBundle('web-components', resolve(__dirname, './src/web-components.ts'))
 createExportsFile();
-buildBundle('web-components', resolve(__dirname, './src/web-components.ts'))
