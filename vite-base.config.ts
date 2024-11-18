@@ -22,7 +22,7 @@ export type BaseConfigOptions = {
   format?: 'umd' | 'es',
   name?: string,
   external?: string[] | Record<string, string>
-  excludeExternal?: string[],
+  excludedExternal?: string[],
   combineCss?: boolean,
   callback?: (info: { name: string, exports: string[] }) => void,
   append?: (chunk: any) => string
@@ -31,9 +31,9 @@ export type BaseConfigOptions = {
 export function getBaseConfig({
   url = import.meta.url, fileName, entry, subEntries = 'src/components/*/**/index.ts',
   clean = false, customElement = false, dts = false,
-  format = 'umd', name = '', external = [], excludeExternal = [], combineCss, callback, append }: BaseConfigOptions) {
+  format = 'umd', name = '', external = [], excludedExternal = [], combineCss, callback, append }: BaseConfigOptions) {
 
-  const depExternals = getDependencies(url).filter(x => !excludeExternal.includes(x));
+  const depExternals = getDependencies(url).filter(x => !excludedExternal.includes(x));
   const depGlobals = getGlobals(depExternals)
   const userExternals = Array.isArray(external) ? external : Object.keys(external)
   const userGlobals = Array.isArray(external) ? {} : external

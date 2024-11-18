@@ -9,30 +9,42 @@ import { writeFileSync } from 'fs'
 const __dirname = dirname(fileURLToPath(import.meta.url))
 const entries = getSubEntries(import.meta.url, 'src/components/*/**/index.ts')
 const externals = Object.keys(entries).map(x => `@/components/${x}`).reduce((r, e) => { r[e] = 'WebComponents'; return r; }, {})
+const componentExternals = {
+    '@/shared/values/colors': 'WebComponents',
+    '@/shared/vue': 'WebComponents',
+    'vue': 'WebComponents.Vue',
+    '@teranes/vue-composables': 'WebComponents.VueComposables',
+    ...externals
+}
+const excludedComponentExternals = ['lucide-vue-next', 'tippy.js', 'toastify-js']
+const excludedComponentExports = ['FormBuilderBase', 'Vue', 'VueComposables']
+const excludedComponentImports = ['vue', '@teranes/vue-composables']
 const componentExports = {}
-
-function createExportsFile() {
-    const exportsFilePath = resolve(__dirname, './src/exports.json')
-    writeFileSync(exportsFilePath, JSON.stringify(componentExports))
-}
-
-function startsWithLowercase(str: string) {
-    return /^[a-z]/.test(str);
-}
+const componentImports = {}
+const dependencyTree = {}
 
 function validateComponentExport(name: string) {
-    if (startsWithLowercase(name)) {
+    if (name === '*' || /^[a-z]/.test(name) || excludedComponentExports.includes(name)) {
         return false
-    }
-
-    if (['FormBuilderBase'].includes(name)) {
-        return false;
     }
 
     return true
 }
 
-async function buildModule(name: string, filePath: string, { combineCss, append }: Partial<BaseConfigOptions> = {}) {
+function prepareImportsReport(moduleName: string, imports: Record<string, string[]> = {}) {
+    dependencyTree[moduleName] = omit(imports, excludedComponentImports)
+
+    for (const libName in imports) {
+        if (!excludedComponentImports.includes(libName)) {
+            continue;
+        }
+
+        componentImports[libName] ??= new Set<string>();
+        (imports[libName] || []).forEach(i => componentImports[libName].add(i))
+    }
+}
+
+async function buildModule(name: string, filePath: string, { combineCss, external, excludedExternal }: Partial<BaseConfigOptions> = {}) {
     const config = getBaseConfig({
         name: 'WebComponents',
         fileName: name,
@@ -42,11 +54,8 @@ async function buildModule(name: string, filePath: string, { combineCss, append 
         },
         customElement: true,
         combineCss,
-        external: {
-            '@/shared/values/colors': 'WebComponents',
-            ...externals
-        },
-        excludeExternal: ['lucide-vue-next', 'tippy.js', 'toastify-js'],
+        external,
+        excludedExternal,
         callback(info) {
             for (const exportName of info.exports) {
                 if (validateComponentExport(exportName)) {
@@ -63,6 +72,8 @@ async function buildModule(name: string, filePath: string, { combineCss, append 
 
             const moduleName = toPascalCase(info.name);
             const exports = componentExports[moduleName] || {};
+
+            prepareImportsReport(moduleName, info.importedBindings)
 
             if (!Object.keys(exports).length) {
                 return ''
@@ -93,14 +104,52 @@ async function buildModule(name: string, filePath: string, { combineCss, append 
 }
 
 async function buildBundle(name: string, filePath: string, options: Partial<BaseConfigOptions> = {}) {
-    await buildModule(name, filePath)
-    await buildModule(name, filePath, { combineCss: true })
+    await buildModule(name, filePath, options)
+    await buildModule(name, filePath, { ...options, combineCss: true })
 }
 
-//init
+//start component builds
 for (const [name, filePath] of Object.entries(entries)) {
-    await buildBundle(name, filePath)
+    await buildBundle(name, filePath, {
+        external: componentExternals,
+        excludedExternal: excludedComponentExternals
+    })
 }
 
-await buildBundle('web-components', resolve(__dirname, './src/web-components.ts'))
-createExportsFile();
+//start shared module build to prepare shared libs
+await buildBundle('web-components', resolve(__dirname, './src/web-components.ts'), {
+    external: componentExternals,
+    excludedExternal: excludedComponentExternals
+})
+
+//write shared libs
+const importsFileBasePath = resolve(__dirname, './src/shared/libs')
+for (const lib of excludedComponentImports) {
+    const importList = Array.from(componentImports[lib] || []).join(',')
+    const filename = lib.split('/').at(-1)
+    writeFileSync(importsFileBasePath + '/' + filename + '.ts', `export {${importList}} from '${lib}'`)
+}
+
+//start shared module build with shared libs
+await buildBundle('web-components', resolve(__dirname, './src/web-components.ts'), {
+    external: omit(componentExternals, excludedComponentImports),
+    excludedExternal: [...excludedComponentExternals, ...excludedComponentImports]
+})
+
+//write exports
+const exportsFilePath = resolve(__dirname, './dist/umd/exports.json')
+writeFileSync(exportsFilePath, JSON.stringify(componentExports))
+
+
+//write dependency tree
+const dependencyTreeFilePath = resolve(__dirname, './dist/umd/dependency-tree.json')
+writeFileSync(dependencyTreeFilePath, JSON.stringify(dependencyTree))
+
+function omit(obj: any, keysToRemove: string[]) {
+    return Object.keys(obj).reduce((acc, key) => {
+        if (!keysToRemove.includes(key)) {
+            acc[key] = obj[key];
+        }
+        return acc;
+    }, {});
+}

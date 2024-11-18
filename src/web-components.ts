@@ -7,3 +7,6 @@ export { defineWebComponent, registerWebComponent } from './shared/web-component
 
 export { useLinkView, Link } from './shared/components/link'
 export { useGroupView, Group } from './shared/components/group'
+
+export * as Vue from './shared/libs/vue'
+export * as VueComposables from './shared/libs/vue-composables'

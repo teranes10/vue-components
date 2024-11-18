@@ -6,19 +6,7 @@
     <title>Web Components</title>
     <link
       rel="stylesheet"
-      href="https://unpkg.com/@teranes/vue-components/dist/umd/css/web-components.css"
-    />
-    <link
-      rel="stylesheet"
       href="https://unpkg.com/zoom-vanilla.js/dist/zoom.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/tippy.js@6.3.7/themes/light.css"
-    />
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/tippy.js@6.3.7/animations/scale.css"
     />
   </head>
 
@@ -48,6 +36,7 @@
 
     <t-image
       src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
+      alt="Sample Image"
     >
     </t-image>
 
@@ -76,20 +65,21 @@
 
     <t-tooltip text="Tooltip"> Tooltip </t-tooltip>
 
-    <script src="https://unpkg.com/vue@3.5.13/dist/vue.global.prod.js"></script>
-    <script src="https://www.unpkg.com/@teranes/utils@9.0.0/dist/index.js"></script>
-    <script src="https://unpkg.com/@teranes/vue-composables@15.0.0/dist/index.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/utils@11.0.0/dist/index.umd.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/@teranes/popper@12.0.0/dist/index.umd.js"></script>
+    <script src="https://unpkg.com/zoom-vanilla.js/dist/zoom-vanilla.min.js"></script>
 
     <!-- web components -->
-    <script src="https://unpkg.com/@teranes/vue-components/dist/umd/js/web-components.umd.js"></script>
-
-    <!-- tooltip -->
-    <script src="https://unpkg.com/tippy.js@6.3.7/dist/tippy-bundle.umd.min.js"></script>
-
-    <!-- image preview -->
-    <script src="https://unpkg.com/zoom-vanilla.js/dist/zoom-vanilla.min.js"></script>
+    <script src="umd/bundle/web-components.umd.js"></script>
+    <script src="umd/bundle/accordion.umd.js"></script>
+    <script src="umd/bundle/button.umd.js"></script>
+    <script src="umd/bundle/chip.umd.js"></script>
+    <script src="umd/bundle/image.umd.js"></script>
+    <script src="umd/bundle/loading.umd.js"></script>
+    <script src="umd/bundle/progress-bar.umd.js"></script>
+    <script src="umd/bundle/tabs.umd.js"></script>
+    <script src="umd/bundle/tooltip.umd.js"></script>
 
     <!-- icon pack -->
     <script src="https://unpkg.com/lucide@latest"></script>
@@ -98,19 +88,6 @@
     </script>
 
     <script>
-      WebComponents.register([
-        "Group",
-        "Button",
-        "Accordion",
-        "Chip",
-        "Image",
-        "Link",
-        "Loading",
-        "ProgressBar",
-        "Tabs",
-        "Tooltip",
-      ]);
-
       function onPressed(e) {
         console.log("prr", this, e);
       }
