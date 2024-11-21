@@ -1,6 +1,7 @@
 declare const styles: {
   readonly select: string
   readonly selectReference: string
+  readonly selectTextField: string
   readonly selectBtn: string
   readonly selectDropdown: string
   readonly show: string

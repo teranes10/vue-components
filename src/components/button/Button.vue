@@ -6,7 +6,7 @@
   }]" @click="onClick">
     <LoadingIcon v-if="loading" icon="oval" :class="styles.btnIcon" />
 
-    <i :data-lucide="icon" :class="styles.btnIcon" v-else-if="icon"></i>
+    <Icon :icon="icon" :class="styles.btnIcon" v-else-if="icon" />
 
     <span v-if="!!text" :class="styles.btnText" v-text="text" />
 
@@ -15,6 +15,7 @@
 </template>
 
 <script setup lang="ts">
+import { Icon } from '@/shared/components/icon'
 import { vModel } from '@teranes/vue-composables'
 import { LoadingIcon } from '@/components/loading'
 import { vTooltip } from '@/components/tooltip'

@@ -4,7 +4,7 @@
       <slot v-if="$slots.loading" name="loading" />
       <div v-else :class="styles.autocompleteLoading">
         <span>{{ pagination.isWaiting.value ? 'Waiting' : 'Fetching data' }} </span>
-        <LoadingIcon icon="dots" class="autocomplete-loading-icon" />
+        <LoadingIcon icon="dots" :class="styles.autocompleteLoadingIcon" />
       </div>
     </template>
   </Select>

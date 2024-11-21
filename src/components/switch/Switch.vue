@@ -1,18 +1,8 @@
 <template>
-  <label :class="[styles.switch, color ? switchColorStyles[color] : '']">
-    <input
-      v-model="checked"
-      :class="styles.switchInput"
-      type="checkbox"
-      :disabled="disabled"
-      @click="onClick"
-    >
+  <label :class="[styles.switch, { [styles.disabled]: disabled, [switchColorStyles[color] as string]: color }]">
+    <input v-model="checked" :class="styles.switchInput" type="checkbox" :disabled="disabled" @click="onClick">
     <span :class="styles.switchInputUi" />
-    <span
-      v-if="label"
-      :class="styles.switchLabel"
-      v-text="label"
-    />
+    <span v-if="label" :class="styles.switchLabel" v-text="label" />
   </label>
 </template>
 

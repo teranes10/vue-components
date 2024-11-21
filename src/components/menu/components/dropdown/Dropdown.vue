@@ -1,6 +1,6 @@
 <template>
   <div :class="styles.dropdownContainer">
-    <div ref="referenceElement" :class="[styles.dropdownActivator, { block }]" @click="toggle">
+    <div ref="referenceElement" :class="[styles.dropdownActivator, { [styles.block]: block }]" @click="toggle">
       <slot name="activator" />
     </div>
 

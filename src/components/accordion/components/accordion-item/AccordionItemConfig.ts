@@ -1,7 +1,7 @@
-import { type Component } from 'vue'
+import { IconValue } from '@/shared/components/icon'
 
 export interface AccordionItemProps {
-  icon?: Component
+  icon?: IconValue
   text?: string
   active?: boolean
 }

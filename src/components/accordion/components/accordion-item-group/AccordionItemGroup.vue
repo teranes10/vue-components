@@ -1,11 +1,11 @@
 <template>
   <div :class="[styles.accordionItemGroup, { [styles.expanded]: isExpanded }]">
     <div :class="[styles.accordionItem]" @click="onExpand">
-      <i :data-lucide="icon" :class="styles.accordionItemIcon" v-if="icon"></i>
+      <Icon :icon="icon" :class="styles.accordionItemIcon" v-if="icon" />
       <span v-show="text" :class="styles.accordionItemText" v-text="text" />
       <span :class="styles.accordionItemGroupIconContainer">
-        <ChevronUpIcon v-show="isExpanded" :class="styles.accordionItemGroupIcon" />
-        <ChevronDownIcon v-show="!isExpanded" :class="styles.accordionItemGroupIcon" />
+        <Icon :icon="ChevronUp" v-show="isExpanded" :class="styles.accordionItemGroupIcon" />
+        <Icon :icon="ChevronDown" v-show="!isExpanded" :class="styles.accordionItemGroupIcon" />
       </span>
     </div>
 
@@ -20,7 +20,8 @@
 </template>
 
 <script setup lang="ts">
-import { ChevronUpIcon, ChevronDownIcon } from 'lucide-vue-next'
+import { Icon } from '@/shared/components/icon'
+import { ChevronDown, ChevronUp } from 'lucide'
 import { type AccordionItemProps } from '../accordion-item/AccordionItemConfig'
 import type { AccordionItemGroupProps } from './AccordionItemGroupConfig'
 import AccordionItem from '../accordion-item/AccordionItem.vue'

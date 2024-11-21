@@ -9,10 +9,18 @@ declare const styles: {
   readonly disabled: string
   readonly textFieldSm: string
   readonly textFieldLg: string
+  readonly success: string
+  readonly error: string
+  readonly info: string
+  readonly warning: string
   readonly preText: string
   readonly postText: string
   readonly textFieldHelperText: string
   readonly textFieldMessage: string
+  readonly messageSuccess: string
+  readonly messageInfo: string
+  readonly messageError: string
+  readonly messageWarning: string
   readonly textFieldErrorsContainer: string
 }
 

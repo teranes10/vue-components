@@ -29,9 +29,9 @@ importers:
       flatpickr:
         specifier: ^4.6.13
         version: 4.6.13
-      lucide-vue-next:
-        specifier: ^0.452.0
-        version: 0.452.0(vue@3.5.13(typescript@5.6.3))
+      lucide:
+        specifier: ^0.460.0
+        version: 0.460.0
       reflect-metadata:
         specifier: ^0.2.2
         version: 0.2.2
@@ -1369,10 +1369,8 @@ packages:
     resolution: {integrity: sha512-Jo6dJ04CmSjuznwJSS3pUeWmd/H0ffTlkXXgwZi+eq1UCmqQwCh+eLsYOYCwY991i2Fah4h1BEMCx4qThGbsiA==}
     engines: {node: '>=10'}
 
-  lucide-vue-next@0.452.0:
-    resolution: {integrity: sha512-a7i6LayYT/kPDkwRvcWWZlPTRPiaM11xhUhFctRXmjibZod9TdVhk4U/7q2RYYkkkDJHp/4OSiXbxC82+mda3Q==}
-    peerDependencies:
-      vue: '>=3.0.1'
+  lucide@0.460.0:
+    resolution: {integrity: sha512-kEqx3yHU+q4S0k7RH183QFaDy6xepEcN3yVjiBhxM1qX/tSMrmOSuUQJCobiIYzB1q9m8RmAN0efPiXZq79JSQ==}
 
   magic-string@0.30.12:
     resolution: {integrity: sha512-Ea8I3sQMVXr8JhN4z+H/d8zwo+tYDgHE9+5G4Wnrwhs0gaK9fXTKx0Tw5Xwsd/bCPTTZNRAdpyzvoeORe9LYpw==}
@@ -3498,9 +3496,7 @@ snapshots:
     dependencies:
       yallist: 4.0.0
 
-  lucide-vue-next@0.452.0(vue@3.5.13(typescript@5.6.3)):
-    dependencies:
-      vue: 3.5.13(typescript@5.6.3)
+  lucide@0.460.0: {}
 
   magic-string@0.30.12:
     dependencies:

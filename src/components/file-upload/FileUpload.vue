@@ -1,30 +1,35 @@
 <template>
   <label :class="styles.fileInput">
-    <div v-if="label || tag" class="file-input-label-container">
-      <span v-if="label" :class="{ 'file-input-label': true, 'required': !!required }" v-text="label" />
-      <span v-if="tag" class="file-input-tag" v-text="tag" />
+    <div v-if="label || tag" :class="styles.fileInputLabelContainer">
+      <span v-if="label" :class="[styles.fileInputLabel, { [styles.required]: !!required }]" v-text="label" />
+      <span v-if="tag" :class="styles.fileInputTag" v-text="tag" />
     </div>
 
-    <div ref="fileInputContainerElement" class="file-input-main-container" @dragover.prevent @drop.prevent>
-      <div class="file-input-container">
-        <div v-for="(item, i) in uploadedFiles" :key="i" class="file-item-container">
-          <div class="file-item">
-            <img class="thumbnail" :src="item.dataUrl" alt="File" draggable="false">
-            <div class="overlay">
-              <div class="mt-3">{{ item.sizeInKb }} KB</div>
-              <div class="text-container">
-                <div class="text">{{ item.name }}</div>
+    <div ref="fileInputContainerElement" :class="[styles.fileInputMainContainer, { [styles.disabled]: disabled }]"
+      @dragover.prevent @drop.prevent>
+      <div :class="styles.fileInputContainer">
+        <div v-for="(item, i) in uploadedFiles" :key="item.name" :class="styles.fileItemContainer">
+          <div :class="styles.fileItem">
+            <img :class="styles.thumbnail" :src="item.dataUrl" alt="File" draggable="false" v-if="item.dataUrl">
+            <Icon v-bind="item.icon" stroke-width="1" :class="styles.thumbnail" v-else />
+
+            <div :class="styles.overlay">
+              <div :class="styles.fileInfo">
+                <div :class="styles.fileSize">{{ item.sizeInKb }} KB</div>
+                <div :class="styles.textContainer">
+                  <div :class="styles.fileName">{{ item.name }}</div>
+                </div>
               </div>
-              <XCircleIcon class="remove-btn" @click="(e) => remove(e, i)" />
+              <Icon :icon="XCircle" :class="styles.removeBtn" @click="(e) => remove(e, i)" />
             </div>
           </div>
         </div>
 
-        <div class="file-dropzone" @drop="onFileDropped">
-          <UploadCloudIcon class="icon" />
-          <h2 class="text">
+        <div :class="styles.fileDropzone" @drop="onFileDropped">
+          <Icon :icon="UploadCloud" :class="styles.icon" />
+          <h2 :class="styles.text">
             Drag and drop or
-            <span class="text-active" @click="browseForFiles">browse</span> your files
+            <span :class="styles.textActive" @click="browseForFiles">browse</span> your files
           </h2>
         </div>
 
@@ -33,23 +38,23 @@
       </div>
     </div>
 
-    <div v-if="helperText" class="file-input-helper-text" v-text="helperText" />
+    <div v-if="helperText" :class="styles.fileInputHelperText" v-text="helperText" />
+    <div v-if="message" :class="styles.fileInputMessage" v-text="message" />
 
-    <div v-if="message" class="file-input-message" v-text="message" />
-
-    <ul ref="errorsListElement" class="list-disc list-inside text-left" />
+    <ul ref="errorsListElement" :class="styles.fileInputErrorContainer" />
   </label>
 </template>
 
 <script setup lang="ts">
-import { XCircleIcon, UploadCloudIcon } from 'lucide-vue-next'
+import { Icon } from '@/shared/components/icon'
+import { XCircle, UploadCloud } from 'lucide'
 import { computed, onMounted, ref, shallowRef, watch } from 'vue'
 import { vModel } from '@teranes/vue-composables'
 import { isString } from '@teranes/utils'
 import type { ValidationFieldContext } from '@/functions/validation/ValidationConfig'
 import { useFieldValidation } from '@/functions/validation/Validation'
 import { useToast } from '@/components/toast'
-import { getFileType, getFileIcon, getFileExtension } from './FileUploadConfig'
+import { getFileExtension, getFileTypeByExt, imageFileToDataUrl, fileTypeIconInfo, fileTypes } from './FileUploadConfig'
 import type { FileItem, FileUploadEmits, FileUploadProps } from './FileUploadConfig'
 import styles from './FileUpload.module.css'
 
@@ -134,8 +139,10 @@ async function loadFiles(files: File[]) {
     }
 
     const _file = file as FileItem
+    _file.fileType = getFileTypeByExt(file)
+    _file.icon = fileTypeIconInfo[_file.fileType]
     _file.sizeInKb = (file.size / 1000).toFixed(1)
-    _file.dataUrl = (await getFileIcon(file)) || ''
+    _file.dataUrl = _file.fileType === 'image' ? await imageFileToDataUrl(file) : undefined
 
     _files.push(_file)
   }
@@ -156,7 +163,7 @@ function validateFile(file: File): boolean | string {
   }
 
   const ext = getFileExtension(file)
-  const acceptableTypes = getFileType(props.accept)
+  const acceptableTypes = Array.isArray(props.accept) ? props.accept : fileTypes[props.accept]
 
   if ((acceptableTypes && acceptableTypes.length > 0) && !acceptableTypes.includes(ext)) {
     return `File type must be in [${acceptableTypes.join(', ')}]`

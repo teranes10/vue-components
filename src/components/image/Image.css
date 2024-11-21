@@ -1,9 +1,25 @@
+@import "zoom-vanilla.js/dist/zoom.css";
+
 .zoom-img-wrap {
   img {
-    border-radius: 1px !important;
+    border-radius: 0.5px !important;
   }
 }
 
 .zoom-overlay-open .zoom-overlay {
   background: rgba(52, 58, 64, 0.125);
+}
+
+.image-hover-window {
+  background: #fff;
+  border-radius: 0.5rem;
+  z-index: 1000;
+  box-shadow: "1px 1px 4px rgba(0, 0, 0, 0.25)";
+
+  .image-hover-window-image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 0.5rem;
+  }
 }

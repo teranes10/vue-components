@@ -131,7 +131,7 @@ export function getBaseConfig({
       minify: 'terser',
       terserOptions: {
         compress: {
-          drop_console: true,
+          drop_console: false,
         },
       },
     },
@@ -156,6 +156,7 @@ const GlobalNames: { [k: string]: string } = {
   'flatpickr': 'flatpickr',
   'toastify-js': 'Toastify',
   'zoom-vanilla.js': 'ZoomVanilla',
+  'lucide': 'lucide',
 
   '@teranes/utils': 'UTILS',
   '@teranes/popper': 'POPPER',

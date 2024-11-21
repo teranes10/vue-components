@@ -6,6 +6,10 @@
     cursor: pointer;
     user-select: none;
 
+    .select-text-field {
+      pointer-events: none;
+    }
+
     .select-btn {
       width: 14px;
       height: 14px;
@@ -91,8 +95,8 @@
           }
 
           .select-dropdown-item-text {
-            font-size: 14px;
-            font-weight: 400;
+            font-size: var(--text-sm);
+            font-weight: var(--font-medium);
           }
         }
 
@@ -115,8 +119,8 @@
         align-items: center;
         user-select: none;
 
-        font-size: 14px;
-        font-weight: 400;
+        font-size: var(--text-sm);
+        font-weight: var(--font-medium);
         color: var(--color-gray-700);
       }
     }

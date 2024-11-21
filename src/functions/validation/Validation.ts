@@ -3,6 +3,7 @@ import { call, isString } from '@teranes/utils'
 import { getShortUniqueId } from '@teranes/short-unique-id'
 import type { ValidationCallback, ValidationFieldContext, ValidationForm, ValidationFormContext, ValidationOptions } from './ValidationConfig'
 import { ValidationFormContextKey, ValidationFieldIdAttribute } from './ValidationConfig'
+import styles from './Validation.module.css'
 
 export function useFieldValidation<T>(options: ValidationOptions<T>): ValidationFieldContext | undefined {
   const formCtx = inject<ValidationFormContext | undefined>(ValidationFormContextKey, undefined)
@@ -122,7 +123,7 @@ function initializeField<T>(
     if (document) {
       for (const error of errors) {
         const li = document.createElement('li')
-        li.classList.add('form-help', 'text-danger')
+        li.classList.add(styles.errorMessage)
 
         const textNode = document.createTextNode(error)
 

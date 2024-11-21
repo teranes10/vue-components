@@ -1,7 +1,6 @@
 <template>
     <div :class="styles.progressBar" :style="{ height: `${height}px` }">
-        <div :class="styles.progress" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100"
-            :style="{ width: `${percentage}%`, background: color }" v-text="label" />
+        <div :class="styles.progress" :style="{ width: `${percentage}%`, background: color }" v-text="label" />
     </div>
 </template>
 

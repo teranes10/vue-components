@@ -3,10 +3,10 @@
     <template #post>
       <div :class="styles.numberFieldBtnGroup">
         <a :class="styles.numberBtn" @click="decrease">
-          <MinusIcon :class="styles.numberBtnIcon" />
+          <Icon :icon="Minus" :class="styles.numberBtnIcon" />
         </a>
         <a :class="styles.numberBtn" @click="increase">
-          <PlusIcon :class="styles.numberBtnIcon" />
+          <Icon :icon="Plus" :class="styles.numberBtnIcon" />
         </a>
       </div>
     </template>
@@ -14,8 +14,8 @@
 </template>
 
 <script setup lang="ts">
-import { PlusIcon, MinusIcon } from 'lucide-vue-next'
-
+import { Icon } from '@/shared/components/icon'
+import { Plus, Minus } from 'lucide'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import { type ComponentType, vModel } from '@teranes/vue-composables'
 import { toNumber } from '@teranes/utils'

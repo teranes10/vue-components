@@ -4,6 +4,7 @@ declare const styles: {
   readonly pageLink: string
   readonly icon: string
   readonly active: string
+  readonly disable: string
 }
 
 export default styles

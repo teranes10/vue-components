@@ -1,6 +1,6 @@
 <template>
   <div>
-    <Modal v-model="show" :width="width" persistent>
+    <Modal :class="styles.formBuilderModal" v-model="show" :width="width" persistent>
       <template #header>
         {{ label }}
       </template>
@@ -8,7 +8,7 @@
       <FormBuilder v-if="!!value" ref="formBuilderComponent" v-model="value" />
 
       <template #footer>
-        <div class="flex justify-end gap-2">
+        <div :class="styles.actionsContainer">
           <Button color="gray" text="Cancel" @click="() => show = false" />
           <Button color="primary" text="Save" @click="onSave" />
         </div>
@@ -25,6 +25,7 @@ import { Button } from '@/components/button'
 import FormBuilder from '../../FormBuilder.vue'
 import type { FormBuilderBase } from '../../FormBuilderBase'
 import type { FormBuilderModalEmits, FormBuilderModalProps, FormBuilderModalContext, FormBuilderModalConfirm } from './FormBuilderModelConfig'
+import styles from './FormBuilderModal.module.css'
 
 defineOptions({
   inheritAttrs: false,

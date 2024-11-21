@@ -54,21 +54,21 @@ interface PostcssPluginOptions {
 }
 
 function postcssPlugins({ prefix = '', content = [], tailwindPlugins = [], plugins = [], colors, globalCss = [] }: PostcssPluginOptions = {}): Plugin[] {
-    const _colors = { ...defaultColors, ...(colors && colors as any) }
-    const _tailwindPlugins = [...(tailwindPlugins ? tailwindPlugins : [])]
+    // const _colors = { ...defaultColors, ...(colors && colors as any) }
+    // const _tailwindPlugins = [...(tailwindPlugins ? tailwindPlugins : [])]
 
-    const _tailwindcss = tailwindcss({
-        content: content,
-        theme: {
-            extend: { colors: _colors },
-        },
-        plugins: _tailwindPlugins,
-    })
+    // // const _tailwindcss = tailwindcss({
+    // //     content: content,
+    // //     theme: {
+    // //         extend: { colors: _colors },
+    // //     },
+    // //     plugins: _tailwindPlugins,
+    // // })
 
     return [
         postcssGlobalCss(globalCss), postcssImport, postcssCustomMedia,
         postcssVariables({ variables: { prefix }, functions: { getItem, getColors, getComponentColors } }),
-        ...(plugins || []), tailwindcssNesting, _tailwindcss, autoprefixer, cssnano,
+        ...(plugins || []), tailwindcssNesting, autoprefixer, cssnano,
     ]
 }
 

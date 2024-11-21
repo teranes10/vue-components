@@ -1,21 +1,20 @@
 <template>
-    <div class="flex items-center">
-        <div ref="referenceEl" class="image-fit zoom-in" :style="{ width: `${width}px`, height: `${height}px` }">
-            <img :src="imageSrc" :data-action="`${boolean(preview) ? 'zoom' : ''}`"
-                class="cursor-pointer border-white rounded-lg w-full h-full object-cover" />
+    <div :class="styles.imageContainer">
+        <div ref="referenceEl" :style="{ width: `${width}px`, height: `${height}px` }">
+            <img :src="imageSrc" :alt="alt || title || subTitle || ''"
+                :data-action="`${boolean(preview) ? 'zoom' : ''}`" :class="styles.image" />
         </div>
 
-        <div :class="['ml-4', { 'click-eff': onClick }]" @click="onClick" v-if="title || subTitle">
-            <div class="font-medium whitespace-nowrap" v-text="title" v-if="title" />
-            <div :class="['text-slate-500 text-xs whitespace-nowrap', { 'mt-0.5': title }]" v-text="subTitle"
-                v-if="subTitle" />
+        <div :class="[styles.titleContainer, { [styles.clickable]: onClick }]" @click="onClick"
+            v-if="title || subTitle">
+            <div :class="styles.title" v-text="title" v-if="title" />
+            <div :class="styles.subTitle" v-text="subTitle" v-if="subTitle" />
         </div>
 
-        <div v-if="hoverWindow" ref="popperEl" :style="{
-            width: `200px`, height: `200px`, background: '#fff', borderRadius: '0.5rem',
-            boxShadow: '1px 1px 4px rgba(0, 0, 0, 0.25)', zIndex: 1000,
+        <div v-if="hoverWindow" ref="popperEl" class="image-hover-window " :style="{
+            width: `${hoverWidth}px`, height: `${hoverHeight}px`,
         }">
-            <img :src="imageSrc" :alt="alt || title || subTitle || ''" class="w-full h-full object-cover rounded-lg" />
+            <img :src="imageSrc" :alt="alt || title || subTitle || ''" class="image-hover-window-image" />
         </div>
     </div>
 </template>
@@ -25,15 +24,19 @@ import { boolean } from '@teranes/utils'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue';
 import DefaultImage from "../../assets/images/image-placeholder.webp";
 import { ImageEmits, ImageProps } from './ImageConfig';
-import './Image.css'
+import styles from './Image.module.css'
 import { getModule } from '@/functions/getModule';
+import * as Zoom from 'zoom-vanilla.js'
+import './Image.css'
 
 const props = withDefaults(defineProps<ImageProps>(), {
     width: 36,
     height: 36,
     defaultSrc: DefaultImage,
     preview: true,
-    hoverWindow: true
+    hoverWindow: true,
+    hoverWidth: 200,
+    hoverHeight: 200
 })
 
 defineEmits<ImageEmits>();
@@ -67,6 +70,10 @@ function hide() {
 }
 
 onMounted(async () => {
+    if (typeof Zoom === 'function') {
+        Zoom()
+    }
+
     if (hoverWindow.value) {
         getModule('@teranes/popper', 'POPPER').then(module => {
             const { popper: usePopper } = module;

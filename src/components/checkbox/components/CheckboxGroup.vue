@@ -6,7 +6,7 @@
     </div>
 
     <div ref="checkboxContainerElement"
-      :class="[styles.checkboxGroupContainer, { [styles.inline]: props.inline, 'border-danger': validationCtx?.isError.value }]">
+      :class="[styles.checkboxGroupContainer, { [styles.inline]: props.inline, [styles.error]: validationCtx?.isError.value }]">
       <Checkbox v-for="item in items" v-bind="item" :key="item.label" />
       <slot />
     </div>

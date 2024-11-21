@@ -1,4 +1,4 @@
-import { ArchiveXIcon, ArchiveRestoreIcon, Trash2Icon } from "lucide-vue-next";
+import { ArchiveX, ArchiveRestore, Trash2 } from "lucide";
 
 import { useModal } from "@/components/modal";
 import Alert from "./Alert.vue";
@@ -47,13 +47,13 @@ export function useArchiveAlert(
   options?: { name?: string }
 ) {
   const message = options?.name
-    ? `<span style="font-weight: 600">${options.name}</span>`
+    ? `<span style="font-weight: var(--font-bold)">${options.name}</span>`
     : "this item";
 
   useAlert({
     title: "Are you sure?",
     text: `Do you really want to archive ${message}?`,
-    icon: ArchiveXIcon,
+    icon: ArchiveX,
     type: "danger",
     confirmButton: {
       text: "Archive",
@@ -67,13 +67,13 @@ export function useRestoreAlert(
   options?: { name?: string }
 ) {
   const message = options?.name
-    ? `<span style="font-weight: 600">${options.name}</span>`
+    ? `<span style="font-weight: var(--font-bold)">${options.name}</span>`
     : "this item";
 
   useAlert({
     title: "Are you sure?",
     text: `Do you really want to restore ${message}?`,
-    icon: ArchiveRestoreIcon,
+    icon: ArchiveRestore,
     type: "info",
     confirmButton: {
       text: "Restore",
@@ -87,13 +87,13 @@ export function useDeleteAlert(
   options?: { name?: string }
 ) {
   const message = options?.name
-    ? `<span style="font-weight: 600">${options.name}</span>`
+    ? `<span style="font-weight: var(--font-bold)">${options.name}</span>`
     : "this item";
 
   useAlert({
     title: "Are you sure?",
     text: `Do you really want to delete ${message}?`,
-    icon: Trash2Icon,
+    icon: Trash2,
     type: "danger",
     confirmButton: {
       text: "Delete",

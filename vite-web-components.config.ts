@@ -11,12 +11,13 @@ const entries = getSubEntries(import.meta.url, 'src/components/*/**/index.ts')
 const externals = Object.keys(entries).map(x => `@/components/${x}`).reduce((r, e) => { r[e] = 'WebComponents'; return r; }, {})
 const componentExternals = {
     '@/shared/values/colors': 'WebComponents',
+    '@/shared/components/icon': 'WebComponents',
     '@/shared/vue': 'WebComponents',
     'vue': 'WebComponents.Vue',
     '@teranes/vue-composables': 'WebComponents.VueComposables',
     ...externals
 }
-const excludedComponentExternals = ['lucide-vue-next', 'tippy.js', 'toastify-js']
+const excludedComponentExternals = ['tippy.js', 'toastify-js', 'zoom-vanilla.js', 'flatpickr']
 const excludedComponentExports = ['FormBuilderBase', 'Vue', 'VueComposables']
 const excludedComponentImports = ['vue', '@teranes/vue-composables']
 const componentExports = {}

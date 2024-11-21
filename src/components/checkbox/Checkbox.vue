@@ -1,17 +1,17 @@
 <template>
-  <span class="inline-flex align-top flex-col">
+  <span :class="styles.checkboxContainer">
     <label :class="[styles.checkbox, {
       [styles.minusIcon]: icon === 'minus',
       [styles.squareIcon]: icon === 'square',
     }]">
-      <input ref="inputElement" :class="[styles.checkboxInput, { '!border-danger': validationCtx?.isError.value }]"
+      <input ref="inputElement" :class="[styles.checkboxInput, { [styles.error]: validationCtx?.isError.value }]"
         type="checkbox" :value="value" :disabled="props.disabled" :checked="checked" @change="onCheckChanged">
       <span :class="styles.checkboxLabel">
-        <span v-if="label" class="ml-2" v-text="label" />
+        <span v-if="label" v-text="label" />
       </span>
 
     </label>
-    <ul ref="errorsListElement" class="list-disc list-inside text-left" />
+    <ul ref="errorsListElement" :class="styles.checkboxErrorsContainer" />
   </span>
 </template>
 

@@ -1,18 +1,11 @@
 <template>
-  <ChevronUp
-    v-if="active"
-    :class="styles.chevronBtn"
-    @click="onClick(false)"
-  />
-  <ChevronDown
-    v-else
-    :class="styles.chevronBtn"
-    @click="onClick(true)"
-  />
+  <Icon :icon="ChevronUp" v-if="active" :class="styles.chevronBtn" @click="onClick(false)" />
+  <Icon :icon="ChevronDown" v-else :class="styles.chevronBtn" @click="onClick(true)" />
 </template>
 
 <script setup lang="ts">
-import { ChevronUp, ChevronDown } from 'lucide-vue-next'
+import { Icon } from '@/shared/components/icon'
+import { ChevronUp, ChevronDown } from 'lucide'
 import { vModel } from '@teranes/vue-composables'
 import styles from './ChevronBtn.module.css'
 

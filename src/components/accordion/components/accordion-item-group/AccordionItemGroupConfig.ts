@@ -1,8 +1,8 @@
-import { type Component } from 'vue'
 import type { AccordionItemProps } from '../accordion-item/AccordionItemConfig'
+import { IconValue } from '@/shared/components/icon'
 
 export interface AccordionItemGroupProps {
-  icon?: Component
+  icon?: IconValue
   text?: string
   items?: (AccordionItemGroupProps & AccordionItemProps)[]
 }

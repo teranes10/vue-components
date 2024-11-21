@@ -12,18 +12,17 @@
     gap: 0 10px;
     user-select: none;
     cursor: pointer;
+    color: var(--accordion-group-item-color, var(--color-gray-600));
 
     .accordion-item-icon {
       width: 16px;
       height: 16px;
       object-fit: cover;
-      color: var(--accordion-group-item-icon-color, var(--color-gray-500));
     }
 
     .accordion-item-text {
-      font-size: 1.1rem;
-      font-weight: 400;
-      color: var(--accordion-group-item-text-color, var(--color-gray-500));
+      font-size: var(--text-md);
+      font-weight: var(--font-medium);
     }
 
     .accordion-item-group-icon-container {
@@ -32,60 +31,24 @@
       .accordion-item-group-icon {
         width: 14px;
         height: 14px;
-        color: var(--accordion-group-icon-color, var(--color-gray-500));
       }
     }
-  }
 
-  &:hover {
-    .accordion-item {
-      .accordion-item-icon {
-        color: var(
-          --accordion-hover-group-item-icon-color,
-          var(--color-gray-400)
-        );
-      }
-
-      .accordion-item-text {
-        color: var(--accordion-hover-item-text-color, var(--color-gray-400));
-      }
-
-      .accordion-item-group-icon-container {
-        .accordion-item-group-icon {
-          color: var(--accordion-hover-group-icon-color, var(--color-gray-400));
-        }
-      }
+    &:hover {
+      color: var(--accordion-group-item-hover-color, var(--color-gray-500));
     }
   }
 
   &.expanded {
     .accordion-item {
-      .accordion-item-icon {
-        color: var(
-          --accordion-expanded-group-item-icon-color,
-          var(--color-gray-600)
-        );
-      }
-
-      .accordion-item-text {
-        color: var(--accordion-expanded-item-text-color, var(--color-gray-600));
-      }
-
-      .accordion-item-group-icon-container {
-        .accordion-item-group-icon {
-          color: var(
-            --accordion-expanded-group-icon-color,
-            var(--color-gray-600)
-          );
-        }
-      }
+      color: var(--accordion-group-item-expanded-color, var(--color-gray-700));
     }
   }
 
   .accordion-group-items {
-    /* margin-left: calc(0.85rem + 7px);
-    padding-left: 0.35rem;
-    border-left: 1px dashed var(--color-gray-100); */
+    .accordion-item {
+      color: var(--accordion-item-color, var(--color-gray-600));
+    }
 
     t-accordion-item {
       position: relative;

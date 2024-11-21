@@ -11,7 +11,7 @@
     padding: 8px 12px;
     border: none;
     border-bottom: 2px solid transparent;
-    font-weight: 500;
+    font-weight: var(--font-bold);
     color: var(--color-gray-600);
     transition:
       color 0.2s,

@@ -1,50 +1,36 @@
 <template>
   <ul :class="styles.pagination">
-    <li
-      :class="[styles.pageItem, { 'pointer-events-none': !hasFirstPage }]"
-      @click="gotoFirstPage"
-    >
+    <li :class="[styles.pageItem, { [styles.disable]: !hasFirstPage }]" @click="gotoFirstPage">
       <a :class="styles.pageLink">
-        <ChevronsLeft class="w-4 h-4" />
+        <Icon :icon="ChevronsLeft" :class="styles.icon" />
       </a>
     </li>
-    <li
-      :class="[styles.pageItem, { 'pointer-events-none': !hasPreviousPage }]"
-      @click="gotoPreviousPage"
-    >
+    <li :class="[styles.pageItem, { [styles.disable]: !hasPreviousPage }]" @click="gotoPreviousPage">
       <a :class="styles.pageLink">
-        <ChevronLeft class="w-4 h-4" />
+        <Icon :icon="ChevronLeft" :class="styles.icon" />
       </a>
     </li>
-    <li
-      v-for="pageNumber in visiblePages"
-      :key="pageNumber"
-      :class="[styles.pageItem, { [styles.active]: pageNumber == page, 'pointer-events-none': pageNumber == '...' }]"
-      @click="(typeof (pageNumber) === 'number') && gotoPage(pageNumber)"
-    >
+    <li v-for="pageNumber in visiblePages" :key="pageNumber"
+      :class="[styles.pageItem, { [styles.active]: pageNumber == page, [styles.disable]: pageNumber == '...' }]"
+      @click="(typeof (pageNumber) === 'number') && gotoPage(pageNumber)">
       <a :class="styles.pageLink">{{ pageNumber }}</a>
     </li>
-    <li
-      :class="[styles.pageItem, { 'pointer-events-none': !hasNextPage }]"
-      @click="gotoNextPage"
-    >
+    <li :class="[styles.pageItem, { [styles.disable]: !hasNextPage }]" @click="gotoNextPage">
       <a :class="styles.pageLink">
-        <ChevronRight class="w-4 h-4" />
+        <Icon :icon="ChevronRight" :class="styles.icon" />
       </a>
     </li>
-    <li
-      :class="[styles.pageItem, { 'pointer-events-none': !hasLastPage }]"
-      @click="gotoLastPage"
-    >
+    <li :class="[styles.pageItem, { [styles.disable]: !hasLastPage }]" @click="gotoLastPage">
       <a :class="styles.pageLink">
-        <ChevronsRight class="w-4 h-4" />
+        <Icon :icon="ChevronsRight" :class="styles.icon" />
       </a>
     </li>
   </ul>
 </template>
 
 <script setup lang="ts">
-import { ChevronLeft, ChevronsLeft, ChevronRight, ChevronsRight } from 'lucide-vue-next'
+import { Icon } from '@/shared/components/icon'
+import { ChevronLeft, ChevronsLeft, ChevronRight, ChevronsRight } from 'lucide'
 import { computed } from 'vue'
 import { vModel } from '@teranes/vue-composables'
 import type { PaginationEmits, PaginationProps } from './PaginationConfig'

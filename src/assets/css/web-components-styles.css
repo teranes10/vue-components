@@ -9,3 +9,7 @@ t-accordion-item {
 t-tab {
   flex: 1;
 }
+
+t-icon {
+  display: inline;
+}

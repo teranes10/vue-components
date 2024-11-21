@@ -6,7 +6,7 @@
     </div>
 
     <div ref="radioButtonContainerElement"
-      :class="[styles.radioGroupContainer, { [styles.inline]: props.inline, 'border-danger': validationCtx?.isError.value }]">
+      :class="[styles.radioGroupContainer, { [styles.inline]: props.inline, [styles.error]: validationCtx?.isError.value }]">
       <RadioButton v-for="item in items" v-bind="item" :key="item.label" />
       <slot />
     </div>

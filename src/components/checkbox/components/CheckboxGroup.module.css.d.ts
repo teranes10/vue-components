@@ -7,6 +7,7 @@ declare const styles: {
   readonly checkboxGroupContainer: string
   readonly disabled: string
   readonly inline: string
+  readonly error: string
   readonly checkboxGroupErrorsContainer: string
 }
 

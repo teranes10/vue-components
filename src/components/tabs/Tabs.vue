@@ -1,7 +1,7 @@
 <template>
-  <ul :class="['flex']">
+  <div :class="styles.tabs">
     <slot />
-  </ul>
+  </div>
   <div>
     <slot name="content" />
   </div>
@@ -11,6 +11,7 @@
 import { provide } from 'vue'
 import { vModel } from '@teranes/vue-composables'
 import { TabsGroupContext, TabsGroupContextKey, type TabsEmits, type TabsProps } from './TabsConfig'
+import styles from './Tabs.module.css'
 
 const emit = defineEmits<TabsEmits>()
 const props = withDefaults(defineProps<TabsProps>(), {

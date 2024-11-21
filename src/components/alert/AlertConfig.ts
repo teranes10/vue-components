@@ -1,17 +1,17 @@
 import {
-  CheckCircleIcon,
-  XCircleIcon,
-  AlertCircleIcon,
-  InfoIcon,
-} from 'lucide-vue-next'
-import type { FunctionalComponent } from 'vue'
+  CheckCircle,
+  XCircle,
+  AlertCircle,
+  Info,
+} from 'lucide'
 import styles from './Alert.module.css'
+import { IconValue } from '@/shared/components/icon'
 
 export type AlertType = 'success' | 'warning' | 'info' | 'danger'
 
 export interface AlertButton {
   text?: string
-  icon?: FunctionalComponent
+  icon?: IconValue
   class?: string
   onClick?: () => void
 }
@@ -19,17 +19,17 @@ export interface AlertButton {
 export interface AlertProps {
   title?: string
   text?: string
-  icon?: FunctionalComponent
+  icon?: IconValue
   type?: AlertType
   closeButton?: AlertButton
   confirmButton?: AlertButton
 }
 
-export const AlertIcons: Record<AlertType, FunctionalComponent> = {
-  success: CheckCircleIcon,
-  info: InfoIcon,
-  warning: AlertCircleIcon,
-  danger: XCircleIcon,
+export const AlertIcons: Record<AlertType, IconValue> = {
+  success: CheckCircle,
+  info: Info,
+  warning: AlertCircle,
+  danger: XCircle,
 }
 
 export const AlertColorClasses: Record<AlertType, string> = {

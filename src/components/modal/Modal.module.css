@@ -35,9 +35,9 @@
       border: none;
 
       .modal-title {
-        font-size: 1.25rem;
-        font-weight: 400;
-        color: var(--color-gray-700);
+        font-size: var(--text-lg);
+        font-weight: var(--font-normal);
+        color: var(--color-gray-500);
       }
 
       .modal-close-btn {

@@ -6,7 +6,7 @@
         <span :class="styles.modalTitle">
           <slot name="header" />
         </span>
-        <XCircleIcon :class="styles.modalCloseBtn" @click="() => isShowing = false" />
+        <Icon :icon="XCircle" :class="styles.modalCloseBtn" @click="() => isShowing = false" />
       </div>
 
       <div :class="styles.modalContent">
@@ -21,7 +21,8 @@
 </template>
 
 <script setup lang="ts">
-import { XCircleIcon } from 'lucide-vue-next'
+import { Icon } from '@/shared/components/icon'
+import { XCircle } from 'lucide'
 import { ref, watch, onMounted, onUnmounted } from 'vue'
 import { draggable } from '@teranes/utils'
 import { vModel } from '@teranes/vue-composables'

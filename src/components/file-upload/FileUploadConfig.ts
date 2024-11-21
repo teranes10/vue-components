@@ -1,18 +1,12 @@
-import { isString } from '@teranes/utils'
 import type { TextFieldColor } from '@/components/text-field'
-import ExcelFileIcon from '@/assets/images/excel-file.webp'
-import WordFileIcon from '@/assets/images/word-file.webp'
-import PdfFileIcon from '@/assets/images/pdf-file.webp'
-import CsvFileIcon from '@/assets/images/csv-file.webp'
-import TextFileIcon from '@/assets/images/txt-file.webp'
-import FileIcon from '@/assets/images/file.webp'
 import type { ValidationProps } from '@/functions/validation/ValidationConfig'
+import { IconProps } from '@/shared/components/icon'
 
 export type FileUploadProps<T = File | File[]> = ValidationProps<T> & {
   modelValue?: T
   thumbnailSize?: number
   maxFileSize?: number
-  accept?: FileType
+  accept?: FileType | string[]
   multiple?: boolean
   label?: string
   tag?: string
@@ -28,54 +22,44 @@ export type FileUploadEmits<T = File | File[]> = {
   'update:modelValue': [value: T]
 }
 
+export type FileType = 'image' | 'pdf' | 'csv' | 'doc' | 'excel' | 'text' | 'unknown'
+
+export type FileIconInfo = IconProps
+
 export type FileItem = File & {
+  fileType: FileType
   sizeInKb: string
-  dataUrl: string
+  dataUrl?: string
+  icon?: FileIconInfo
 }
 
-export type FileType = 'image' | 'pdf' | 'csv' | 'doc' | 'excel' | 'text' | string[]
-
-const fileTypes = {
+export const fileTypes: Record<FileType, string[]> = {
   image: ['svg', 'webp', 'png', 'jpg', 'jpeg'],
   csv: ['csv'],
   pdf: ['pdf'],
   doc: ['doc', 'docx'],
   excel: ['xlsx'],
   text: ['txt'],
+  unknown: []
 }
 
-export function getFileType(type: FileType) {
-  if (isString(type)) {
-    return fileTypes[type] || type
-  }
-
-  return type
+export const fileTypeIconInfo: Record<FileType, FileIconInfo> = {
+  image: { icon: 'FileImage', color: '#41d3b0' },
+  csv: { icon: 'File', text: 'CSV', color: '#41d3b0' },
+  excel: { icon: 'File', text: 'Excel', color: '#41d3b0' },
+  pdf: { icon: 'File', text: 'PDF', color: '#f2786c' },
+  doc: { icon: 'File', text: 'Doc', color: '#48b7ee' },
+  text: { icon: 'FileText', color: '#48b7ee' },
+  unknown: { icon: 'File', color: '#475070' },
 }
 
-export async function getFileIcon(file: File) {
+export function getFileTypeByExt(file: File) {
   const ext = getFileExtension(file)
-  const type = Object.entries(fileTypes)?.find(([_, values]) => values.includes(ext))?.[0]
-
-  switch (type) {
-    case 'image':
-      return imageFileToDataUrl(file)
-    case 'csv':
-      return imageToDataUrl(CsvFileIcon)
-    case 'pdf':
-      return imageToDataUrl(PdfFileIcon)
-    case 'doc':
-      return imageToDataUrl(WordFileIcon)
-    case 'excel':
-      return imageToDataUrl(ExcelFileIcon)
-    case 'text':
-      return imageToDataUrl(TextFileIcon)
-    default:
-      return imageToDataUrl(FileIcon)
-  }
+  return (Object.entries(fileTypes)?.find(([_, values]) => values.includes(ext))?.[0] || 'unknown') as FileType
 }
 
 export function getFileExtension(file: File) {
-  return file?.name?.split('.')?.slice(-1)?.[0] || 'Unknown'
+  return file?.name?.split('.')?.slice(-1)?.[0] || 'unknown'
 }
 
 export function imageFileToDataUrl(file: File): Promise<string> {

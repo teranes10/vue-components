@@ -1,5 +1,5 @@
-import type { FunctionalComponent } from "vue";
 import Button from "./Button.vue";
+import { IconValue } from "@/shared/components/icon";
 
 export interface IconBtnViewOptions {
   class?: string;
@@ -9,7 +9,7 @@ export interface IconBtnViewOptions {
 }
 
 export function useIconBtnView(
-  icon: FunctionalComponent<any>,
+  icon: IconValue,
   {
     class: className = "",
     text = "",

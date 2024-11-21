@@ -17,6 +17,7 @@
     ],
     "skipLibCheck": true,
     "experimentalDecorators": true,
+    "allowJs": true,
     /* JSON */
     "resolveJsonModule": true,
     "esModuleInterop": true,

@@ -1,4 +1,4 @@
-import type { FunctionalComponent } from 'vue'
+import { IconValue } from '@/shared/components/icon'
 import styles from './Button.module.css'
 
 export type ButtonSize = 'xs' | 'sm' | 'lg'
@@ -19,7 +19,7 @@ export interface ButtonProps {
   loading?: boolean
   loadingText?: string
   isLoading?: boolean
-  icon?: FunctionalComponent<any>
+  icon?: IconValue
   text?: string
   tooltip?: string
 }

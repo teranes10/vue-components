@@ -1,10 +1,12 @@
 export type ImageProps = {
     src: string,
-    width?: number,
-    height?: number,
+    width?: string | number,
+    height?: string | number,
     defaultSrc?: string,
     preview?: boolean | string,
     hoverWindow?: boolean | string,
+    hoverWidth?: string | number,
+    hoverHeight?: string | number,
     title?: string,
     subTitle?: string,
     alt?: string

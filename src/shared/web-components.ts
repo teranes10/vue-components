@@ -47,14 +47,16 @@ function setupEvents(el: CustomElement, emits: string[]) {
     emits.forEach((event: string) => {
         const attr = el.getAttribute(`on_${event}`);
         if (attr && !el.__customEvents[event]) {
-            const func = new Function('return ' + attr.split('('))()
-            if (!func) {
-                console.error(`Invalid function assignment. It should be in the format: on_${event}="<func_name>"`);
-                return
-            }
 
             const listener = ((e: Event) => {
                 if (!(e instanceof CustomEvent)) return;
+
+                const func = new Function('return ' + attr.split('('))()
+                if (!func) {
+                    console.error(`Invalid function assignment. It should be in the format: on_${event}="<func_name>"`);
+                    return
+                }
+
                 Array.isArray(e?.detail) ? func.call(el, ...e.detail) : func.call(el, e?.detail)
             }) as CustomElementEvent;
 

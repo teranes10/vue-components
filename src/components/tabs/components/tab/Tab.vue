@@ -1,17 +1,18 @@
 <template>
-    <li :class="styles.tabItem" @click="onSelect">
+    <div :class="styles.tabItem" @click="onSelect">
         <button :class="[styles.tab, { [styles.active]: active }]" type="button">
             <template v-if="!!icon">
-                <i :data-lucide="icon" :class="[styles.tabIcon, { 'mr-2': !!text }]"></i>
+                <Icon :icon="icon" :class="styles.tabIcon" />
             </template>
             <template v-if="!!text">
                 {{ text }}
             </template>
         </button>
-    </li>
+    </div>
 </template>
 
 <script setup lang="ts">
+import { Icon } from '@/shared/components/icon'
 import { computed, inject } from 'vue';
 import { TabProps } from './TabConfig';
 import { TabsGroupContext, TabsGroupContextKey } from '../../TabsConfig';

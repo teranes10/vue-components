@@ -1,5 +1,6 @@
 declare const styles: {
   readonly switch: string
+  readonly disabled: string
   readonly switchInput: string
   readonly switchInputUi: string
   readonly switchLabel: string

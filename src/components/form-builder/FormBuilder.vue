@@ -1,10 +1,9 @@
 <template>
-  <div class="px-5 py-7 border rounded-md border-slate-200/60 dark:border-darkmode-400">
-    <div v-if="label"
-      class="flex items-center pt-1 pb-2 font-medium border-b border-slate-200/60 dark:border-darkmode-400">
+  <div :class="styles.formBuilder">
+    <div v-if="label" :class="styles.label">
       {{ label }}
     </div>
-    <div :class="['grid gap-x-2 gap-y-4', { 'mt-5': !!label }]">
+    <div :class="styles.container">
       <template v-for="element in elements">
         <div v-if="canShow(element)" :key="element.name" :class="getFieldClasses(element.attrs)">
           <FormBuilder v-if="element._type === 'group'" v-model="element.value" :label="element.label"
@@ -33,6 +32,7 @@ import { InputWidget } from '@/components/input-widget'
 import { useFormValidation } from '@/functions/validation/Validation'
 import type { FormBuilderBase, FormBuilderMapper } from './FormBuilderBase'
 import { type FormBuilderProps, type FormBuilderEmits, type FormBuilderContext, type FormBuilderPropsToWatch, SmFormFieldSizeClasses, MdFormFieldSizeClasses, LgFormFieldSizeClasses, FormBuilderContextKey, type FormFieldSize } from './FormBuilderConfig'
+import styles from './FormBuilder.module.css'
 
 const emit = defineEmits<FormBuilderEmits<T>>()
 

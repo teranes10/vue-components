@@ -1,5 +1,6 @@
 @import "tippy.js/themes/light.css";
 @import "tippy.js/animations/scale.css";
+@import "tippy.js/dist/svg-arrow.css";
 
 .tippy-box {
   box-shadow:
@@ -11,8 +12,8 @@
     padding: 0.375rem 1rem;
     background: white;
     border-radius: 0.375rem;
-    font-size: 14px;
-    font-weight: 400;
+    font-size: var(--text-sm);
+    font-weight: var(--font-medium);
     color: var(--color-gray-600);
   }
 

@@ -23,12 +23,12 @@
     }
 
     .alert-text {
-      font-size: 14px;
+      font-size: var(--text-sm);
       color: var(--color-gray-600);
     }
   }
 
-  .alert-actions{
+  .alert-actions {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -44,7 +44,7 @@
 
 @mixin alert($type) {
   .alert-$(type) {
-    .alert-icon{
+    .alert-icon {
       color: var(--color-$(type)-500) !important;
     }
   }

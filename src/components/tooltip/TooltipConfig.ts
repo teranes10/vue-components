@@ -19,6 +19,8 @@ export const vTooltip: Directive<HTMLElement, string | TooltipProps> = {
       = typeof binding.value === 'string' ? { text: binding.value } : binding.value || {}
 
     if (text) {
+      el.style.cursor = 'pointer';
+
       tippy(el, {
         theme: 'light',
         content: text,
@@ -26,7 +28,7 @@ export const vTooltip: Directive<HTMLElement, string | TooltipProps> = {
         arrow: roundArrow,
         animation: 'scale',
         animateFill: false,
-        duration: [25, 35],
+        duration: [35, 50],
         popperOptions: {
           modifiers: [
             {

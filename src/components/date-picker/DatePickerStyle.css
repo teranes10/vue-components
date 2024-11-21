@@ -60,7 +60,7 @@ html[data-theme="dark"] {
       }
 
       .flatpickr-monthDropdown-months {
-        font-size: 1rem;
+        font-size: var(--text-md);
         color: var(--color-gray-600);
 
         .flatpickr-monthDropdown-month {
@@ -69,7 +69,7 @@ html[data-theme="dark"] {
       }
 
       .numInputWrapper {
-        font-size: 1rem;
+        font-size: var(--text-md);
         color: var(--color-gray-600);
         user-select: none;
       }

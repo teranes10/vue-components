@@ -4,6 +4,11 @@
   justify-content: center;
   align-items: center;
 
+  &.disabled {
+    pointer-events: none;
+    cursor: not-allowed;
+  }
+
   .switch-input {
     display: none;
 
@@ -20,7 +25,7 @@
     cursor: pointer;
     border: none;
     border-radius: 1rem !important;
-    background-color: var(--switch-background, var(--color-gray-200));
+    background-color: var(--switch-background, var(--color-gray-100));
     background-repeat: no-repeat;
     background-position: center left;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23FFFFFF'/%3e%3c/svg%3e");
@@ -28,9 +33,9 @@
 
   .switch-label {
     user-select: none;
-    color: var(--color-gray-600);
-    font-size: 12px;
-    font-weight: 500;
+    color: var(--color-gray-500);
+    font-size: var(--text-sm);
+    font-weight: var(--font-normal);
     margin-left: 0.5rem;
   }
 }

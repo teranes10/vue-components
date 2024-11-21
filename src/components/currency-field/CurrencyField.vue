@@ -3,10 +3,10 @@
     <template #post>
       <div :class="styles.currencyFieldBtnGroup">
         <a :class="styles.currencyBtn" @click="decrease">
-          <MinusIcon :class="styles.currencyBtnIcon" />
+          <Icon :icon="Minus" :class="styles.currencyBtnIcon" />
         </a>
         <a :class="styles.currencyBtn" @click="increase">
-          <PlusIcon :class="styles.currencyBtnIcon" />
+          <Icon :icon="Plus" :class="styles.currencyBtnIcon" />
         </a>
       </div>
     </template>
@@ -14,7 +14,8 @@
 </template>
 
 <script setup lang="ts">
-import { PlusIcon, MinusIcon } from 'lucide-vue-next'
+import { Icon } from '@/shared/components/icon'
+import { Plus, Minus } from 'lucide'
 
 import { ref, computed, onMounted, onUnmounted } from 'vue'
 import { type ComponentType, vModel } from '@teranes/vue-composables'
@@ -54,7 +55,6 @@ onMounted(() => {
   if (textFieldComponent.value) {
     inputElement = textFieldComponent.value.$refs.inputElement as HTMLInputElement
     if (inputElement) {
-      inputElement.classList.add('!pr-20')
       inputElement.addEventListener('input', onInput)
       inputElement.addEventListener('blur', onBlur)
       inputElement.addEventListener('focus', onFocus)

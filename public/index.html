@@ -3,26 +3,49 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Web Components" />
     <title>Web Components</title>
-    <link
-      rel="stylesheet"
-      href="https://unpkg.com/zoom-vanilla.js/dist/zoom.css"
-    />
   </head>
 
-  <body style="display: flex; flex-direction: column; gap: 25px">
+  <body style="display: flex; flex-direction: column; gap: 25px; padding: 3rem">
+    <div>
+      <t-icon
+        size="50"
+        icon="File"
+        color="#f2786c"
+        stroke-width="1"
+        text="PDF"
+      ></t-icon>
+      <t-icon size="50" icon="File" color="#41d3b0" text="CSV"></t-icon>
+    </div>
+
     <t-accordion>
-      <t-accordion-item-group text="Accordion Group">
-        <t-accordion-item text="Accordion Item"></t-accordion-item>
+      <t-accordion-item-group text="Accordion Group 1">
+        <t-accordion-item text="Accordion Item 1"></t-accordion-item>
+        <t-accordion-item text="Accordion Item 2"></t-accordion-item>
+      </t-accordion-item-group>
+
+      <t-accordion-item-group text="Accordion Group 2">
+        <t-accordion-item text="Accordion Item 1"></t-accordion-item>
+        <t-accordion-item text="Accordion Item 2"></t-accordion-item>
       </t-accordion-item-group>
     </t-accordion>
+
+    <div style="width: 36px; height: 36px">
+      <t-loading-icon color="#3fa5ca"></t-loading-icon>
+    </div>
 
     <t-button
       text="Button"
       tooltip="Button"
-      icon="menu"
-      on_clicked="onPressed"
+      icon="Menu"
+      loading
+      on_clicked="onClicked"
     ></t-button>
+
+    <t-button text="Show Alert" on_clicked="showAlert"></t-button>
+    <t-button text="Show Loading" on_clicked="showLoading"></t-button>
+    <t-loading id="loading"></t-loading>
 
     <t-chevron-btn></t-chevron-btn>
 
@@ -37,62 +60,69 @@
     <t-image
       src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
       alt="Sample Image"
+      title="Title"
+      sub-title="Sub Title"
     >
     </t-image>
 
     <t-link text="Link"></t-link>
 
-    <div style="width: 36px; height: 36px">
-      <t-loading-icon color="#3fa5ca"></t-loading-icon>
-    </div>
-
-    <t-button text="Loading" on_clicked="enableLoading"></t-button>
-    <t-loading id="loading"></t-loading>
-
     <t-progress-bar percentage="25"></t-progress-bar>
 
     <t-tabs>
-      <t-tab text="1"></t-tab>
-      <t-tab text="2"></t-tab>
-      <t-tab text="3"></t-tab>
+      <t-tab text="Tab 1"></t-tab>
+      <t-tab text="Tab 2"></t-tab>
+      <t-tab text="Tab 3"></t-tab>
 
       <div slot="content">
-        <t-tab-content>1</t-tab-content>
-        <t-tab-content>2</t-tab-content>
-        <t-tab-content>3</t-tab-content>
+        <t-tab-content>Tab Content 1</t-tab-content>
+        <t-tab-content>Tab Content 2</t-tab-content>
+        <t-tab-content>Tab Content 3</t-tab-content>
       </div>
     </t-tabs>
 
     <t-tooltip text="Tooltip"> Tooltip </t-tooltip>
 
-    <script src="https://unpkg.com/@teranes/utils@11.0.0/dist/index.umd.js"></script>
-    <script src="https://unpkg.com/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://unpkg.com/@teranes/popper@12.0.0/dist/index.umd.js"></script>
-    <script src="https://unpkg.com/zoom-vanilla.js/dist/zoom-vanilla.min.js"></script>
+    <t-text-field label="Text Field"></t-text-field>
 
-    <!-- web components -->
-    <script src="umd/bundle/web-components.umd.js"></script>
-    <script src="umd/bundle/accordion.umd.js"></script>
-    <script src="umd/bundle/button.umd.js"></script>
-    <script src="umd/bundle/chip.umd.js"></script>
-    <script src="umd/bundle/image.umd.js"></script>
-    <script src="umd/bundle/loading.umd.js"></script>
-    <script src="umd/bundle/progress-bar.umd.js"></script>
-    <script src="umd/bundle/tabs.umd.js"></script>
-    <script src="umd/bundle/tooltip.umd.js"></script>
+    <t-number-field label="Number Field"></t-number-field>
 
-    <!-- icon pack -->
-    <script src="https://unpkg.com/lucide@latest"></script>
+    <t-currency-field label="Currency Field"></t-currency-field>
+
+    <t-select label="Select"></t-select>
+
+    <t-autocomplete label="Autocomplete"></t-autocomplete>
+
+    <t-date-picker label="Date Picker"></t-date-picker>
+
+    <t-file-upload label="Icon"></t-file-upload>
+
+    <t-radio-group label="Radio Group">
+      <t-radio-button label="Item 1"></t-radio-button>
+      <t-radio-button label="Item 2"></t-radio-button>
+      <t-radio-button label="Item 3"></t-radio-button>
+    </t-radio-group>
+
+    <t-checkbox-group label="Checkbox Group">
+      <t-checkbox label="Item 1"></t-checkbox>
+      <t-checkbox label="Item 2"></t-checkbox>
+      <t-checkbox label="Item 3"></t-checkbox>
+    </t-checkbox-group>
+
+    <t-switch label="Switch"> </t-switch>
+
+    <t-data-table id="data-table"></t-data-table>
+
     <script>
-      lucide.createIcons();
-    </script>
+      function showAlert() {
+        console.log("show Alert");
 
-    <script>
-      function onPressed(e) {
-        console.log("prr", this, e);
+        WebComponents.useDeleteAlert(() => {
+          console.log("cc");
+        });
       }
 
-      function enableLoading() {
+      function showLoading() {
         const loadingEl = document.getElementById("loading");
         loadingEl.loading = true;
 
@@ -100,6 +130,88 @@
           loadingEl.loading = false;
         }, 1500);
       }
+
+      function onClicked(e) {
+        // setTimeout(() => {
+        //   e.stopLoading();
+        // }, 1500);
+      }
+    </script>
+
+    <script src="https://unpkg.com/@teranes/utils@11.0.0/dist/index.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teranes/date@10.0.0/dist/index.umd.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/@teranes/popper@12.0.0/dist/index.umd.js"></script>
+    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+
+    <!-- web components -->
+    <script src="umd/bundle/web-components.umd.js"></script>
+    <script src="umd/bundle/loading.umd.js"></script>
+    <script src="umd/bundle/tooltip.umd.js"></script>
+
+    <script src="umd/bundle/accordion.umd.js"></script>
+
+    <script src="umd/bundle/button.umd.js"></script>
+    <script src="umd/bundle/modal.umd.js"></script>
+    <script src="umd/bundle/alert.umd.js"></script>
+
+    <script src="umd/bundle/chip.umd.js"></script>
+
+    <script src="umd/bundle/er-diagram.umd.js"></script>
+    <script src="umd/bundle/form-builder.umd.js"></script>
+    <script src="umd/bundle/image.umd.js"></script>
+    <script src="umd/bundle/input-widget.umd.js"></script>
+
+    <script src="umd/bundle/menu.umd.js"></script>
+    <script src="umd/bundle/notification.umd.js"></script>
+
+    <script src="umd/bundle/progress-bar.umd.js"></script>
+    <script src="umd/bundle/tabs.umd.js"></script>
+
+    <script src="umd/bundle/text-field.umd.js"></script>
+    <script src="umd/bundle/number-field.umd.js"></script>
+    <script src="umd/bundle/currency-field.umd.js"></script>
+    <script src="umd/bundle/date-picker.umd.js"></script>
+    <script src="umd/bundle/select.umd.js"></script>
+    <script src="umd/bundle/autocomplete.umd.js"></script>
+    <script src="umd/bundle/file-upload.umd.js"></script>
+    <script src="umd/bundle/checkbox.umd.js"></script>
+    <script src="umd/bundle/radio-button.umd.js"></script>
+    <script src="umd/bundle/switch.umd.js"></script>
+
+    <script src="umd/bundle/pagination.umd.js"></script>
+    <script src="umd/bundle/table.umd.js"></script>
+    <script src="umd/bundle/data-table.umd.js"></script>
+
+    <script>
+      const dataTable = document.getElementById("data-table");
+      dataTable.ctx.setHeaders([
+        {
+          text: "Header 1",
+          value: "header1",
+        },
+        {
+          text: "Header 2",
+          value: "header2",
+        },
+        {
+          text: "Header 3",
+          value: "header3",
+        },
+      ]);
+
+      dataTable.ctx.setItems([
+        {
+          header1: "Value 1",
+          header2: "Value 2",
+          header3: "Value 3",
+        },
+        {
+          header1: "Value 1",
+          header2: "Value 2",
+          header3: "Value 3",
+        },
+      ]);
     </script>
   </body>
 </html>

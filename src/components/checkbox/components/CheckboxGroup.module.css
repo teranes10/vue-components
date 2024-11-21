@@ -18,6 +18,10 @@
       justify-content: flex-start;
       align-items: center;
     }
+
+    &.error {
+      border-color: var(--color-danger);
+    }
   }
 
   .checkbox-group-errors-container {

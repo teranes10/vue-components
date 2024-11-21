@@ -1,10 +1,10 @@
 <template>
   <div :class="styles.select">
     <div ref="referenceElement" :class="styles.selectReference" @click="toggle">
-      <TextField ref="textFieldComponent" v-model="text" class="pointer-events-none" v-bind="$attrs">
+      <TextField ref="textFieldComponent" v-model="text" :class="styles.selectTextField" v-bind="$attrs">
         <template #post>
-          <ChevronUp v-if="isShowing" :class="styles.selectBtn" />
-          <ChevronDown v-else :class="styles.selectBtn" />
+          <Icon :icon="ChevronUp" v-if="isShowing" :class="styles.selectBtn" />
+          <Icon :icon="ChevronDown" v-else :class="styles.selectBtn" />
         </template>
       </TextField>
     </div>
@@ -20,7 +20,7 @@
           <div v-for="item in items" :key="item.text"
             :class="[styles.selectDropdownItem, { [styles.active]: isSelected(item) }]" @click="onSelect(item)">
             <span v-if="value" :class="styles.selectDropdownItemIconContainer">
-              <CheckIcon :class="styles.selectDropdownItemIcon" />
+              <Icon :icon="Check" :class="styles.selectDropdownItemIcon" />
             </span>
             <span :class="styles.selectDropdownItemText">
               {{ item.text }}
@@ -42,7 +42,8 @@
 </template>
 
 <script setup lang="ts" generic="T extends SelectItem, V">
-import { ChevronUp, ChevronDown, CheckIcon } from 'lucide-vue-next'
+import { Icon } from '@/shared/components/icon'
+import { ChevronUp, ChevronDown, Check } from 'lucide'
 import { useAttrs, computed, ref, watch, type Ref, onMounted, onUnmounted } from 'vue'
 import { type ComponentType, vModel } from '@teranes/vue-composables'
 import { compare } from '@teranes/utils'

@@ -1,6 +1,6 @@
 <template>
   <div :class="[styles.accordionItem, { [styles.active]: active }]" @click="onSelect">
-    <i :data-lucide="icon" :class="styles.accordionItemIcon" v-if="icon"></i>
+    <Icon :icon="icon" :class="styles.accordionItemIcon" v-if="icon" />
     <span v-show="text" :class="styles.accordionItemText" v-text="text" />
     <slot />
   </div>
@@ -10,6 +10,7 @@
 import styles from './AccordionItem.module.css'
 import type { AccordionItemEmits, AccordionItemProps } from './AccordionItemConfig'
 import { vModel } from '@teranes/vue-composables';
+import { Icon } from '@/shared/components/icon'
 
 const props = defineProps<AccordionItemProps>()
 const emit = defineEmits<AccordionItemEmits>()

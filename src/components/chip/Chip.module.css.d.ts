@@ -1,5 +1,7 @@
 declare const styles: {
   readonly chip: string
+  readonly chipIcon: string
+  readonly chipText: string
   readonly chipPrimary: string
   readonly chipSecondary: string
   readonly chipSuccess: string

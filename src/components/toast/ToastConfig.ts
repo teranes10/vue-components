@@ -1,11 +1,11 @@
 import {
-  CheckCircleIcon,
-  XCircleIcon,
-  AlertCircleIcon,
-  InfoIcon,
-} from 'lucide-vue-next'
-import type { FunctionalComponent } from 'vue'
+  CheckCircle,
+  XCircle,
+  AlertCircle,
+  Info,
+} from 'lucide'
 import styles from './Toast.module.css'
+import { IconValue } from '@/shared/components/icon'
 
 export type ToastType = 'success' | 'warning' | 'info' | 'danger'
 
@@ -15,11 +15,11 @@ export interface ToastProps {
   close?: () => void
 }
 
-export const ToastIcons: Record<ToastType, FunctionalComponent> = {
-  success: CheckCircleIcon,
-  info: InfoIcon,
-  warning: AlertCircleIcon,
-  danger: XCircleIcon,
+export const ToastIcons: Record<ToastType, IconValue> = {
+  success: CheckCircle,
+  info: Info,
+  warning: AlertCircle,
+  danger: XCircle,
 }
 
 export const ToastColorClasses: Record<ToastType, string> = {

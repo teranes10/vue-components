@@ -1,5 +1,6 @@
 <template>
-    <a :class="[styles.link, props.class ? props.class : '']" v-text="text" @click="onClick" />
+    <a :class="[styles.link, props.class ? props.class : '']" v-text="text" href="javascript:void(0);"
+        @click="onClick" />
 </template>
 
 <script setup lang="ts">

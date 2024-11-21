@@ -1,4 +1,5 @@
 import type { ValidationProps } from '@/functions/validation/ValidationConfig'
+import styles from './TextField.module.css'
 
 export type TextFieldProps = ValidationProps<string> & {
   modelValue?: string
@@ -23,20 +24,20 @@ export type TextFieldSize = 'sm' | 'lg'
 export type TextFieldColor = 'success' | 'info' | 'warning' | 'danger'
 
 export const TextFieldsSizesClasses: Record<TextFieldSize, string> = {
-  sm: 'text-field-sm',
-  lg: 'text-field-lg',
+  sm: styles.textFieldSm,
+  lg: styles.textFieldLg,
 }
 
 export const TextFieldBorderClasses: Record<TextFieldColor, string> = {
-  success: '!border-success',
-  info: '!border-info',
-  warning: '!border-warning',
-  danger: '!border-danger',
+  success: styles.success,
+  info: styles.info,
+  warning: styles.warning,
+  danger: styles.error,
 }
 
 export const TextFieldMessageClasses: Record<TextFieldColor, string> = {
-  success: '!text-success',
-  info: '!text-info',
-  warning: '!text-warning',
-  danger: '!text-danger',
+  success: styles.messageSuccess,
+  info: styles.messageInfo,
+  warning: styles.messageWarning,
+  danger: styles.messageError,
 }

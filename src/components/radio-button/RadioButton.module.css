@@ -4,9 +4,9 @@
   align-items: center;
 
   .radio-label {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--color-gray-600);
+    font-size: var(--text-sm);
+    font-weight: var(--font-normal);
+    color: var(--color-gray-500);
     user-select: none;
     margin-left: 8px;
   }

@@ -5,9 +5,9 @@
     outline: none;
     border-radius: 0.375rem;
     padding: 8px 10px;
-    font-size: 14px;
-    font-weight: 400;
-    color: var(--color-gray-900);
+    font-size: var(--text-sm);
+    font-weight: var(--font-normal);
+    color: var(--color-gray-600);
     border: 1px solid var(--color-gray-200);
 
     &:hover {
@@ -23,6 +23,8 @@
     &.disabled {
       background-color: var(--color-gray-50);
       color: var(--color-gray-600);
+      cursor: not-allowed;
+      pointer-events: none;
     }
 
     @content;
@@ -31,9 +33,9 @@
 
 @mixin input-label($input) {
   .$(input)-label {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--color-gray-600);
+    font-size: var(--text-xs);
+    font-weight: var(--font-bold);
+    color: var(--color-gray-500);
 
     &.required {
       &:after {
@@ -49,9 +51,9 @@
 
 @mixin input-tag($input) {
   .$(input)-tag {
-    font-size: 12px;
-    font-weight: 500;
-    color: var(--color-gray-900);
+    font-size: var(--text-xs);
+    font-weight: var(--font-bold);
+    color: var(--color-gray-700);
   }
 
   @content;

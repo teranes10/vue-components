@@ -1,3 +1,4 @@
+import styles from "./FormBuilder.module.css"
 export interface FormBuilderProps<T> {
   label?: string
   group?: string
@@ -51,48 +52,48 @@ export type FormFieldSizeValue =
   | 12
 
 export const SmFormFieldSizeClasses: Record<FormFieldSizeValue, string> = {
-  1: 'sm:col-span-1',
-  2: 'sm:col-span-2',
-  3: 'sm:col-span-3',
-  4: 'sm:col-span-4',
-  5: 'sm:col-span-5',
-  6: 'sm:col-span-6',
-  7: 'sm:col-span-7',
-  8: 'sm:col-span-8',
-  9: 'sm:col-span-9',
-  10: 'sm:col-span-10',
-  11: 'sm:col-span-11',
-  12: 'sm:col-span-12',
+  1: styles.smColSpan1,
+  2: styles.smColSpan2,
+  3: styles.smColSpan3,
+  4: styles.smColSpan4,
+  5: styles.smColSpan5,
+  6: styles.smColSpan6,
+  7: styles.smColSpan7,
+  8: styles.smColSpan8,
+  9: styles.smColSpan9,
+  10: styles.smColSpan10,
+  11: styles.smColSpan11,
+  12: styles.smColSpan12,
 }
 
 export const MdFormFieldSizeClasses: Record<FormFieldSizeValue, string> = {
-  1: 'md:col-span-1',
-  2: 'md:col-span-2',
-  3: 'md:col-span-3',
-  4: 'md:col-span-4',
-  5: 'md:col-span-5',
-  6: 'md:col-span-6',
-  7: 'md:col-span-7',
-  8: 'md:col-span-8',
-  9: 'md:col-span-9',
-  10: 'md:col-span-10',
-  11: 'md:col-span-11',
-  12: 'md:col-span-12',
+  1: styles.mdColSpan1,
+  2: styles.mdColSpan2,
+  3: styles.mdColSpan3,
+  4: styles.mdColSpan4,
+  5: styles.mdColSpan5,
+  6: styles.mdColSpan6,
+  7: styles.mdColSpan7,
+  8: styles.mdColSpan8,
+  9: styles.mdColSpan9,
+  10: styles.mdColSpan10,
+  11: styles.mdColSpan11,
+  12: styles.mdColSpan12,
 }
 
 export const LgFormFieldSizeClasses: Record<FormFieldSizeValue, string> = {
-  1: 'lg:col-span-1',
-  2: 'lg:col-span-2',
-  3: 'lg:col-span-3',
-  4: 'lg:col-span-4',
-  5: 'lg:col-span-5',
-  6: 'lg:col-span-6',
-  7: 'lg:col-span-7',
-  8: 'lg:col-span-8',
-  9: 'lg:col-span-9',
-  10: 'lg:col-span-10',
-  11: 'lg:col-span-11',
-  12: 'lg:col-span-12',
+  1: styles.lgColSpan1,
+  2: styles.lgColSpan2,
+  3: styles.lgColSpan3,
+  4: styles.lgColSpan4,
+  5: styles.lgColSpan5,
+  6: styles.lgColSpan6,
+  7: styles.lgColSpan7,
+  8: styles.lgColSpan8,
+  9: styles.lgColSpan9,
+  10: styles.lgColSpan10,
+  11: styles.lgColSpan11,
+  12: styles.lgColSpan12,
 }
 
 export interface FieldAttrs {

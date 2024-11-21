@@ -1,5 +1,5 @@
 .link {
-  font-weight: 500;
+  font-weight: var(--font-medium);
   color: var(--color-primary);
   text-decoration-line: underline;
   text-decoration-style: dotted;

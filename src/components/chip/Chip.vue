@@ -1,7 +1,7 @@
 <template>
   <span :class="[styles.chip, { [ChipColorClasses[props.color!]]: color && !color.startsWith('#') }]">
-    <icon v-if="icon" class="w-4 h-4" />
-    <span v-if="text" :class="{ 'ml-2': icon }" v-text="text" />
+    <icon v-if="icon" :class="styles.chipIcon" />
+    <span v-if="text" :class="styles.chipText" v-text="text" />
   </span>
 </template>
 
