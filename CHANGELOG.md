@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.13
+
+### Patch Changes
+
+- dec99b6: form-builder
+
 ## 1.0.12
 
 ### Patch Changes

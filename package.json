@@ -1,6 +1,6 @@
 {
   "name": "@teranes/vue-components",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "type": "module",
   "description": "Vue Components",
   "unpkg": "./dist/umd/js/web-components.umd.js",
@@ -15,7 +15,7 @@
   },
   "scripts": {
     "build:vue": "vite build --mode production -c vite-vue.config.ts",
-    "build:web-components": "tsx vite-web-components.config.ts",
+    "build:web-components": "cp dist/index.html public/index.html && tsx vite-web-components.config.ts",
     "build": "npm run build:vue && npm run build:web-components",
     "release": "changeset && changeset version && changeset publish && git push --follow-tags && git add . && git commit -m \"Automated build commit\" && git push"
   },
@@ -33,7 +33,7 @@
     "@teranes/utils": "^10.0.0",
     "@teranes/vue-composables": "^15.0.0",
     "flatpickr": "^4.6.13",
-    "lucide-vue-next": "^0.452.0",
+    "lucide": "^0.460.0",
     "reflect-metadata": "^0.2.2",
     "tippy.js": "^6.3.7",
     "toastify-js": "^1.12.0",
