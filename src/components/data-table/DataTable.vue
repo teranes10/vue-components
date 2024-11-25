@@ -25,7 +25,7 @@ import { computed, useSlots } from 'vue'
 import { Loading } from '@/components/loading'
 import { Select } from "@/components/select"
 import { Table } from '@/components/table'
-import { Pagination } from '@/components/pagination'
+import Pagination from './components/pagination/Pagination.vue'
 import type { DataTableEmits, DataTableProps } from './DataTableConfig'
 import styles from './DataTable.module.css'
 import { useDataTableSetup } from './DataTableSetup'

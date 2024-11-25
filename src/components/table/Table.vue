@@ -4,6 +4,7 @@ import { getScreenWidth } from '@teranes/vue-composables'
 import { useTableSetup } from './TableSetup'
 import { Checkbox } from '@/components/checkbox'
 import { ChevronBtn } from '@/components/button'
+import ObjectGrid from './components/object-grid/ObjectGrid.vue'
 
 import styles from './Table.module.css'
 import type { TableHeader, TableProps, TableEmits, TableInternalHeader } from './TableConfig'
@@ -11,6 +12,7 @@ import type { TableHeader, TableProps, TableEmits, TableInternalHeader } from '.
 const props = withDefaults(defineProps<TableProps<T, K>>(), {
   singleSelect: false,
   singleExpand: true,
+  mobileView: 500
 })
 
 const emit = defineEmits<TableEmits<T, K>>()
@@ -18,7 +20,7 @@ const emit = defineEmits<TableEmits<T, K>>()
 const tableSetup = useTableSetup(props as TableProps<T, K>, emit)
 
 const screenWidth = getScreenWidth()
-const showMobileView = computed(() => screenWidth.value <= 500)
+const showMobileView = computed(() => typeof props.mobileView === 'boolean' ? props.mobileView : screenWidth.value <= props.mobileView)
 
 const tableContainerElement = ref<HTMLElement>()
 onMounted(() => {
@@ -102,5 +104,6 @@ function getCellStyles<T>(header: TableInternalHeader<T, K, TableHeader<T, K>>, 
         </div>
       </tbody>
     </table>
+    <ObjectGrid v-else v-bind="props" />
   </div>
 </template>

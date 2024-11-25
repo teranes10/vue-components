@@ -1,4 +1,4 @@
-export type ImageProps = {
+export interface ImageProps {
     src: string,
     width?: string | number,
     height?: string | number,

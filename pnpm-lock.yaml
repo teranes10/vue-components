@@ -21,8 +21,8 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0
       '@teranes/utils':
-        specifier: ^10.0.0
-        version: 10.0.0
+        specifier: ^11.0.0
+        version: 11.0.0
       '@teranes/vue-composables':
         specifier: ^15.0.0
         version: 15.0.0(typescript@5.6.3)
@@ -680,6 +680,9 @@ packages:
 
   '@teranes/utils@10.0.0':
     resolution: {integrity: sha512-Rtr+Uqb4U0mm153RFgaRkiouqJpAINUw733EFBVmk8r3XEyrFoHvyumsXhVvig1Hraben72c344FkseeISpcRQ==}
+
+  '@teranes/utils@11.0.0':
+    resolution: {integrity: sha512-FZO6VkHd6H6uuWbGvkKIefqnk4wcN6GoDFI6Pe3kPSx3ir9uZTYaoPiH04bbpE5zMVqCBZmhYmbmpLHw1ZaE5g==}
 
   '@teranes/vite-typed-css-modules@1.0.5':
     resolution: {integrity: sha512-yIz0atVOEVYoLjz4+Qw3iPuN9s8OMYK7WKgpw/vq34lZYdwdFUDMi8J8BUfFdlMup+pzzk1ssB19jUbtrrxSGQ==}
@@ -2754,6 +2757,10 @@ snapshots:
       nanoid: 5.0.8
 
   '@teranes/utils@10.0.0':
+    dependencies:
+      lodash-es: 4.17.21
+
+  '@teranes/utils@11.0.0':
     dependencies:
       lodash-es: 4.17.21
 

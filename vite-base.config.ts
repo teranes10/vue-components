@@ -13,7 +13,6 @@ import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js';
 
 export type BaseConfigOptions = {
   entry: { [key: string]: string },
-  subEntries?: string | boolean
   url?: string,
   fileName?: string,
   clean?: boolean,
@@ -29,7 +28,7 @@ export type BaseConfigOptions = {
 }
 
 export function getBaseConfig({
-  url = import.meta.url, fileName, entry, subEntries = 'src/components/*/**/index.ts',
+  url = import.meta.url, fileName, entry,
   clean = false, customElement = false, dts = false,
   format = 'umd', name = '', external = [], excludedExternal = [], combineCss, callback, append }: BaseConfigOptions) {
 
@@ -121,7 +120,7 @@ export function getBaseConfig({
         },
       },
       lib: {
-        entry: { ...entry, ...(format === 'es' && subEntries && getSubEntries(url, subEntries as string)) },
+        entry: entry,
         name: name,
         formats: [format]
       },
@@ -188,14 +187,17 @@ function getDependencies(url: string) {
   return Object.keys(dependencies)
 }
 
+export function getDirname(url = import.meta.url) {
+  return dirname(fileURLToPath(url));
+}
+
 export function getSubEntries(url: string, path: string) {
   const entries: { [k: string]: string } = {};
   const componentFiles = glob.sync(resolvePath(url, path));
 
   componentFiles.forEach((file) => {
     const name = idToName(file)
-    const __dirname = dirname(fileURLToPath(url));
-    entries[name] = resolve(__dirname, file);
+    entries[name] = resolve(getDirname(url), file);
   });
 
   return entries;

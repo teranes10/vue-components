@@ -1,4 +1,6 @@
+import { getAccessedProps } from "@teranes/utils"
 import styles from "./FormBuilder.module.css"
+
 export interface FormBuilderProps<T> {
   label?: string
   group?: string
@@ -9,8 +11,6 @@ export type FormBuilderEmits<T> = {
   'update:modelValue': [value: T]
 }
 
-export const FormBuilderContextKey = 'FormBuilderContextKey'
-
 export interface FormBuilderContext {
   userEditedFields: Set<string>
   propsToWatch: FormBuilderPropsToWatch
@@ -18,26 +18,18 @@ export interface FormBuilderContext {
   setPropsToWatch: (propsToWatch: FormBuilderPropsToWatch) => void
 }
 
-export interface FormBuilderPropsToWatch {
+interface FormBuilderPropsToWatch {
   [propToWatch: string]: FormBuilderWatcher[]
 }
 
-export interface FormBuilderWatcher {
+interface FormBuilderWatcher {
   watcherProp: string
   setter: (item: any) => any
   disableWatcherAfterUserEdit: boolean
   userChangesOnly: boolean
 }
 
-export type FormFieldSize =
-  | {
-    sm: FormFieldSizeValue
-    md: FormFieldSizeValue
-    lg: FormFieldSizeValue
-  }
-  | FormFieldSizeValue
-
-export type FormFieldSizeValue =
+type FormFieldSizeValue =
   | 1
   | 2
   | 3
@@ -51,7 +43,22 @@ export type FormFieldSizeValue =
   | 11
   | 12
 
-export const SmFormFieldSizeClasses: Record<FormFieldSizeValue, string> = {
+type FormFieldSize =
+  | {
+    sm: FormFieldSizeValue
+    md: FormFieldSizeValue
+    lg: FormFieldSizeValue
+  }
+  | FormFieldSizeValue
+
+export interface FieldAttrs {
+  size?: FormFieldSize
+  class?: string
+}
+
+export const FormBuilderContextKey = 'FormBuilderContextKey'
+
+const SmFormFieldSizeClasses: Record<FormFieldSizeValue, string> = {
   1: styles.smColSpan1,
   2: styles.smColSpan2,
   3: styles.smColSpan3,
@@ -66,7 +73,7 @@ export const SmFormFieldSizeClasses: Record<FormFieldSizeValue, string> = {
   12: styles.smColSpan12,
 }
 
-export const MdFormFieldSizeClasses: Record<FormFieldSizeValue, string> = {
+const MdFormFieldSizeClasses: Record<FormFieldSizeValue, string> = {
   1: styles.mdColSpan1,
   2: styles.mdColSpan2,
   3: styles.mdColSpan3,
@@ -81,7 +88,7 @@ export const MdFormFieldSizeClasses: Record<FormFieldSizeValue, string> = {
   12: styles.mdColSpan12,
 }
 
-export const LgFormFieldSizeClasses: Record<FormFieldSizeValue, string> = {
+const LgFormFieldSizeClasses: Record<FormFieldSizeValue, string> = {
   1: styles.lgColSpan1,
   2: styles.lgColSpan2,
   3: styles.lgColSpan3,
@@ -96,7 +103,42 @@ export const LgFormFieldSizeClasses: Record<FormFieldSizeValue, string> = {
   12: styles.lgColSpan12,
 }
 
-export interface FieldAttrs {
-  size?: FormFieldSize
-  class?: string
+const getSizeClass = (size?: FormFieldSize) => {
+  if (size && typeof size === 'object') {
+    return {
+      [SmFormFieldSizeClasses[size.sm || 12]]: true,
+      [MdFormFieldSizeClasses[size.md || 12]]: true,
+      [LgFormFieldSizeClasses[size.lg || 12]]: true,
+    }
+  }
+
+  return {
+    [SmFormFieldSizeClasses[12]]: true,
+    [MdFormFieldSizeClasses[size!]]: !!size,
+  }
+}
+
+export const getFieldClasses = (attrs?: FieldAttrs) => {
+  return [getSizeClass(attrs?.size), attrs?.class || '']
+}
+
+export function getPropsToWatch(fields: any[], group?: string) {
+  const propsToWatch: FormBuilderPropsToWatch = {}
+  const watcherProps = fields?.filter((field: any) => !!field.watcher)
+
+  for (const watcherProp of watcherProps) {
+    const { setter, disableWatcherAfterUserEdit, userChangesOnly } = watcherProp.watcher
+    const parameterProps = getAccessedProps(setter.toString())
+    const itemProps = Object.values(parameterProps)?.[0]
+
+    for (const prop of itemProps) {
+      if (!propsToWatch[prop]) {
+        propsToWatch[prop] = []
+      }
+
+      propsToWatch[prop].push({ watcherProp: (group ? `${group}.${watcherProp.name}` : watcherProp.name), setter, disableWatcherAfterUserEdit, userChangesOnly })
+    }
+  }
+
+  return propsToWatch
 }

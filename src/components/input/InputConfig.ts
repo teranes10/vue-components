@@ -11,7 +11,7 @@ import { NumberField, NumberFieldEmits, NumberFieldProps } from '@/components/nu
 import { CurrencyField, CurrencyFieldEmits, CurrencyFieldProps } from '@/components/currency-field'
 import { FileUpload, FileUploadEmits, FileUploadProps } from '@/components/file-upload'
 
-export interface InputComponentProps {
+export interface InputsProps {
   'checkbox-group': Attrs<CheckboxGroupProps<unknown>, CheckboxGroupEmits<unknown>>
   'checkbox': Attrs<CheckboxProps<unknown>, CheckboxEmits>
   'radio-group': Attrs<RadioGroupProps<unknown>, RadioGroupEmits<unknown>>
@@ -26,7 +26,7 @@ export interface InputComponentProps {
   'file-upload': Attrs<FileUploadProps<unknown>, FileUploadEmits<unknown>>
 }
 
-export const inputComponents: Record<keyof InputComponentProps, Component> = {
+export const inputs: Record<keyof InputsProps, Component> = {
   'checkbox-group': CheckboxGroup,
   'checkbox': Checkbox,
   'radio-group': RadioGroup,
@@ -41,7 +41,7 @@ export const inputComponents: Record<keyof InputComponentProps, Component> = {
   'file-upload': FileUpload,
 }
 
-export interface InputWidgetProps<T extends keyof InputComponentProps> {
+export interface InputProps<T extends keyof InputsProps> {
   type: T
-  props: InputComponentProps[T]
+  props: InputsProps[T]
 }

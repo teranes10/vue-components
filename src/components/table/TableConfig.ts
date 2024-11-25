@@ -8,7 +8,8 @@ import type { BaseInternalItem } from '@/functions/item/BaseInternalItem'
 export type TableProps<T, K extends string | number> = {
   headers?: TableHeader<T, K>[]
   items?: T[]
-  itemKey?: string | ((item: T) => K)
+  itemKey?: string | ((item: T) => K),
+  mobileView?: boolean | number
 } & Selectable<K> & Expandable<K>
 
 export type TableEmits<T, K> = {

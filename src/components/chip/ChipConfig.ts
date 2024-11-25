@@ -7,6 +7,10 @@ export interface ChipProps {
   color?: ChipColor
 }
 
+export type ChipEmits = {
+
+}
+
 export type ChipColor = 'primary' | 'secondary' | 'success' | 'warning' | 'info' | 'danger' | (NonNullable<unknown> & `#${string}`)
 
 export const ChipColorClasses: Record<ChipColor, string> = {

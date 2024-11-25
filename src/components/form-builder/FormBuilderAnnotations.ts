@@ -1,19 +1,20 @@
 import 'reflect-metadata'
-import type { InputComponentProps } from '@/components/input-widget'
-import type { ValidationRule } from '@/functions/validation/ValidationConfig'
+import type { InputsProps, InputProps } from '@/components/input'
+import type { ComponentProps, ComponentsProps } from '@/components/component'
 import type { FormBuilderBase, Item } from './FormBuilderBase'
 import type { FieldAttrs } from './FormBuilderConfig'
+import { Component } from 'vue'
 
 export const MetaKeyPrefix = 'form-builder'
 
-export function fieldProps<T extends keyof InputComponentProps>(
-  type: T,
-  props: InputComponentProps[T],
+export function fieldProps<T extends keyof InputsProps>(
+  type: InputProps<T>['type'],
+  props: InputProps<T>['props'],
   attrs?: FieldAttrs,
 ) {
   return function (target: any, property: string) {
     Reflect.defineMetadata(
-      `${MetaKeyPrefix}:props`,
+      `${MetaKeyPrefix}:input`,
       { type, props, attrs },
       target,
       property,
@@ -21,34 +22,6 @@ export function fieldProps<T extends keyof InputComponentProps>(
   }
 }
 
-export function fieldComponent<T extends keyof InputComponentProps, K extends keyof EventsOnly<InputComponentProps[T]>>(
-  type: T,
-  props: InputComponentProps[T],
-  attrs?: FieldAttrs,
-  ...events: K[]
-) {
-  return function (target: any, property: string) {
-    Reflect.defineMetadata(
-      `${MetaKeyPrefix}:_component`,
-      { type, props, events, attrs },
-      target,
-      property,
-    )
-  }
-}
-
-export function fieldShowIf<T extends FormBuilderBase, K extends keyof T>(
-  cb: (item: NonNullable<T['_item']>) => boolean,
-) {
-  return function (target: T, property: K) {
-    Reflect.defineMetadata(
-      `${MetaKeyPrefix}:showIf`,
-      cb,
-      target,
-      property as string,
-    )
-  }
-}
 
 export function fieldWatcher<T extends FormBuilderBase, K extends keyof T>(
   setter: (item: Item<T>) => T[K],
@@ -65,15 +38,18 @@ export function fieldWatcher<T extends FormBuilderBase, K extends keyof T>(
   }
 }
 
-export function fieldRules<T extends FormBuilderBase, K extends keyof T>(
-  ...rules: ValidationRule<T[K]>[]
+export function fieldComponent<T extends keyof ComponentsProps | Component>(
+  type: ComponentProps<T>['type'],
+  props: ComponentProps<T>['props'],
+  attrs?: FieldAttrs,
+  ...events: (keyof EventsOnly<ComponentProps<T>['props']>)[]
 ) {
-  return function (target: T, property: K) {
+  return function (target: any, property: string) {
     Reflect.defineMetadata(
-      `${MetaKeyPrefix}:rules`,
-      rules,
+      `${MetaKeyPrefix}:component`,
+      { type, props, events, attrs },
       target,
-      property as string,
+      property,
     )
   }
 }
@@ -92,6 +68,15 @@ export function formGroup<T extends FormBuilderBase, K extends keyof T>(
   }
 }
 
-type EventsOnly<T> = {
-  [K in keyof T as K extends `on${string}` ? K : never]: T[K]
+export function fieldShowIf<T extends FormBuilderBase, K extends keyof T>(
+  cb: (item: NonNullable<T['_item']>) => boolean,
+) {
+  return function (target: T, property: K) {
+    Reflect.defineMetadata(
+      `${MetaKeyPrefix}:showIf`,
+      cb,
+      target,
+      property as string,
+    )
+  }
 }

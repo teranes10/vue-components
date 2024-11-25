@@ -9,15 +9,12 @@
           <FormBuilder v-if="element._type === 'group'" v-model="element.value" :label="element.label"
             :group="getFieldNamePath(element.name)" />
 
-          <Button v-else-if="element._type === 'button'" v-bind="{ ...element.props }"
-            @click="element.onClick(editedItem)" />
-
-          <InputWidget v-else-if="element._type === 'input'"
-            v-bind="{ type: element.type, props: { modelValue: element.value, ...element.props } }"
+          <Input v-else-if="element._type === 'input'" :type="element.type"
+            :props="{ modelValue: element.value, ...element.props }"
             @update:model-value="(val: any) => ctx.onValueUpdate(getFieldNamePath(element.name), val)" />
 
-          <InputWidget v-else-if="element._type === 'component'"
-            v-bind="{ type: element.type, props: { ...element.props, ...getComponentEvents(element) } }" />
+          <Component v-else-if="element._type === 'component'" :type="element.type"
+            :props="{ ...element.props, ...getComponentEvents(element) }" />
         </div>
       </template>
     </div>
@@ -27,11 +24,12 @@
 <script setup lang="ts" generic="T extends FormBuilderBase">
 import { computed, inject, provide } from 'vue'
 import { vModel } from '@teranes/vue-composables'
-import { setValueByObjectPath, getAccessedProps, objectAssign, cloneDeep } from '@teranes/utils'
-import { InputWidget } from '@/components/input-widget'
+import { setValueByObjectPath, objectAssign, cloneDeep } from '@teranes/utils'
+import { Input } from '@/components/input'
+import { Component } from '@/components/component'
 import { useFormValidation } from '@/functions/validation/Validation'
 import type { FormBuilderBase, FormBuilderMapper } from './FormBuilderBase'
-import { type FormBuilderProps, type FormBuilderEmits, type FormBuilderContext, type FormBuilderPropsToWatch, SmFormFieldSizeClasses, MdFormFieldSizeClasses, LgFormFieldSizeClasses, FormBuilderContextKey, type FormFieldSize } from './FormBuilderConfig'
+import { type FormBuilderProps, type FormBuilderEmits, type FormBuilderContext, FormBuilderContextKey, getFieldClasses, getPropsToWatch } from './FormBuilderConfig'
 import styles from './FormBuilder.module.css'
 
 const emit = defineEmits<FormBuilderEmits<T>>()
@@ -39,25 +37,6 @@ const emit = defineEmits<FormBuilderEmits<T>>()
 const props = withDefaults(defineProps<FormBuilderProps<T>>(), {
 
 })
-
-const getSizeClass = (size: FormFieldSize) => {
-  if (size && typeof size === 'object') {
-    return {
-      [SmFormFieldSizeClasses[size.sm || 12]]: true,
-      [MdFormFieldSizeClasses[size.md || 12]]: true,
-      [LgFormFieldSizeClasses[size.lg || 12]]: true,
-    }
-  }
-
-  return {
-    [SmFormFieldSizeClasses[12]]: true,
-    [MdFormFieldSizeClasses[size]]: !!size,
-  }
-}
-
-const getFieldClasses = (attrs: any) => {
-  return [getSizeClass(attrs?.size), attrs?.class || '']
-}
 
 const canShow = (item: any): boolean => {
   return item?.showIf ? item.showIf(editedItem.value._item) : true
@@ -116,28 +95,7 @@ const fields = computed(() => elements.value?.filter(x => x._type === 'input') |
   }
 })()
 
-ctx.setPropsToWatch(getPropsToWatch())
-
-function getPropsToWatch() {
-  const propsToWatch: FormBuilderPropsToWatch = {}
-
-  const watcherProps = fields.value?.filter((field: any) => !!field.watcher)
-  for (const watcherProp of watcherProps) {
-    const { setter, disableWatcherAfterUserEdit, userChangesOnly } = watcherProp.watcher
-    const parameterProps = getAccessedProps(setter.toString())
-    const itemProps = Object.values(parameterProps)?.[0]
-
-    for (const prop of itemProps) {
-      if (!propsToWatch[prop]) {
-        propsToWatch[prop] = []
-      }
-
-      propsToWatch[prop].push({ watcherProp: getFieldNamePath(watcherProp.name), setter, disableWatcherAfterUserEdit, userChangesOnly })
-    }
-  }
-
-  return propsToWatch
-}
+ctx.setPropsToWatch(getPropsToWatch(fields.value, props.group))
 
 function getFieldNamePath(name: string) {
   return props.group ? props.group + '.' + name : name

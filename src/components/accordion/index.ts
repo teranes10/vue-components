@@ -1,4 +1,4 @@
-export type { AccordionProps } from './AccordionConfig'
+export type { AccordionProps, AccordionEmits } from './AccordionConfig'
 export { default as Accordion } from './Accordion.vue'
 export type { AccordionItemGroupProps } from './components/accordion-item-group/AccordionItemGroupConfig'
 export { default as AccordionItemGroup } from './components/accordion-item-group/AccordionItemGroup.vue'

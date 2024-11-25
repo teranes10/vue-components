@@ -1,83 +1,38 @@
 import 'reflect-metadata'
-import { isProxy, toRaw } from 'vue'
+import { type Component, isProxy, toRaw } from 'vue'
 import { isObject } from '@teranes/utils'
 import { MetaKeyPrefix } from './FormBuilderAnnotations'
+import { FieldAttrs } from './FormBuilderConfig'
+import { InputsProps } from '@/components/input'
+import { ComponentsProps } from '@/components/component'
 
 export abstract class FormBuilderBase<T = object> {
   public _item?: T
+
   constructor(group?: any) {
     this._item = getItem(group) || this
   }
 
-  getAttributes(): any[] {
-    const methods = Object.getOwnPropertyNames(Object.getPrototypeOf(this)).filter(x => !['constructor', 'onValueChanged'].includes(x))
-    const properties = Object.getOwnPropertyNames(this)
+  getAttributes(): Attribute[] {
+    const prototypeProps = Object.getOwnPropertyNames(Object.getPrototypeOf(this));
+    const instanceProps = Object.getOwnPropertyNames(this);
 
-    return [...properties, ...methods]
-      ?.filter(prop => prop !== '_item')
-      ?.map((prop) => {
-        const attrs: any = {
-          name: prop,
-          value: (this as any)[prop],
-          ...getDecorators(this, prop),
-        }
-
-        if (Object.prototype.hasOwnProperty.call(attrs, 'group')) {
-          console.assert(attrs?.value !== attrs?.value?._item, 'SubForm instances should be constructed with the parent form passed as an argument for proper initialization.')
-
-          return {
-            _type: 'group',
-            label: attrs.group.label,
-            attrs: attrs.group.attrs,
-            name: attrs.name,
-            value: attrs.value,
-          }
-        }
-        else if (Object.prototype.hasOwnProperty.call(attrs, 'action')) {
-          return {
-            _type: 'button',
-            name: attrs.name,
-            props: attrs.action.props,
-            attrs: attrs.action.attrs,
-            onClick: attrs.action.onClick,
-          }
-        }
-        else if (Object.prototype.hasOwnProperty.call(attrs, '_component')) {
-          return {
-            _type: 'component',
-            name: attrs.name,
-            value: attrs.value,
-            type: attrs._component.type,
-            props: attrs._component.props,
-            events: attrs._component.events,
-            attrs: attrs._component.attrs,
-          }
-        }
-        else {
-          if (attrs.type) {
-            attrs._type = 'input'
-          }
-        }
-
-        return attrs
-      }).filter(x => !!x._type)
+    return [...prototypeProps, ...instanceProps]
+      .filter(prop => !['_item', 'constructor', 'onValueChanged'].includes(prop))
+      .map(prop => createAttribute(this, prop)).filter(Boolean);
   }
 
   getValue() {
-    function map(obj: any) {
-      return Object.entries(obj).filter(([key]) => key !== '_item').reduce((obj: any, [key, value]) => {
-        if (isObject(value)) {
-          obj[key] = map(obj)
-        }
-        else {
-          obj[key] = isProxy(value) ? toRaw(value) : value
-        }
+    const mapObject = (obj: any): any => {
+      return Object.entries(obj)
+        .filter(([key]) => key !== '_item')
+        .reduce((acc, [key, value]) => {
+          acc[key] = isObject(value) ? mapObject(value) : (isProxy(value) ? toRaw(value) : value);
+          return acc;
+        }, {} as any);
+    };
 
-        return obj
-      }, {})
-    }
-
-    return map(this)
+    return mapObject(this);
   }
 
   onValueChanged(_path: string, _value: any) {
@@ -85,34 +40,66 @@ export abstract class FormBuilderBase<T = object> {
   }
 }
 
-const getDecorators = (target: object, property: string): string[] => {
-  const metaDataKeys = Reflect.getMetadataKeys(target, property)
-    ?.filter(key => key.toString().startsWith(MetaKeyPrefix))
+function createAttribute(obj: any, prop: string): any | undefined {
+  const value = obj[prop];
+  const decorators = getDecorators(obj, prop) as any;
 
-  return metaDataKeys?.reduce((values, key) => {
-    const keyType = key.split(':')[1]
-    const metaData = Reflect.getMetadata(key, target, property)
+  const commonAttrs = { showIf: decorators.showIf };
 
-    if (keyType === 'props') {
-      const { attrs, props, type } = metaData
-      return { ...values, attrs, type, props: { ...(values.props && values.props), ...props } }
-    }
-    else if (keyType === 'rules') {
-      return { ...values, props: { ...(values.props && values.props), rules: metaData } }
-    }
-    else {
-      return { ...values, ...{ [keyType]: metaData } }
-    }
-  }, {})
-}
-
-const getItem = (group: any): any => {
-  if (group !== group?._item) {
-    return getItem(group._item)
+  if ('group' in decorators) {
+    console.assert(value !== value?._item, 'SubForm instances should be initialized with the parent form as an argument.');
+    return {
+      _type: 'group',
+      name: prop,
+      value,
+      ...decorators.group,
+      ...commonAttrs,
+    };
   }
 
-  return group
+  if ('component' in decorators) {
+    return {
+      _type: 'component',
+      name: prop,
+      value,
+      ...decorators.component,
+      ...commonAttrs,
+    };
+  }
+
+  if ('input' in decorators) {
+    return {
+      _type: 'input',
+      name: prop,
+      value,
+      ...decorators.input,
+      watcher: decorators.watcher,
+      ...commonAttrs,
+    };
+  }
+
+  return undefined;
 }
+
+function getDecorators(target: object, property: string): Record<string, any> {
+  const metadataKeys = Reflect.getMetadataKeys(target, property)
+    .filter((key: string) => key.startsWith(MetaKeyPrefix));
+
+  return metadataKeys.reduce((decorators, key) => {
+    const keyType = key.split(':')[1];
+    const metadata = Reflect.getMetadata(key, target, property);
+    decorators[keyType] = metadata;
+    return decorators;
+  }, {} as Record<string, any>);
+};
+
+function getItem(group: any): any {
+  while (group && group !== group?._item) {
+    group = group._item;
+  }
+  return group;
+};
+
 
 export type FormBuilderObject<T> = {
   [K in keyof ClassObject<T> as K extends '_item' ? never : K]: T[K];
@@ -128,3 +115,34 @@ export type Item<T extends FormBuilderBase> = Omit<
 type ClassObject<T> = {
   [K in keyof T as T[K] extends ((...args: any[]) => any) ? never : K]: T[K];
 }
+
+
+type AttributeCommon = {
+  name: string;
+  value: any;
+  showIf?: any;
+};
+
+type GroupAttribute = AttributeCommon & {
+  _type: 'group';
+  attrs?: FieldAttrs;
+  label?: string;
+};
+
+type ComponentAttribute = AttributeCommon & {
+  _type: 'component';
+  type: keyof ComponentsProps | Component;
+  props?: Record<string, any>;
+  events?: Record<string, any>;
+  attrs?: FieldAttrs;
+};
+
+type InputAttribute = AttributeCommon & {
+  _type: 'input';
+  type: keyof InputsProps;
+  props?: Record<string, any>;
+  watcher?: any;
+  attrs?: FieldAttrs;
+};
+
+type Attribute = GroupAttribute | ComponentAttribute | InputAttribute;

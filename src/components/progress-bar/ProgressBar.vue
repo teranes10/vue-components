@@ -7,13 +7,9 @@
 <script setup lang="ts">
 import styles from './ProgressBar.module.css'
 import { computed } from 'vue';
+import { ProgressBarProps } from './ProgressBarConfig';
 
-const props = withDefaults(defineProps<{
-    percentage: number,
-    label?: string
-    height?: number,
-    color?: string
-}>(), {
+const props = withDefaults(defineProps<ProgressBarProps>(), {
     height: 12,
     percentage: 0
 })

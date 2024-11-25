@@ -3,6 +3,6 @@ export interface LoadingProps {
   text?: string
 }
 
-export interface LoadingEmits {
+export type LoadingEmits = {
   'update:loading': [value: boolean]
 }

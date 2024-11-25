@@ -1,20 +1,25 @@
-import { ref, Ref } from "vue";
-import styles from './ER_Diagram.module.css'
+import styles from './ErDiagram.module.css'
+import { ErDiagramEntityProps } from "./components/er-diagram-entity/ErDiagramEntityConfig";
 
-export type Entity = {
+export type ErDiagramProps = {
+  items?: ErDiagramEntityProps[]
+  gap?: number
+}
+
+export type EntityElement = {
   name: string;
-  columns: Column[];
-  el?: HTMLElement;
-  pointerEl?: HTMLElement;
-  x?: number;
-  y?: number;
-  w?: number;
-  h?: number;
+  columns: ColumnElement[];
+  el: HTMLElement;
+  pointerEl: HTMLElement;
+  x: number;
+  y: number;
+  w: number;
+  h: number;
   maxY?: number;
-  connections?: Connection[]
+  connections?: ConnectionElement[]
 };
 
-export type Column = {
+export type ColumnElement = {
   name: string;
   type: string;
   el?: HTMLElement;
@@ -24,145 +29,161 @@ export type Column = {
     column: string;
     type: string;
   };
-  connections?: Connection[];
+  connections?: ConnectionElement[];
 };
 
-export type Connection = {
+export type ConnectionElement = {
   parentRect: HTMLElement;
   entityRect: HTMLElement;
   setMouseOver: (event: MouseEvent) => void;
   clear: () => void;
 };
 
+export type Connection = {
+  _entity: EntityElement,
+  entity: string,
+  column: string,
+  parentColumn: string
+}
 
-export function autoCorrectPositions(entities: Ref<Entity[]>, containerEl: Ref<HTMLElement | undefined>, gap: number) {
-  if (!(containerEl.value?.offsetWidth)) {
-    return;
-  }
+export function updateEntityPosition(entity: EntityElement, x: number, y: number) {
+  entity.x = x
+  entity.y = y
+  entity.el.style.inset = `${y}px auto  auto ${x}px`
+}
 
-  const entitiesWithConnection = new Map<any, any[]>();
+function createEntityConnections(entities: Map<string, EntityElement>) {
+  const entityConnections = new Map<string, Connection[]>();
 
-  for (const entity of entities.value) {
+  for (const entity of entities.values()) {
     for (const column of entity.columns) {
-      const ref = column.relationship;
-      if (ref && ref.table && ref.column) {
-        const connections = entitiesWithConnection.get(ref.table) || [];
-        const connection = {
-          _parent: ref,
-          _entity: entity,
-          entity: entity.name,
-          column: column.name,
-          parentColumn: ref.column
-        }
-
-        connections.push(connection);
-        entitiesWithConnection.set(ref.table, connections);
-
-        entity.connections = connections;
+      if (!(column.relationship && column.relationship.table && column.relationship.column)) {
+        continue;
       }
+
+      const parent = entities.get(column.relationship.table)
+      if (parent) {
+        const _parentConnections = entityConnections.get(entity.name) || [];
+        _parentConnections.push({
+          _entity: parent,
+          entity: column.relationship.table,
+          column: column.relationship.column,
+          parentColumn: column.name
+        })
+
+        entityConnections.set(entity.name, _parentConnections)
+      }
+
+      const _entityConnections = entityConnections.get(column.relationship.table) || [];
+      _entityConnections.push({
+        _entity: entity,
+        entity: entity.name,
+        column: column.name,
+        parentColumn: column.relationship.column
+      });
+
+      entityConnections.set(column.relationship.table, _entityConnections);
     }
   }
 
-  const _entities = entities.value.slice().sort((a, b) => {
-    const aLen = entitiesWithConnection.get(a.name)?.length || 0;
-    const bLen = entitiesWithConnection.get(b.name)?.length || 0;
+  return entityConnections
+}
+
+export function autoCorrectPositions(entities: Map<string, EntityElement>, containerElement: HTMLElement, gap: number): { currentTop: number, currentLeft: number, maxY: number } {
+  const entityConnections = createEntityConnections(entities);
+
+  const _entities = Array.from(entities.values()).slice().sort((a, b) => {
+    const aLen = entityConnections.get(a.name)?.length || 0;
+    const bLen = entityConnections.get(b.name)?.length || 0;
     return bLen - aLen;
   });
 
-  const added = ref(new Map<string, any>());
+  const added = new Map<string, EntityElement>();
 
-  function setEntityPositions(entity: any) {
+  function setEntityPositions(entity: EntityElement) {
     //set positions for sub entities
-    const refs = entitiesWithConnection.get(entity.name) || [];
+    const relations = entityConnections.get(entity.name) || [];
 
     let currentTop = (entity.y || 0);
-    let currentLeft = gap + (entity.x || 0) + (entity.el?.offsetWidth || 0);
+    let currentLeft = gap + (entity.x || 0) + (entity.w || 0);
 
-    for (const ref of refs) {
-      if (!added.value.has(ref.table)) {
-        ref._entity.x = currentLeft;
-        ref._entity.y = currentTop;
-        ref._entity.w = ref._entity.el?.offsetWidth;
-        ref._entity.h = ref._entity.el?.offsetHeight
+    for (const relation of relations) {
+      if (!added.has(relation.entity)) {
+        updateEntityPosition(relation._entity, currentLeft, currentTop)
 
-        currentTop += gap + (ref._entity.el?.offsetHeight || 0)
+        currentTop += gap + relation._entity.h
 
-        added.value.set(ref._entity.name, ref._entity)
-        setEntityPositions(ref._entity);
-
-        entity.maxY = Math.max(ref._entity.maxY || 0, currentTop)
+        added.set(relation._entity.name, relation._entity)
+        entity.maxY = Math.max(relation._entity.maxY || 0, currentTop)
       }
     }
 
-    return refs && refs.length > 0
+    return relations && relations.length > 0
   }
 
   let currentTop = 0;
   let currentLeft = 0;
   let maxY = 0;
   for (const entity of _entities) {
-    if (!added.value.has(entity.name)) {
-
-      const connections = entitiesWithConnection.get(entity.name);
-      if (connections) {
-
-        const connection = connections.find(x => added.value.has(x.table));
-        if (connection) {
-          //set positions for sub entities
-          let y = connection._entity.y;
-          let x = gap + (connection._entity.x || 0) + (connection._entity.el?.offsetWidth || 0);
-          const old = Array.from(added.value.values()).find(entity => entity.x === x && entity.y === y)
-
-          if (old && old.el) {
-            y += old.el.offsetHeight + gap
-          }
-
-          entity.y = y;
-          entity.x = x;
-
-          currentTop = Math.max(currentTop, (entity?.maxY || entity?.y || 0) + (entity?.el?.offsetHeight || 0) + gap)
-
-        } else {
-          //set positions for root entities
-          const rootEntity = Array.from(added.value.values())?.findLast(x => !x.x)
-          if (rootEntity && rootEntity.el) {
-            entity.y = (rootEntity.maxY || 0)
-          }
-
-          currentTop = Math.max(currentTop, (rootEntity?.maxY || 0), (entity?.maxY || 0))
-        }
-      }
-
-      if (!setEntityPositions(entity)) {
-        //set positions for entities does not have any relations
-
-        entity.y = currentTop;
-        entity.x = currentLeft;
-        entity.w = entity.el?.offsetWidth;
-        entity.h = entity.el?.offsetHeight;
-
-        currentLeft += gap + (entity.el?.offsetWidth || 0);
-        if (currentLeft > containerEl.value?.offsetWidth) {
-          currentLeft = 0;
-          currentTop = maxY + gap
-        } else {
-          maxY = Math.max(maxY, (entity.y + (entity.h || 0)))
-        }
-      }
-
-      added.value.set(entity.name, entity)
+    if (added.has(entity.name)) {
+      continue;
     }
+
+    const connections = entityConnections.get(entity.name);
+    if (connections) {
+      const connection = connections.find(x => added.has(x.entity));
+      if (connection) {
+        //set positions for sub entities
+        let y = connection._entity.y;
+        let x = gap + connection._entity.x + connection._entity.w;
+        const old = Array.from(added.values()).find(entity => entity.x === x && entity.y === y)
+        if (old && old.el) {
+          y += old.h + gap
+        }
+
+        updateEntityPosition(entity, x, y)
+        currentTop = Math.max(currentTop, (entity?.maxY || entity?.y || 0) + (entity.h || 0) + gap)
+      } else {
+        //set positions for root entities
+        const rootEntity = Array.from(added.values())?.findLast(x => !x.x)
+        if (rootEntity && rootEntity.el) {
+          updateEntityPosition(entity, entity.x, (rootEntity.maxY || 0))
+        }
+
+        currentTop = Math.max(currentTop, (rootEntity?.maxY || 0), (entity?.maxY || 0))
+      }
+    }
+
+    if (!setEntityPositions(entity)) {
+      //set positions for entities does not have any relations
+
+      if ((currentLeft + gap + entity.w) > containerElement.offsetWidth) {
+        currentLeft = 0;
+        currentTop = maxY + gap
+      }
+
+      updateEntityPosition(entity, currentLeft, currentTop)
+
+      currentLeft += gap + entity.w;
+      if (currentLeft > containerElement.offsetWidth) {
+        currentLeft = 0;
+        currentTop = maxY + gap
+      } else {
+        maxY = Math.max(maxY, (entity.y + (entity.h || 0)))
+      }
+    }
+
+    added.set(entity.name, entity)
   }
+
+  return { currentTop, currentLeft, maxY }
 }
 
-export function updateConnections(entities: Ref<Entity[]>, containerEl: Ref<HTMLElement | undefined>, gap: number) {
+export function updateConnections(entityMap: Map<string, EntityElement>, containerElement: HTMLElement, gap: number) {
+  const entities = Array.from(entityMap.values())
   clearConnections(entities);
 
-  if (!containerEl.value) {
-    return;
-  }
-
-  for (const e of entities.value) {
+  for (const e of entities) {
     if (!e.el) {
       continue;
     }
@@ -172,7 +193,7 @@ export function updateConnections(entities: Ref<Entity[]>, containerEl: Ref<HTML
         continue;
       }
 
-      const re = entities.value.find(x => ec.relationship?.table && x.name === ec.relationship.table);
+      const re = entities.find(x => ec.relationship?.table && x.name === ec.relationship.table);
       if (!re || !re.el) {
         continue;
       }
@@ -218,8 +239,8 @@ export function updateConnections(entities: Ref<Entity[]>, containerEl: Ref<HTML
 
       const rcRect = createConnectionRect(rcRectW, rcRectH, rcRectY, rcRectX, rcRectB);
       const ecRect = createConnectionRect(ecRectW, ecRectH, ecRectY, ecRectX, ecRectB);
-      containerEl.value.appendChild(rcRect)
-      containerEl.value.appendChild(ecRect);
+      containerElement.appendChild(rcRect)
+      containerElement.appendChild(ecRect);
 
       const onMouseOver = (event: MouseEvent) => {
         if (!ec.el || !rc.el) {
@@ -257,21 +278,21 @@ export function updateConnections(entities: Ref<Entity[]>, containerEl: Ref<HTML
     }
   }
 
-  for (let entity of entities.value) {
+  for (let entity of entities) {
     for (let column of entity.columns) {
       if (!column.connections) {
         continue;
       }
 
       for (let connection of column.connections) {
-        containerEl.value.addEventListener('mouseover', (e) => connection.setMouseOver(e))
+        containerElement.addEventListener('mouseover', (e) => connection.setMouseOver(e))
       }
     }
   }
 }
 
-function clearConnections(entities: Ref<Entity[]>) {
-  for (let entity of entities.value) {
+function clearConnections(entities: EntityElement[]) {
+  for (let entity of entities) {
     for (let column of entity.columns) {
       if (!column.connections) {
         continue;

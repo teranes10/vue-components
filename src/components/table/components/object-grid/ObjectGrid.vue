@@ -1,17 +1,16 @@
 <script setup lang="ts" generic="T, K extends number | string">
-import { type TableEmits, type TableProps } from '../table/TableConfig'
-import { useTableSetup } from '../table/TableSetup'
+import { useTableSetup } from '../../TableSetup'
+import type { ObjectGridEmits, ObjectGridProps } from './ObjectGridConfig'
 import styles from './ObjectGrid.module.css'
-import type { ObjectGridProps } from './ObjectGridConfig'
 
 const props = withDefaults(defineProps<ObjectGridProps<T, K>>(), {
   singleSelect: false,
   singleExpand: true,
 })
 
-const emit = defineEmits<TableEmits<T, K>>()
+const emit = defineEmits<ObjectGridEmits<T, K>>()
 
-const tableSetup = useTableSetup(props as TableProps<T, K>, emit)
+const tableSetup = useTableSetup(props, emit)
 </script>
 
 <template>
