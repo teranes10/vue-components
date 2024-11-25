@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.15
+
+### Patch Changes
+
+- f131fa5: er-diagram
+
 ## 1.0.14
 
 ### Patch Changes
