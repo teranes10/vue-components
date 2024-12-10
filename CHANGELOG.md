@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.16
+
+### Patch Changes
+
+- e660ad1: table mobile view fix
+
 ## 1.0.15
 
 ### Patch Changes
