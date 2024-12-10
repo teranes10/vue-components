@@ -1,29 +1,12 @@
-<template>
-  <div :class="styles.checkboxGroup">
-    <div v-if="label || tag" :class="styles.checkboxGroupLabelContainer">
-      <span v-if="label" :class="[styles.checkboxGroupLabel, { [styles.required]: !!required }]" v-text="label" />
-      <span v-if="tag" :class="styles.checkboxGroupTag" v-text="tag" />
-    </div>
-
-    <div ref="checkboxContainerElement"
-      :class="[styles.checkboxGroupContainer, { [styles.inline]: props.inline, [styles.error]: validationCtx?.isError.value }]">
-      <Checkbox v-for="item in items" v-bind="item" :key="item.label" />
-      <slot />
-    </div>
-
-    <ul ref="errorsListElement" :class="styles.checkboxGroupErrorsContainer" />
-  </div>
-</template>
-
 <script setup lang="ts" generic="V">
-import { reactive, ref, shallowRef, onMounted, provide, watch, type Ref } from 'vue'
-import { vModel } from '@teranes/vue-composables'
-import Checkbox from '../Checkbox.vue'
 import type { ValidationFieldContext } from '@/functions/validation/ValidationConfig'
+import type { CheckBoxGroupContext, CheckboxGroupEmits, CheckboxGroupProps } from './CheckboxGroupConfig'
 import { useFieldValidation } from '@/functions/validation/Validation'
-import type { CheckboxGroupProps, CheckboxGroupEmits, CheckBoxGroupContext } from './CheckboxGroupConfig'
-import { CheckboxGroupContextKey } from './CheckboxGroupConfig'
+import { vModel } from '@teranes/vue-composables'
+import { onMounted, provide, reactive, ref, type Ref, shallowRef, watch } from 'vue'
+import Checkbox from '../Checkbox.vue'
 import styles from './CheckboxGroup.module.css'
+import { CheckboxGroupContextKey } from './CheckboxGroupConfig'
 
 const props = withDefaults(defineProps<CheckboxGroupProps<V>>(), {
   inline: true,
@@ -74,3 +57,22 @@ onMounted(() => {
 
 provide(CheckboxGroupContextKey, ctx)
 </script>
+
+<template>
+  <div :class="styles.checkboxGroup">
+    <div v-if="label || tag" :class="styles.checkboxGroupLabelContainer">
+      <span v-if="label" :class="[styles.checkboxGroupLabel, { [styles.required]: !!required }]" v-text="label" />
+      <span v-if="tag" :class="styles.checkboxGroupTag" v-text="tag" />
+    </div>
+
+    <div
+      ref="checkboxContainerElement"
+      :class="[styles.checkboxGroupContainer, { [styles.inline]: props.inline, [styles.error]: validationCtx?.isError.value }]"
+    >
+      <Checkbox v-for="item in items" v-bind="item" :key="item.label" />
+      <slot />
+    </div>
+
+    <ul ref="errorsListElement" :class="styles.checkboxGroupErrorsContainer" />
+  </div>
+</template>

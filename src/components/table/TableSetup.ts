@@ -1,11 +1,13 @@
-import { computed, onMounted, ref, useSlots } from 'vue'
-import { vModel } from '@teranes/vue-composables'
-import { getItemKey } from '@/functions/item/ItemKey'
-import { useSelectable } from '@/functions/selectable/Selectable'
-import { useExpandable } from '@/functions/expandable/Expandable'
-import { getItemValue } from '@/functions/item/ItemValue'
 import type { ShortEmits } from '@teranes/vue-composables'
 import type { TableEmits, TableHeader, TableInternalHeader, TableInternalItem, TableProps } from './TableConfig'
+import { useExpandable } from '@/functions/expandable/Expandable'
+import { getItemComponent } from '@/functions/item/ItemComponent'
+import { getItemKey } from '@/functions/item/ItemKey'
+import { getItemValue } from '@/functions/item/ItemValue'
+import { useSelectable } from '@/functions/selectable/Selectable'
+import { getValueByObjectPath, setValueByObjectPath } from '@teranes/utils'
+import { vModel } from '@teranes/vue-composables'
+import { computed, onMounted, ref, useSlots } from 'vue'
 
 export function useTableSetup<T, K extends string | number>(props: TableProps<T, K>, emit: ShortEmits<TableEmits<T, K>>) {
   const isMounted = ref(false)
@@ -15,12 +17,14 @@ export function useTableSetup<T, K extends string | number>(props: TableProps<T,
     isMounted.value = true
   })
 
+  const _items = vModel(props, 'items', emit, [])
+
   const headers = computed<TableInternalHeader<T, K>[]>(() =>
     props.headers?.map(toInternalHeader) || [],
   )
 
   const items = computed<TableInternalItem<T, K>[]>(() =>
-    props.items?.map(toInternalItem) || [],
+    _items.value.map(toInternalItem) || [],
   )
 
   const showItemsNotFound = computed(() =>
@@ -111,15 +115,18 @@ export function useTableSetup<T, K extends string | number>(props: TableProps<T,
       return { type: 'slot', name: `item.${header.value}` }
     }
 
-    if (header.component) {
-      const component = header.component
-      return { type: 'component', component: item => component(item._item, item) }
+    const component = header.component
+    const value = header.value
+
+    if (component) {
+      const key = typeof value === 'string' ? value : undefined
+      return { type: 'component', component: item => getItemComponent(item, component, key) }
     }
 
-    if (header.value) {
-      const value = header.value
+    if (value) {
       return {
-        type: 'text', text: item => getItemValue(item, value)
+        type: 'text',
+        text: item => getItemValue(item, value),
       }
     }
 
@@ -135,6 +142,12 @@ export function useTableSetup<T, K extends string | number>(props: TableProps<T,
       key,
       selected: !!props.selectable && isSelected(key),
       expanded: !!props.expandable && isExpanded(key),
+      getValue(key) {
+        return getValueByObjectPath(this._item, key)
+      },
+      setValue(key, value) {
+        setValueByObjectPath(this._item, key, value)
+      },
     }
   }
 

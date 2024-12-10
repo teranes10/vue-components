@@ -2,18 +2,18 @@ declare const styles: {
   readonly formBuilder: string
   readonly label: string
   readonly container: string
-  readonly smColSpan1: string
-  readonly smColSpan2: string
-  readonly smColSpan3: string
-  readonly smColSpan4: string
-  readonly smColSpan5: string
-  readonly smColSpan6: string
-  readonly smColSpan7: string
-  readonly smColSpan8: string
-  readonly smColSpan9: string
-  readonly smColSpan10: string
-  readonly smColSpan11: string
-  readonly smColSpan12: string
+  readonly colSpan1: string
+  readonly colSpan2: string
+  readonly colSpan3: string
+  readonly colSpan4: string
+  readonly colSpan5: string
+  readonly colSpan6: string
+  readonly colSpan7: string
+  readonly colSpan8: string
+  readonly colSpan9: string
+  readonly colSpan10: string
+  readonly colSpan11: string
+  readonly colSpan12: string
   readonly mdColSpan1: string
   readonly mdColSpan2: string
   readonly mdColSpan3: string

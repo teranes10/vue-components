@@ -1,42 +1,23 @@
-<template>
-  <div>
-    <Modal :class="styles.formBuilderModal" v-model="show" :width="width" persistent>
-      <template #header>
-        {{ label }}
-      </template>
-
-      <FormBuilder v-if="!!value" ref="formBuilderComponent" v-model="value" />
-
-      <template #footer>
-        <div :class="styles.actionsContainer">
-          <Button color="gray" text="Cancel" @click="() => show = false" />
-          <Button color="primary" text="Save" @click="onSave" />
-        </div>
-      </template>
-    </Modal>
-  </div>
-</template>
-
 <script setup lang="ts" generic="T extends FormBuilderBase">
-import { reactive, ref } from 'vue'
-import { type ComponentType, vModel } from '@teranes/vue-composables'
-import { Modal } from '@/components/modal'
-import { Button } from '@/components/button'
-import FormBuilder from '../../FormBuilder.vue'
 import type { FormBuilderBase } from '../../FormBuilderBase'
-import type { FormBuilderModalEmits, FormBuilderModalProps, FormBuilderModalContext, FormBuilderModalConfirm } from './FormBuilderModelConfig'
+import type { FormBuilderModalConfirm, FormBuilderModalContext, FormBuilderModalEmits, FormBuilderModalProps } from './FormBuilderModelConfig'
+import { Button } from '@/components/button'
+import { Modal } from '@/components/modal'
+import { type ComponentType, vModel } from '@teranes/vue-composables'
+import { reactive, ref } from 'vue'
+import FormBuilder from '../../FormBuilder.vue'
 import styles from './FormBuilderModal.module.css'
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const emit = defineEmits<FormBuilderModalEmits<T>>()
-
 const props = withDefaults(defineProps<FormBuilderModalProps<T>>(), {
   label: '',
   width: 650,
 })
+
+const emit = defineEmits<FormBuilderModalEmits<T>>()
 
 const value = vModel(props, 'modelValue', emit)
 const show = vModel(props, 'show', emit, false)
@@ -85,7 +66,7 @@ const ctx: FormBuilderModalContext<T> = {
   },
 }
 
-const onSave = async () => {
+async function onSave() {
   if (await formBuilderComponent.value?.validate()) {
     _onConfirm && _onConfirm(value.value)
     ctx.close()
@@ -94,3 +75,22 @@ const onSave = async () => {
 
 defineExpose({ ctx })
 </script>
+
+<template>
+  <div>
+    <Modal v-model="show" :class="styles.formBuilderModal" :width="width" persistent>
+      <template #header>
+        {{ label }}
+      </template>
+
+      <FormBuilder v-if="!!value" ref="formBuilderComponent" v-model="value" />
+
+      <template #footer>
+        <div :class="styles.actionsContainer">
+          <Button color="gray" text="Cancel" @click="() => show = false" />
+          <Button color="primary" text="Save" @click="onSave" />
+        </div>
+      </template>
+    </Modal>
+  </div>
+</template>

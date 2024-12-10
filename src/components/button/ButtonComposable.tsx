@@ -1,21 +1,21 @@
-import Button from "./Button.vue";
-import { IconValue } from "@/shared/components/icon";
+import type { IconValue } from '@/shared/components/icon'
+import Button from './Button.vue'
 
 export interface IconBtnViewOptions {
-  class?: string;
-  text?: string;
-  tooltip?: string;
-  onClick?: () => void;
+  class?: string
+  text?: string
+  tooltip?: string
+  onClick?: () => void
 }
 
 export function useIconBtnView(
   icon: IconValue,
   {
-    class: className = "",
-    text = "",
-    tooltip = "",
+    class: className = '',
+    text = '',
+    tooltip = '',
     onClick,
-  }: IconBtnViewOptions = {}
+  }: IconBtnViewOptions = {},
 ) {
   return (
     <Button
@@ -25,5 +25,5 @@ export function useIconBtnView(
       tooltip={tooltip}
       onClicked={onClick}
     />
-  );
+  )
 }

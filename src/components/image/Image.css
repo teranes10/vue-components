@@ -1,4 +1,4 @@
-@import "zoom-vanilla.js/dist/zoom.css";
+@import 'zoom-vanilla.js/dist/zoom.css';
 
 .zoom-img-wrap {
   img {
@@ -14,7 +14,7 @@
   background: #fff;
   border-radius: 0.5rem;
   z-index: 1000;
-  box-shadow: "1px 1px 4px rgba(0, 0, 0, 0.25)";
+  box-shadow: '1px 1px 4px rgba(0, 0, 0, 0.25)';
 
   .image-hover-window-image {
     width: 100%;

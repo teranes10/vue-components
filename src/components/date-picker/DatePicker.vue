@@ -1,23 +1,17 @@
-<template>
-  <div>
-    <TextField ref="textFieldComponent" :model-value="value" v-bind="$attrs" />
-  </div>
-</template>
-
 <script setup lang="ts">
-import flatpickr from 'flatpickr'
-import { ref, computed, onMounted } from 'vue'
-import { type ComponentType, vModel } from '@teranes/vue-composables'
-import { date } from '@teranes/date'
 import { TextField } from '@/components/text-field'
-import { DatePickerDisplayFormat, DatePickerFormat, type DatePickerEmits, type DatePickerProps } from './DatePickerConfig'
+import { date } from '@teranes/date'
+import { type ComponentType, vModel } from '@teranes/vue-composables'
+import flatpickr from 'flatpickr'
+import { computed, onMounted, ref } from 'vue'
+import { DatePickerDisplayFormat, type DatePickerEmits, DatePickerFormat, type DatePickerProps } from './DatePickerConfig'
 import './DatePickerStyle.css'
-
-const emit = defineEmits<DatePickerEmits>()
 
 const props = withDefaults(defineProps<DatePickerProps>(), {
   type: 'date',
 })
+
+const emit = defineEmits<DatePickerEmits>()
 
 const showTimePicker = computed(() => props.type === 'time' || props.type === 'datetime')
 const showDatePicker = computed(() => props.type === 'date' || props.type === 'datetime')
@@ -58,3 +52,9 @@ onMounted(() => {
   }
 })
 </script>
+
+<template>
+  <div>
+    <TextField ref="textFieldComponent" :model-value="value" v-bind="$attrs" />
+  </div>
+</template>

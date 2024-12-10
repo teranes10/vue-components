@@ -1,19 +1,11 @@
-<template>
-  <label :class="[styles.radio, color ? radioColorStyles[color] : '']">
-    <input :class="styles.radioInput" type="radio" :value="value" :checked="checked" @change="onCheckChanged">
-    <span :class="styles.radioInputUi" />
-    <span v-if="label" :class="styles.radioLabel" v-text="label" />
-  </label>
-</template>
-
 <script setup lang="ts" generic="V">
-import { computed, inject } from 'vue'
-import { vModel } from '@teranes/vue-composables'
+import type { RadioButtonEmits, RadioButtonProps } from './RadioButtonConfig'
 import { throttle } from '@teranes/utils'
-import type { RadioButtonProps, RadioButtonEmits } from './RadioButtonConfig'
-import { radioColorStyles } from './RadioButtonConfig'
-import { RadioGroupContextKey, type RadioGroupContext } from './components/RadioGroupConfig'
+import { vModel } from '@teranes/vue-composables'
+import { computed, inject } from 'vue'
+import { type RadioGroupContext, RadioGroupContextKey } from './components/RadioGroupConfig'
 import styles from './RadioButton.module.css'
+import { radioColorStyles } from './RadioButtonConfig'
 
 const props = withDefaults(defineProps<RadioButtonProps<V>>(), { color: 'primary' })
 
@@ -31,3 +23,11 @@ const onCheckChanged = throttle(() => {
   group?.onCheckChanged(value.value as V, checked.value)
 })
 </script>
+
+<template>
+  <label :class="[styles.radio, color ? radioColorStyles[color] : '']">
+    <input :class="styles.radioInput" type="radio" :value="value" :checked="checked" @change="onCheckChanged">
+    <span :class="styles.radioInputUi" />
+    <span v-if="label" :class="styles.radioLabel" v-text="label" />
+  </label>
+</template>

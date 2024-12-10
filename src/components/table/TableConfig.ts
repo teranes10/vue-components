@@ -1,18 +1,20 @@
-import type { Component } from 'vue'
-import type { ItemValue } from '@/functions/item/ItemValue'
-import type { ItemComponent } from '@/functions/item/ItemComponent'
-import type { Selectable } from '@/functions/selectable/Selectable'
 import type { Expandable } from '@/functions/expandable/Expandable'
 import type { BaseInternalItem } from '@/functions/item/BaseInternalItem'
+import type { ItemComponent } from '@/functions/item/ItemComponent'
+import type { ItemValue } from '@/functions/item/ItemValue'
+import type { Selectable } from '@/functions/selectable/Selectable'
+import type { Component } from 'vue'
 
 export type TableProps<T, K extends string | number> = {
   headers?: TableHeader<T, K>[]
   items?: T[]
-  itemKey?: string | ((item: T) => K),
+  itemKey?: string | ((item: T) => K)
   mobileView?: boolean | number
+  cardWidth?: number | string
 } & Selectable<K> & Expandable<K>
 
-export type TableEmits<T, K> = {
+export interface TableEmits<T, K> {
+  'update:items': [value: T[]]
   'update:selected': [value: K | K[]]
   'select': [key: K, select: boolean, item: T]
   'selectAll': [keys: K[], select: boolean, items: T[]]
@@ -25,7 +27,7 @@ export type TableInternalItem<T, K> = BaseInternalItem<T, K> & {
   expanded: boolean
 }
 
-export type TableHeader<T, K> = {
+export interface TableHeader<T, K> {
   text: string
   value?: ItemValue<T, K, TableInternalItem<T, K>>
   component?: ItemComponent<T, K, TableInternalItem<T, K>>

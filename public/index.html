@@ -1,347 +1,351 @@
 <!doctype html>
 <html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta name="description" content="Web Components" />
-    <title>Web Components</title>
-  </head>
 
-  <body style="display: flex; flex-direction: column; gap: 25px; padding: 3rem">
-    <div>
-      <t-icon
-        size="50"
-        icon="File"
-        color="#f2786c"
-        stroke-width="1"
-        text="PDF"
-      ></t-icon>
-      <t-icon size="50" icon="File" color="#41d3b0" text="CSV"></t-icon>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Web Components" />
+  <title>Web Components</title>
+</head>
+
+<body style="display: flex; flex-direction: column; gap: 25px; padding: 3rem">
+  <div>
+    <t-icon size="50" icon="File" color="#f2786c" stroke-width="1" text="PDF"></t-icon>
+    <t-icon size="50" icon="File" color="#41d3b0" text="CSV"></t-icon>
+  </div>
+
+  <t-accordion>
+    <t-accordion-item-group text="Accordion Group 1">
+      <t-accordion-item text="Accordion Item 1"></t-accordion-item>
+      <t-accordion-item text="Accordion Item 2"></t-accordion-item>
+    </t-accordion-item-group>
+
+    <t-accordion-item-group text="Accordion Group 2">
+      <t-accordion-item text="Accordion Item 1"></t-accordion-item>
+      <t-accordion-item text="Accordion Item 2"></t-accordion-item>
+    </t-accordion-item-group>
+  </t-accordion>
+
+  <div style="width: 36px; height: 36px">
+    <t-loading-icon color="#3fa5ca"></t-loading-icon>
+  </div>
+
+  <div>
+    <t-button text="Button" tooltip="Button" icon="Menu" loading on_clicked="onClicked"></t-button>
+
+    <t-button text="Show Alert" on_clicked="showAlert"></t-button>
+
+    <t-button text="Show Toast" on_clicked="showToast"></t-button>
+
+    <t-button text="Show Loading" on_clicked="showLoading"></t-button>
+  </div>
+
+  <t-loading id="loading"></t-loading>
+
+  <t-chevron-btn></t-chevron-btn>
+
+  <t-chip text="Chip"></t-chip>
+
+  <t-group>
+    <t-button text="1"></t-button>
+    <t-button text="2"></t-button>
+    <t-button text="3"></t-button>
+  </t-group>
+
+  <t-image src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg" alt="Sample Image"
+    title="Title" sub-title="Sub Title">
+  </t-image>
+
+  <t-link text="Link"></t-link>
+
+  <t-progress-bar percentage="25"></t-progress-bar>
+
+  <t-tabs>
+    <t-tab text="Tab 1"></t-tab>
+    <t-tab text="Tab 2"></t-tab>
+    <t-tab text="Tab 3"></t-tab>
+
+    <div slot="content">
+      <t-tab-content>Tab Content 1</t-tab-content>
+      <t-tab-content>Tab Content 2</t-tab-content>
+      <t-tab-content>Tab Content 3</t-tab-content>
     </div>
+  </t-tabs>
 
-    <t-accordion>
-      <t-accordion-item-group text="Accordion Group 1">
-        <t-accordion-item text="Accordion Item 1"></t-accordion-item>
-        <t-accordion-item text="Accordion Item 2"></t-accordion-item>
-      </t-accordion-item-group>
+  <t-tooltip text="Tooltip"> Tooltip </t-tooltip>
 
-      <t-accordion-item-group text="Accordion Group 2">
-        <t-accordion-item text="Accordion Item 1"></t-accordion-item>
-        <t-accordion-item text="Accordion Item 2"></t-accordion-item>
-      </t-accordion-item-group>
-    </t-accordion>
+  <t-text-field label="Text Field"></t-text-field>
 
-    <div style="width: 36px; height: 36px">
-      <t-loading-icon color="#3fa5ca"></t-loading-icon>
-    </div>
+  <t-number-field label="Number Field"></t-number-field>
 
-    <div>
-      <t-button
-        text="Button"
-        tooltip="Button"
-        icon="Menu"
-        loading
-        on_clicked="onClicked"
-      ></t-button>
+  <t-currency-field label="Currency Field"></t-currency-field>
 
-      <t-button text="Show Alert" on_clicked="showAlert"></t-button>
+  <t-select label="Select"></t-select>
 
-      <t-button text="Show Toast" on_clicked="showToast"></t-button>
+  <t-autocomplete label="Autocomplete"></t-autocomplete>
 
-      <t-button text="Show Loading" on_clicked="showLoading"></t-button>
-    </div>
+  <t-date-picker label="Date Picker"></t-date-picker>
 
-    <t-loading id="loading"></t-loading>
+  <t-file-upload label="Icon"></t-file-upload>
 
-    <t-chevron-btn></t-chevron-btn>
+  <t-radio-group label="Radio Group">
+    <t-radio-button label="Item 1"></t-radio-button>
+    <t-radio-button label="Item 2"></t-radio-button>
+    <t-radio-button label="Item 3"></t-radio-button>
+  </t-radio-group>
 
-    <t-chip text="Chip"></t-chip>
+  <t-checkbox-group label="Checkbox Group">
+    <t-checkbox label="Item 1"></t-checkbox>
+    <t-checkbox label="Item 2"></t-checkbox>
+    <t-checkbox label="Item 3"></t-checkbox>
+  </t-checkbox-group>
 
-    <t-group>
-      <t-button text="1"></t-button>
-      <t-button text="2"></t-button>
-      <t-button text="3"></t-button>
-    </t-group>
+  <t-switch label="Switch"> </t-switch>
 
-    <t-image
-      src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
-      alt="Sample Image"
-      title="Title"
-      sub-title="Sub Title"
-    >
-    </t-image>
+  <t-data-table id="data-table"></t-data-table>
 
-    <t-link text="Link"></t-link>
+  <t-form-builder label="User Form" size="6" id="form-builder"></t-form-builder>
 
-    <t-progress-bar percentage="25"></t-progress-bar>
+  <t-form-builder-modal label="User Form" id="form-builder-modal"></t-form-builder-modal>
 
-    <t-tabs>
-      <t-tab text="Tab 1"></t-tab>
-      <t-tab text="Tab 2"></t-tab>
-      <t-tab text="Tab 3"></t-tab>
+  <t-button text="Show Form" on_clicked="showForm"></t-button>
 
-      <div slot="content">
-        <t-tab-content>Tab Content 1</t-tab-content>
-        <t-tab-content>Tab Content 2</t-tab-content>
-        <t-tab-content>Tab Content 3</t-tab-content>
-      </div>
-    </t-tabs>
+  <script src="https://unpkg.com/@teranes/utils@11.0.0/dist/index.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@teranes/date@10.0.0/dist/index.umd.js"></script>
+  <script src="https://unpkg.com/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+  <script src="https://unpkg.com/@teranes/popper@12.0.0/dist/index.umd.js"></script>
+  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 
-    <t-tooltip text="Tooltip"> Tooltip </t-tooltip>
+  <!-- web components -->
+  <script src="umd/bundle/web-components.umd.js"></script>
+  <script src="umd/bundle/loading.umd.js"></script>
+  <script src="umd/bundle/tooltip.umd.js"></script>
+  <script src="umd/bundle/toast.umd.js"></script>
 
-    <t-text-field label="Text Field"></t-text-field>
+  <script src="umd/bundle/accordion.umd.js"></script>
 
-    <t-number-field label="Number Field"></t-number-field>
+  <script src="umd/bundle/button.umd.js"></script>
+  <script src="umd/bundle/modal.umd.js"></script>
+  <script src="umd/bundle/alert.umd.js"></script>
 
-    <t-currency-field label="Currency Field"></t-currency-field>
+  <script src="umd/bundle/chip.umd.js"></script>
 
-    <t-select label="Select"></t-select>
+  <script src="umd/bundle/er-diagram.umd.js"></script>
+  <script src="umd/bundle/image.umd.js"></script>
 
-    <t-autocomplete label="Autocomplete"></t-autocomplete>
+  <script src="umd/bundle/menu.umd.js"></script>
+  <script src="umd/bundle/notification.umd.js"></script>
 
-    <t-date-picker label="Date Picker"></t-date-picker>
+  <script src="umd/bundle/progress-bar.umd.js"></script>
+  <script src="umd/bundle/tabs.umd.js"></script>
 
-    <t-file-upload label="Icon"></t-file-upload>
+  <script src="umd/bundle/text-field.umd.js"></script>
+  <script src="umd/bundle/number-field.umd.js"></script>
+  <script src="umd/bundle/currency-field.umd.js"></script>
+  <script src="umd/bundle/date-picker.umd.js"></script>
+  <script src="umd/bundle/select.umd.js"></script>
+  <script src="umd/bundle/autocomplete.umd.js"></script>
+  <script src="umd/bundle/file-upload.umd.js"></script>
+  <script src="umd/bundle/checkbox.umd.js"></script>
+  <script src="umd/bundle/radio-button.umd.js"></script>
+  <script src="umd/bundle/switch.umd.js"></script>
 
-    <t-radio-group label="Radio Group">
-      <t-radio-button label="Item 1"></t-radio-button>
-      <t-radio-button label="Item 2"></t-radio-button>
-      <t-radio-button label="Item 3"></t-radio-button>
-    </t-radio-group>
+  <script src="umd/bundle/pagination.umd.js"></script>
+  <script src="umd/bundle/table.umd.js"></script>
+  <script src="umd/bundle/data-table.umd.js"></script>
 
-    <t-checkbox-group label="Checkbox Group">
-      <t-checkbox label="Item 1"></t-checkbox>
-      <t-checkbox label="Item 2"></t-checkbox>
-      <t-checkbox label="Item 3"></t-checkbox>
-    </t-checkbox-group>
+  <script src="umd/bundle/input.umd.js"></script>
+  <script src="umd/bundle/element.umd.js"></script>
+  <script src="umd/bundle/form-builder.umd.js"></script>
 
-    <t-switch label="Switch"> </t-switch>
+  <script>
+    function showAlert() {
+      console.log("show Alert");
 
-    <t-data-table id="data-table"></t-data-table>
+      WebComponents.useDeleteAlert(() => {
+        console.log("cc");
+      });
+    }
 
-    <t-form-builder id="form-builder"></t-form-builder>
+    function showToast() {
+      WebComponents.useToast("Hello");
+    }
 
-    <t-form-builder-modal id="form-builder-modal"></t-form-builder-modal>
+    function showLoading() {
+      const loadingEl = document.getElementById("loading");
+      loadingEl.loading = true;
 
-    <t-button text="Show Form" on_clicked="showForm"></t-button>
+      setTimeout(() => {
+        loadingEl.loading = false;
+      }, 1500);
+    }
 
-    <script src="https://unpkg.com/@teranes/utils@11.0.0/dist/index.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/date@10.0.0/dist/index.umd.js"></script>
-    <script src="https://unpkg.com/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-    <script src="https://unpkg.com/@teranes/popper@12.0.0/dist/index.umd.js"></script>
-    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+    function onClicked(e) {
+      setTimeout(() => {
+        e.stopLoading();
+      }, 1500);
+    }
+  </script>
 
-    <!-- web components -->
-    <script src="umd/bundle/web-components.umd.js"></script>
-    <script src="umd/bundle/loading.umd.js"></script>
-    <script src="umd/bundle/tooltip.umd.js"></script>
-    <script src="umd/bundle/toast.umd.js"></script>
+  <script>
+    const dataTable = document.getElementById("data-table");
 
-    <script src="umd/bundle/accordion.umd.js"></script>
+    dataTable.ctx.setHeaders([
+      {
+        text: "Header 1",
+        value: "header1",
+      },
+      {
+        text: "Header 2",
+        value: "header2",
+      },
+      {
+        text: "Header 3",
+        value: "header3",
+      },
+      {
+        text: "Input",
+        component: () => ({ _type: 'text', label: "Test Label" }),
+      },
+      {
+        text: "Component",
+        component: x => ({ _type: "chip", text: x.header1 }),
+      },
+    ]);
 
-    <script src="umd/bundle/button.umd.js"></script>
-    <script src="umd/bundle/modal.umd.js"></script>
-    <script src="umd/bundle/alert.umd.js"></script>
+    dataTable.ctx.setItems([
+      {
+        header1: "Value 1",
+        header2: "Value 2",
+        header3: "Value 3",
+      },
+      {
+        header1: "Value 1",
+        header2: "Value 2",
+        header3: "Value 3",
+      },
+    ]);
+  </script>
 
-    <script src="umd/bundle/chip.umd.js"></script>
+  <script>
+    const formBuilder = document.getElementById("form-builder");
+    const formBuilderModel = document.getElementById("form-builder-modal");
 
-    <script src="umd/bundle/er-diagram.umd.js"></script>
-    <script src="umd/bundle/image.umd.js"></script>
+    const types = ["Char", "Varchar", "int"];
 
-    <script src="umd/bundle/menu.umd.js"></script>
-    <script src="umd/bundle/notification.umd.js"></script>
+    const columnHeaders = [
+      {
+        text: "Name",
+        value: "name",
+        component: x => ({ _type: 'text' }),
+      },
+      {
+        text: "Type",
+        value: 'type',
+        component: x => ({ _type: 'select', items: types  })
+      },
+      {
+        text: "Size",
+        value: 'size',
+        component: x => ({ _type: 'number' }),
+      },
+      {
+        text: "Default",
+        value: 'default',
+        component: x => ({ _type: 'text' }),
+      },
+      {
+        text: "PK",
+        value: 'primaryKey',
+        component: x => ({ _type: 'switch' }),
+      },
+      {
+        text: "Nulls",
+        value: 'allowNulls',
+        component: x => ({ _type: 'switch' }),
+      },
+      {
+        text: "Unique",
+        value: 'unique',
+        component: x => ({ _type: 'switch' }),
+      },
+      {
+        text: "Identity",
+        value: 'identity',
+        component: x => ({ _type: 'switch' }),
+      },
+      {
+        text: "FK",
+        value: 'foreignKey',
+        component: x => ({ _type: 'switch' }),
+      },
+      { text: "Reference Table", value: "name" },
+      { text: "Reference Field", value: "name" },
+      { text: "Relationship Type", value: "name" },
+    ];
 
-    <script src="umd/bundle/progress-bar.umd.js"></script>
-    <script src="umd/bundle/tabs.umd.js"></script>
+    const items = [
+      {
+        name: "test",
+        type: 'Varchar',
+        size: 1,
+        default: 1,
+      },
+      {
+        name: "test",
+        type: 'Varchar',
+        size: 1,
+        default: 1,
+      },
+    ]
 
-    <script src="umd/bundle/text-field.umd.js"></script>
-    <script src="umd/bundle/number-field.umd.js"></script>
-    <script src="umd/bundle/currency-field.umd.js"></script>
-    <script src="umd/bundle/date-picker.umd.js"></script>
-    <script src="umd/bundle/select.umd.js"></script>
-    <script src="umd/bundle/autocomplete.umd.js"></script>
-    <script src="umd/bundle/file-upload.umd.js"></script>
-    <script src="umd/bundle/checkbox.umd.js"></script>
-    <script src="umd/bundle/radio-button.umd.js"></script>
-    <script src="umd/bundle/switch.umd.js"></script>
-
-    <script src="umd/bundle/pagination.umd.js"></script>
-    <script src="umd/bundle/table.umd.js"></script>
-    <script src="umd/bundle/data-table.umd.js"></script>
-
-    <script src="umd/bundle/input.umd.js"></script>
-    <script src="umd/bundle/component.umd.js"></script>
-    <script src="umd/bundle/form-builder.umd.js"></script>
-
-    <script>
-      function showAlert() {
-        console.log("show Alert");
-
-        WebComponents.useDeleteAlert(() => {
-          console.log("cc");
-        });
-      }
-
-      function showToast() {
-        WebComponents.useToast("Hello");
-      }
-
-      function showLoading() {
-        const loadingEl = document.getElementById("loading");
-        loadingEl.loading = true;
-
-        setTimeout(() => {
-          loadingEl.loading = false;
-        }, 1500);
-      }
-
-      function onClicked(e) {
-        setTimeout(() => {
-          e.stopLoading();
-        }, 1500);
-      }
-    </script>
-
-    <script>
-      const { useInputView, useComponentView } = WebComponents;
-
-      const dataTable = document.getElementById("data-table");
-      dataTable.ctx.setHeaders([
-        {
-          text: "Header 1",
-          value: "header1",
-        },
-        {
-          text: "Header 2",
-          value: "header2",
-        },
-        {
-          text: "Header 3",
-          value: "header3",
-        },
-        {
-          text: "Input",
-          component: () => useInputView("text", { label: "Test Label" }),
-        },
-        {
-          text: "Component",
-          component: () => useComponentView("chip", { text: "Chip" }),
-        },
-      ]);
-
-      dataTable.ctx.setItems([
-        {
-          header1: "Value 1",
-          header2: "Value 2",
-          header3: "Value 3",
-        },
-        {
-          header1: "Value 1",
-          header2: "Value 2",
-          header3: "Value 3",
-        },
-      ]);
-    </script>
-
-    <script>
-      const formBuilder = document.getElementById("form-builder");
-      const formBuilderModel = document.getElementById("form-builder-modal");
-
-      const types = ["Char", "Varchar", "int"];
-
-      const columnHeaders = [
-        {
-          text: "Name",
-          component: (x) =>
-            useInputView("text", {
-              modelValue: x.name,
-              "onUpdate:modelValue": (v) => (x.name = v),
-            }),
-        },
-        {
-          text: "Type",
-          component: (x) =>
-            useInputView("select", { modelValue: x.type, items: types }),
-        },
-        {
-          text: "Size",
-          component: (x) => useInputView("text", { modelValue: x.size }),
-        },
-        {
-          text: "Default",
-          component: (x) => useInputView("text", { modelValue: x.default }),
-        },
-        {
-          text: "PK",
-          component: (x) =>
-            useInputView("switch", { modelValue: x.primaryKey }),
-        },
-        {
-          text: "Nulls",
-          component: (x) =>
-            useInputView("switch", { modelValue: x.allowNulls }),
-        },
-        {
-          text: "Unique",
-          component: (x) => useInputView("switch", { modelValue: x.unique }),
-        },
-        {
-          text: "Identity",
-          component: (x) => useInputView("switch", { modelValue: x.identity }),
-        },
-        {
-          text: "FK",
-          component: (x) =>
-            useInputView("switch", { modelValue: x.foreignKey }),
-        },
-        { text: "Reference Table", value: "name" },
-        { text: "Reference Field", value: "name" },
-        { text: "Relationship Type", value: "name" },
-      ];
-
-      class TestForm extends WebComponents.FormBuilderBase {
-        getAttributes() {
-          return [
-            {
-              _type: "input",
-              name: "name",
-              value: "Name",
-              type: "text",
-              props: { label: "Name" },
+    class TestForm extends WebComponents.FormBuilderBase {
+      getAttributes() {
+        return [
+          {
+            _type: "input",
+            name: "name",
+            value: "Name",
+            type: "text",
+            props: { label: "Name" },
+            attrs: { size: 6 }
+          },
+          {
+            _type: "input",
+            name: "age",
+            value: 123,
+            type: "number",
+            props: { label: "Age" },
+            attrs: { size: 6 }
+          },
+          {
+            _type: "component",
+            name: "fields",
+            type: "table",
+            props: {
+              headers: columnHeaders,
+              items: items,
+              mobileView: 1125
             },
-            {
-              _type: "input",
-              name: "age",
-              value: 123,
-              type: "number",
-              props: { label: "Age" },
-            },
-            {
-              _type: "component",
-              name: "fields",
-              type: "table",
-              props: {
-                headers: columnHeaders,
-                items: [
-                  {
-                    name: "test",
-                  },
-                ],
-                mobileView: 1200,
-              },
-            },
-          ];
-        }
+            events: ['onUpdate:items'],
+            attrs: { size: 6 }
+          },
+        ];
       }
 
-      formBuilder.modelValue = new TestForm();
-
-      formBuilderModel.label = "Test Form";
-      formBuilderModel.ctx.create(TestForm);
-
-      function showForm() {
-        formBuilderModel.ctx.open();
+      onValueChanged(k, v) {
+        console.log(k, v);
       }
-    </script>
-  </body>
+    }
+
+    formBuilder.modelValue = new TestForm();
+
+    formBuilderModel.ctx.create(TestForm);
+
+    function showForm() {
+      formBuilderModel.ctx.open();
+    }
+  </script>
+</body>
+
 </html>

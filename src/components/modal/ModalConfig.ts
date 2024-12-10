@@ -4,6 +4,6 @@ export interface ModalProps {
   width?: number
 }
 
-export type ModalEmits = {
+export interface ModalEmits {
   'update:modelValue': [value: boolean]
 }

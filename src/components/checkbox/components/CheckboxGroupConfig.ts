@@ -1,6 +1,6 @@
+import type { ValidationProps } from '@/functions/validation/ValidationConfig'
 import type { Ref } from 'vue'
 import type { CheckboxProps } from '../CheckboxConfig'
-import type { ValidationProps } from '@/functions/validation/ValidationConfig'
 
 export type CheckboxGroupProps<V> = ValidationProps<V[]> & {
   modelValue?: V[]
@@ -11,7 +11,7 @@ export type CheckboxGroupProps<V> = ValidationProps<V[]> & {
   items?: CheckboxProps<V>[]
 }
 
-export type CheckboxGroupEmits<V> = {
+export interface CheckboxGroupEmits<V> {
   'update:modelValue': [values: V[]]
 }
 

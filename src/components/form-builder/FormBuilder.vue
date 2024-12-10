@@ -1,44 +1,23 @@
-<template>
-  <div :class="styles.formBuilder">
-    <div v-if="label" :class="styles.label">
-      {{ label }}
-    </div>
-    <div :class="styles.container">
-      <template v-for="element in elements">
-        <div v-if="canShow(element)" :key="element.name" :class="getFieldClasses(element.attrs)">
-          <FormBuilder v-if="element._type === 'group'" v-model="element.value" :label="element.label"
-            :group="getFieldNamePath(element.name)" />
-
-          <Input v-else-if="element._type === 'input'" :type="element.type"
-            :props="{ modelValue: element.value, ...element.props }"
-            @update:model-value="(val: any) => ctx.onValueUpdate(getFieldNamePath(element.name), val)" />
-
-          <Component v-else-if="element._type === 'component'" :type="element.type"
-            :props="{ ...element.props, ...getComponentEvents(element) }" />
-        </div>
-      </template>
-    </div>
-  </div>
-</template>
-
 <script setup lang="ts" generic="T extends FormBuilderBase">
-import { computed, inject, provide } from 'vue'
-import { vModel } from '@teranes/vue-composables'
-import { setValueByObjectPath, objectAssign, cloneDeep } from '@teranes/utils'
-import { Input } from '@/components/input'
-import { Component } from '@/components/component'
-import { useFormValidation } from '@/functions/validation/Validation'
 import type { FormBuilderBase, FormBuilderMapper } from './FormBuilderBase'
-import { type FormBuilderProps, type FormBuilderEmits, type FormBuilderContext, FormBuilderContextKey, getFieldClasses, getPropsToWatch } from './FormBuilderConfig'
+import { Element } from '@/components/element'
+import { Input } from '@/components/input'
+import { useFormValidation } from '@/functions/validation/Validation'
+import { cloneDeep, objectAssign, setValueByObjectPath } from '@teranes/utils'
+import { vModel } from '@teranes/vue-composables'
+import { computed, inject, provide } from 'vue'
 import styles from './FormBuilder.module.css'
-
-const emit = defineEmits<FormBuilderEmits<T>>()
+import { type FormBuilderContext, FormBuilderContextKey, type FormBuilderEmits, type FormBuilderProps, getFieldClasses, getPropsToWatch } from './FormBuilderConfig'
 
 const props = withDefaults(defineProps<FormBuilderProps<T>>(), {
 
 })
 
-const canShow = (item: any): boolean => {
+const emit = defineEmits<FormBuilderEmits<T>>()
+
+const editedItem = vModel(props, 'modelValue', emit)
+
+function canShow(item: any): boolean {
   return item?.showIf ? item.showIf(editedItem.value._item) : true
 }
 
@@ -80,7 +59,6 @@ function watchValues(prop: string) {
 
 provide(FormBuilderContextKey, ctx)
 
-const editedItem = vModel(props, 'modelValue', emit)
 const defaultValue: any = editedItem.value?.getValue()
 
 const elements = computed(() => editedItem.value?.getAttributes ? editedItem.value.getAttributes() : [])
@@ -98,7 +76,7 @@ const fields = computed(() => elements.value?.filter(x => x._type === 'input') |
 ctx.setPropsToWatch(getPropsToWatch(fields.value, props.group))
 
 function getFieldNamePath(name: string) {
-  return props.group ? props.group + '.' + name : name
+  return props.group ? `${props.group}.${name}` : name
 }
 
 function reset() {
@@ -143,3 +121,32 @@ function getComponentEvents(el: any) {
 
 defineExpose({ reset, assign, validate: validationForm?.validate })
 </script>
+
+<template>
+  <div :class="styles.formBuilder">
+    <div v-if="label" :class="styles.label">
+      {{ label }}
+    </div>
+    <div :class="styles.container">
+      <template v-for="element in elements">
+        <div v-if="canShow(element)" :key="element.name" :class="getFieldClasses(element.attrs)">
+          <FormBuilder
+            v-if="element._type === 'group'" v-model="element.value" :label="element.label"
+            :group="getFieldNamePath(element.name)"
+          />
+
+          <Input
+            v-else-if="element._type === 'input'" :type="element.type"
+            :props="{ modelValue: element.value, ...element.props }"
+            @update:model-value="(val: any) => ctx.onValueUpdate(getFieldNamePath(element.name), val)"
+          />
+
+          <Element
+            v-else-if="element._type === 'component'" :type="element.type"
+            :props="{ ...element.props, ...getComponentEvents(element) }"
+          />
+        </div>
+      </template>
+    </div>
+  </div>
+</template>

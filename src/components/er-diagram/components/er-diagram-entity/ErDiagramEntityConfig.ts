@@ -1,6 +1,6 @@
-import { ErDiagramColumnProps } from "../er-diagram-column/ErDiagramColumnConfig";
+import type { ErDiagramColumnProps } from '../er-diagram-column/ErDiagramColumnConfig'
 
-export type ErDiagramEntityProps = {
-    name: string;
-    columns?: ErDiagramColumnProps[];
+export interface ErDiagramEntityProps {
+  name: string
+  columns?: ErDiagramColumnProps[]
 }

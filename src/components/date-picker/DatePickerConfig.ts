@@ -19,6 +19,6 @@ export interface DatePickerProps {
   displayFormat?: string
 }
 
-export type DatePickerEmits = {
+export interface DatePickerEmits {
   'update:modelValue': [value: string]
 }

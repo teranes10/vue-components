@@ -1,6 +1,6 @@
+import type { ValidationProps } from '@/functions/validation/ValidationConfig'
 import type { Ref } from 'vue'
 import type { RadioButtonProps } from '../RadioButtonConfig'
-import type { ValidationProps } from '@/functions/validation/ValidationConfig'
 
 export type RadioGroupProps<V> = ValidationProps<V> & {
   modelValue?: V
@@ -11,7 +11,7 @@ export type RadioGroupProps<V> = ValidationProps<V> & {
   items?: RadioButtonProps<V>[]
 }
 
-export type RadioGroupEmits<V> = {
+export interface RadioGroupEmits<V> {
   'update:modelValue': [value: V | undefined]
 }
 

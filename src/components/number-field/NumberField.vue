@@ -1,26 +1,11 @@
-<template>
-  <TextField ref="textFieldComponent" v-bind="$attrs" :model-value="value" :class="styles.numberField">
-    <template #post>
-      <div :class="styles.numberFieldBtnGroup">
-        <a :class="styles.numberBtn" @click="decrease">
-          <Icon :icon="Minus" :class="styles.numberBtnIcon" />
-        </a>
-        <a :class="styles.numberBtn" @click="increase">
-          <Icon :icon="Plus" :class="styles.numberBtnIcon" />
-        </a>
-      </div>
-    </template>
-  </TextField>
-</template>
-
 <script setup lang="ts">
-import { Icon } from '@/shared/components/icon'
-import { Plus, Minus } from 'lucide'
-import { computed, onMounted, onUnmounted, ref } from 'vue'
-import { type ComponentType, vModel } from '@teranes/vue-composables'
-import { toNumber } from '@teranes/utils'
+import type { NumberFieldEmits, NumberFieldProps } from './NumberFieldConfig'
 import { TextField } from '@/components/text-field'
-import type { NumberFieldProps, NumberFieldEmits } from './NumberFieldConfig'
+import { Icon } from '@/shared/components/icon'
+import { toNumber } from '@teranes/utils'
+import { type ComponentType, vModel } from '@teranes/vue-composables'
+import { Minus, Plus } from 'lucide'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import styles from './NumberField.module.css'
 
 defineOptions({
@@ -83,3 +68,18 @@ function setValue(value: number) {
   modalValue.value = value
 }
 </script>
+
+<template>
+  <TextField ref="textFieldComponent" v-bind="$attrs" :model-value="value" :class="styles.numberField">
+    <template #post>
+      <div :class="styles.numberFieldBtnGroup">
+        <a :class="styles.numberBtn" @click="decrease">
+          <Icon :icon="Minus" :class="styles.numberBtnIcon" />
+        </a>
+        <a :class="styles.numberBtn" @click="increase">
+          <Icon :icon="Plus" :class="styles.numberBtnIcon" />
+        </a>
+      </div>
+    </template>
+  </TextField>
+</template>

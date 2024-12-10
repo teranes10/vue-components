@@ -1,5 +1,5 @@
+import { type ComponentColor, componentColors } from '@/shared/values/colors'
 import { toCamelCase } from '@teranes/utils'
-import { componentColors, type ComponentColor } from '@/shared/values/colors'
 import styles from './Switch.module.css'
 
 export interface SwitchProps {
@@ -9,7 +9,7 @@ export interface SwitchProps {
   color?: ComponentColor
 }
 
-export type SwitchEmits = {
+export interface SwitchEmits {
   'update:modelValue': [value: boolean]
   'changed': [value: boolean]
 }
@@ -18,7 +18,7 @@ export const switchColorStyles: Partial<Record<ComponentColor, string>> = {}
 
 for (const color of Object.keys(componentColors)) {
   Object.defineProperty(switchColorStyles, color, {
-    get: function () {
+    get() {
       const key = toCamelCase(`switch ${color}`) as keyof typeof styles
       return styles[key] as string
     },

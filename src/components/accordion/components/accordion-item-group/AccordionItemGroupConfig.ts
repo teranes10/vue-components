@@ -1,5 +1,5 @@
+import type { IconValue } from '@/shared/components/icon'
 import type { AccordionItemProps } from '../accordion-item/AccordionItemConfig'
-import { IconValue } from '@/shared/components/icon'
 
 export interface AccordionItemGroupProps {
   icon?: IconValue

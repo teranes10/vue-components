@@ -1,6 +1,6 @@
 import type { TextFieldColor } from '@/components/text-field'
 import type { ValidationProps } from '@/functions/validation/ValidationConfig'
-import { IconProps } from '@/shared/components/icon'
+import type { IconProps } from '@/shared/components/icon'
 
 export type FileUploadProps<T = File | File[]> = ValidationProps<T> & {
   modelValue?: T
@@ -18,7 +18,7 @@ export type FileUploadProps<T = File | File[]> = ValidationProps<T> & {
   required?: boolean
 }
 
-export type FileUploadEmits<T = File | File[]> = {
+export interface FileUploadEmits<T = File | File[]> {
   'update:modelValue': [value: T]
 }
 
@@ -40,7 +40,7 @@ export const fileTypes: Record<FileType, string[]> = {
   doc: ['doc', 'docx'],
   excel: ['xlsx'],
   text: ['txt'],
-  unknown: []
+  unknown: [],
 }
 
 export const fileTypeIconInfo: Record<FileType, FileIconInfo> = {

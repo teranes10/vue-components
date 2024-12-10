@@ -1,5 +1,5 @@
-@import url("https://fonts.googleapis.com/css2?family=Lexend:wght@300..600&display=swap");
-@import "tailwindcss/base";
+@import url('https://fonts.googleapis.com/css2?family=Lexend:wght@300..600&display=swap');
+@import 'tailwindcss/base';
 
 * {
   padding: 0;
@@ -8,7 +8,7 @@
 }
 
 html {
-  font-family: "Lexend", sans-serif;
+  font-family: 'Lexend', sans-serif;
   font-style: normal;
   line-height: normal;
   letter-spacing: 0.25px;

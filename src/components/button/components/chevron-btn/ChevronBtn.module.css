@@ -3,5 +3,5 @@
   height: 1rem;
   color: var(--color-gray-500);
 
-  @include click()
+  @include click();
 }

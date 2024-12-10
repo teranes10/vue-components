@@ -1,4 +1,4 @@
-import { IconValue } from '@/shared/components/icon'
+import type { IconValue } from '@/shared/components/icon'
 import styles from './Button.module.css'
 
 export type ButtonSize = 'xs' | 'sm' | 'lg'
@@ -24,7 +24,7 @@ export interface ButtonProps {
   tooltip?: string
 }
 
-export type ButtonEmits = {
+export interface ButtonEmits {
   'update:loading': [value: boolean]
   'clicked': [options: ButtonClickOptions]
 }

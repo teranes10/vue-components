@@ -1,10 +1,10 @@
 export interface ProgressBarProps {
-    percentage: number,
-    label?: string
-    height?: number,
-    color?: string
+  percentage: number
+  label?: string
+  height?: number
+  color?: string
 }
 
-export type ProgressBarEmits = {
+export interface ProgressBarEmits {
 
 }

@@ -1,6 +1,6 @@
-import type { PaginationLoadOptions } from '@teranes/vue-composables'
-import type { ItemIndex } from '@/functions/item/ItemIndex'
 import type { TableHeader } from '@/components/table'
+import type { ItemIndex } from '@/functions/item/ItemIndex'
+import type { PaginationLoadOptions } from '@teranes/vue-composables'
 
 export interface DataTableProps<T, K> {
   headers: TableHeader<T, K>[]
@@ -15,7 +15,7 @@ export interface DataTableProps<T, K> {
   loading?: boolean
 }
 
-export type DataTableEmits<T, K> = {
+export interface DataTableEmits<T, K> {
   'update:headers': [headers: TableHeader<T, K>[]]
   'update:items': [items: T[]]
   'update:itemsPerPage': [value: number]
@@ -24,7 +24,7 @@ export type DataTableEmits<T, K> = {
   'update:loading': [value: boolean]
 }
 
-export type DataTableContext<T, K> = {
+export interface DataTableContext<T, K> {
   isServerSideRendering: () => boolean
   setHeaders: (headers: TableHeader<T, K>[]) => void
   setOnLoadListener: (cb: DataTableOnLoadListener<T>) => void
@@ -41,7 +41,7 @@ export type DataTableOnLoadListener<T> = (options: DataTableLoadOptions<T>) => v
 
 export type DataTableLoadOptions<T> = PaginationLoadOptions<T>
 
-export type DataTableContextGetter<T, K> = { ctx: () => DataTableContext<T, K> | undefined }
+export interface DataTableContextGetter<T, K> { ctx: () => DataTableContext<T, K> | undefined }
 
 export function DataTableInitializer<T, K>(
   cb?: (ctx: DataTableContext<T, K>) => void,

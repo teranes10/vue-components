@@ -1,34 +1,17 @@
-<template>
-  <span :class="styles.checkboxContainer">
-    <label :class="[styles.checkbox, {
-      [styles.minusIcon]: icon === 'minus',
-      [styles.squareIcon]: icon === 'square',
-    }]">
-      <input ref="inputElement" :class="[styles.checkboxInput, { [styles.error]: validationCtx?.isError.value }]"
-        type="checkbox" :value="value" :disabled="props.disabled" :checked="checked" @change="onCheckChanged">
-      <span :class="styles.checkboxLabel">
-        <span v-if="label" v-text="label" />
-      </span>
-
-    </label>
-    <ul ref="errorsListElement" :class="styles.checkboxErrorsContainer" />
-  </span>
-</template>
-
 <script setup lang="ts" generic="V">
-import { computed, shallowRef, onMounted, ref, inject } from 'vue'
-import { vModel } from '@teranes/vue-composables'
-import { throttle } from '@teranes/utils'
 import type { ValidationFieldContext } from '@/functions/validation/ValidationConfig'
-import { useFieldValidation } from '@/functions/validation/Validation'
-import type { CheckboxProps, CheckboxEmits } from './CheckboxConfig'
+import type { CheckboxEmits, CheckboxProps } from './CheckboxConfig'
 import type { CheckBoxGroupContext } from './components/CheckboxGroupConfig'
-import { CheckboxGroupContextKey } from './components/CheckboxGroupConfig'
+import { useFieldValidation } from '@/functions/validation/Validation'
+import { throttle } from '@teranes/utils'
+import { vModel } from '@teranes/vue-composables'
+import { computed, inject, onMounted, ref, shallowRef } from 'vue'
 import styles from './Checkbox.module.css'
-
-const emit = defineEmits<CheckboxEmits>()
+import { CheckboxGroupContextKey } from './components/CheckboxGroupConfig'
 
 const props = withDefaults(defineProps<CheckboxProps<V>>(), {})
+
+const emit = defineEmits<CheckboxEmits>()
 
 const value = computed(() => props.value === undefined ? props.label : props.value)
 
@@ -58,3 +41,24 @@ const onCheckChanged = throttle(() => {
   emit('checked', checked.value)
 })
 </script>
+
+<template>
+  <span :class="styles.checkboxContainer">
+    <label
+      :class="[styles.checkbox, {
+        [styles.minusIcon]: icon === 'minus',
+        [styles.squareIcon]: icon === 'square',
+      }]"
+    >
+      <input
+        ref="inputElement" :class="[styles.checkboxInput, { [styles.error]: validationCtx?.isError.value }]"
+        type="checkbox" :value="value" :disabled="props.disabled" :checked="checked" @change="onCheckChanged"
+      >
+      <span :class="styles.checkboxLabel">
+        <span v-if="label" v-text="label" />
+      </span>
+
+    </label>
+    <ul ref="errorsListElement" :class="styles.checkboxErrorsContainer" />
+  </span>
+</template>

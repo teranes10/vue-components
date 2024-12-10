@@ -1,50 +1,47 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
-    "paths": {
-      "@/*": [
-        "src/*"
-      ],
-    },
-    "outDir": "dist",
+    "composite": true,
     "target": "es2022",
-    "useDefineForClassFields": true,
-    "module": "ESNext",
+    "jsx": "preserve",
+    "jsxImportSource": "vue",
     "lib": [
       "ES2023",
       "DOM",
       "DOM.Iterable"
     ],
-    "skipLibCheck": true,
+    "moduleDetection": "force",
+    "useDefineForClassFields": true,
     "experimentalDecorators": true,
-    "allowJs": true,
-    /* JSON */
-    "resolveJsonModule": true,
-    "esModuleInterop": true,
+    "baseUrl": ".",
+    "module": "ESNext",
     /* Bundler mode */
     "moduleResolution": "bundler",
-    "isolatedModules": true,
-    "moduleDetection": "force",
-    "noEmit": false,
-    "composite": true,
-    "jsx": "preserve",
-    "jsxImportSource": "vue",
+    "paths": {
+      "@/*": [
+        "src/*"
+      ]
+    },
+    /* JSON */
+    "resolveJsonModule": true,
+    "allowJs": true,
     /* Linting */
     "strict": true,
+    "noFallthroughCasesInSwitch": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
-    "noFallthroughCasesInSwitch": true,
-    "declaration": true,
-    "emitDeclarationOnly": true,
-    "declarationDir": "dist/types",
+    "noEmit": false,
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "isolatedModules": true,
+    "skipLibCheck": true
   },
   "include": [
     "src/**/*",
     "src/exports.json",
-    "types",
+    "types"
   ],
   "exclude": [
     "node_modules",
     "dist"
-  ],
+  ]
 }

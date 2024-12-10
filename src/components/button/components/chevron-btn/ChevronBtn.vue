@@ -1,12 +1,7 @@
-<template>
-  <Icon :icon="ChevronUp" v-if="active" :class="styles.chevronBtn" @click="onClick(false)" />
-  <Icon :icon="ChevronDown" v-else :class="styles.chevronBtn" @click="onClick(true)" />
-</template>
-
 <script setup lang="ts">
 import { Icon } from '@/shared/components/icon'
-import { ChevronUp, ChevronDown } from 'lucide'
 import { vModel } from '@teranes/vue-composables'
+import { ChevronDown, ChevronUp } from 'lucide'
 import styles from './ChevronBtn.module.css'
 
 const props = defineProps<{
@@ -25,3 +20,8 @@ function onClick(value: boolean) {
   emit('changed', value)
 }
 </script>
+
+<template>
+  <Icon v-if="active" :icon="ChevronUp" :class="styles.chevronBtn" @click="onClick(false)" />
+  <Icon v-else :icon="ChevronDown" :class="styles.chevronBtn" @click="onClick(true)" />
+</template>

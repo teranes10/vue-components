@@ -1,4 +1,4 @@
-import { type FunctionalComponent } from 'vue'
+import type { FunctionalComponent } from 'vue'
 import styles from './Chip.module.css'
 
 export interface ChipProps {
@@ -7,7 +7,7 @@ export interface ChipProps {
   color?: ChipColor
 }
 
-export type ChipEmits = {
+export interface ChipEmits {
 
 }
 

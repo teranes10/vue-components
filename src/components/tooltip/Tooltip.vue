@@ -1,9 +1,3 @@
-<template>
-  <a v-tooltip="props" @click="onClick">
-    <slot />
-  </a>
-</template>
-
 <script setup lang="ts">
 import { type TooltipEmits, type TooltipProps, vTooltip } from './TooltipConfig'
 import './TooltipStyle.css'
@@ -15,3 +9,9 @@ const props = withDefaults(defineProps<TooltipProps>(), {
 
 defineEmits<TooltipEmits>()
 </script>
+
+<template>
+  <a v-tooltip="props" @click="onClick">
+    <slot />
+  </a>
+</template>

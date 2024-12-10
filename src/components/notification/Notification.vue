@@ -1,15 +1,9 @@
-<template>
-  <div ref="notificationElement">
-    <slot :hide="hide" />
-  </div>
-</template>
-
 <script setup lang="ts">
+import type { NotificationProps } from './NotificationConfig'
 import Toastify from 'toastify-js'
-import 'toastify-js/src/toastify.css'
-import { ref, onMounted } from 'vue'
-import { type NotificationProps } from './NotificationConfig'
+import { onMounted, ref } from 'vue'
 import styles from './Notification.module.css'
+import 'toastify-js/src/toastify.css'
 
 const props = withDefaults(defineProps<NotificationProps>(), {
   duration: 3000,
@@ -54,3 +48,9 @@ function hide() {
 
 defineExpose({ show, hide })
 </script>
+
+<template>
+  <div ref="notificationElement">
+    <slot :hide="hide" />
+  </div>
+</template>

@@ -1,15 +1,15 @@
-import Image from "./Image.vue";
+import Image from './Image.vue'
 
 export interface ImageViewOptions {
-  width?: number;
-  height?: number;
-  alt?: string;
-  defaultSrc?: string;
-  title?: string;
-  subTitle?: string;
-  preview?: boolean;
-  hoverWindow?: boolean;
-  onClick?: () => void;
+  width?: number
+  height?: number
+  alt?: string
+  defaultSrc?: string
+  title?: string
+  subTitle?: string
+  preview?: boolean
+  hoverWindow?: boolean
+  onClick?: () => void
 }
 
 export function useImageView(
@@ -23,7 +23,7 @@ export function useImageView(
     alt,
     preview,
     onClick,
-  }: ImageViewOptions = {}
+  }: ImageViewOptions = {},
 ) {
   return (
     <Image
@@ -37,5 +37,5 @@ export function useImageView(
       preview={preview}
       onClick={onClick}
     />
-  );
+  )
 }

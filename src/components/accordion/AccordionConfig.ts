@@ -2,6 +2,6 @@ import type { AccordionItemGroupProps } from './components/accordion-item-group/
 
 export interface AccordionProps { items?: AccordionItemGroupProps[] }
 
-export type AccordionEmits = {
+export interface AccordionEmits {
 
 }

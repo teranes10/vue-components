@@ -1,33 +1,16 @@
-<template>
-  <div :class="styles.radioGroup">
-    <div v-if="label || tag" :class="styles.radioGroupLabelContainer">
-      <span v-if="label" :class="[styles.radioGroupLabel, { [styles.required]: !!required }]" v-text="label" />
-      <span v-if="tag" :class="styles.radioGroupTag" v-text="tag" />
-    </div>
-
-    <div ref="radioButtonContainerElement"
-      :class="[styles.radioGroupContainer, { [styles.inline]: props.inline, [styles.error]: validationCtx?.isError.value }]">
-      <RadioButton v-for="item in items" v-bind="item" :key="item.label" />
-      <slot />
-    </div>
-
-    <ul ref="errorsListElement" :class="styles.radioGroupErrorsContainer" />
-  </div>
-</template>
-
 <script setup lang="ts" generic="V">
-import { onMounted, provide, reactive, ref, shallowRef, watch, type Ref } from 'vue'
-import { vModel } from '@teranes/vue-composables'
 import type { ValidationFieldContext } from '@/functions/validation/ValidationConfig'
 import { useFieldValidation } from '@/functions/validation/Validation'
-import { type RadioGroupProps, type RadioGroupEmits, type RadioGroupContext, RadioGroupContextKey } from './RadioGroupConfig'
+import { vModel } from '@teranes/vue-composables'
+import { onMounted, provide, reactive, ref, type Ref, shallowRef, watch } from 'vue'
 import styles from './RadioGroup.module.css'
-
-const emit = defineEmits<RadioGroupEmits<V>>()
+import { type RadioGroupContext, RadioGroupContextKey, type RadioGroupEmits, type RadioGroupProps } from './RadioGroupConfig'
 
 const props = withDefaults(defineProps<RadioGroupProps<V>>(), {
   inline: true,
 })
+
+const emit = defineEmits<RadioGroupEmits<V>>()
 
 const radioButtons = reactive(new Map<V, Ref<boolean>>())
 
@@ -66,3 +49,22 @@ onMounted(() => {
 
 provide(RadioGroupContextKey, ctx)
 </script>
+
+<template>
+  <div :class="styles.radioGroup">
+    <div v-if="label || tag" :class="styles.radioGroupLabelContainer">
+      <span v-if="label" :class="[styles.radioGroupLabel, { [styles.required]: !!required }]" v-text="label" />
+      <span v-if="tag" :class="styles.radioGroupTag" v-text="tag" />
+    </div>
+
+    <div
+      ref="radioButtonContainerElement"
+      :class="[styles.radioGroupContainer, { [styles.inline]: props.inline, [styles.error]: validationCtx?.isError.value }]"
+    >
+      <RadioButton v-for="item in items" v-bind="item" :key="item.label" />
+      <slot />
+    </div>
+
+    <ul ref="errorsListElement" :class="styles.radioGroupErrorsContainer" />
+  </div>
+</template>

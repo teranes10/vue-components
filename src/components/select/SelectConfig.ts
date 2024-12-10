@@ -1,5 +1,5 @@
-import { isString, getValueByObjectPath, isFunction } from '@teranes/utils'
 import type { ValidationProps } from '@/functions/validation/ValidationConfig'
+import { getValueByObjectPath, isFunction, isObject } from '@teranes/utils'
 
 export type SelectProps<T, V> = ValidationProps<V> & {
   modelValue?: V
@@ -10,7 +10,7 @@ export type SelectProps<T, V> = ValidationProps<V> & {
   message?: string
 }
 
-export type SelectEmits<V> = {
+export interface SelectEmits<V> {
   'update:modelValue': [value: V | undefined]
   'show': []
   'hide': []
@@ -22,23 +22,21 @@ export type SelectItemValue<T, V> = string | ((item: T) => V)
 export interface SelectInternalItem<V> { text: string, value: V }
 
 export function getText<T>(item: T, itemText?: SelectItemText<T>) {
-  if (isString(itemText)) {
-    return getValueByObjectPath(item, itemText)
-  }
-  else if (isFunction(itemText)) {
+  if (isFunction(itemText)) {
     return itemText(item)
   }
-
+  if (isObject(item)) {
+    return getValueByObjectPath(item, itemText || 'text')
+  }
   return item
 }
 
 export function getValue<T, V>(item: T, itemValue?: SelectItemValue<T, V>) {
-  if (isString(itemValue)) {
-    return getValueByObjectPath(item, itemValue)
-  }
-  else if (isFunction(itemValue)) {
+  if (isFunction(itemValue)) {
     return itemValue(item)
   }
-
+  if (isObject(itemValue)) {
+    return getValueByObjectPath(item, itemValue || 'value')
+  }
   return item
 }

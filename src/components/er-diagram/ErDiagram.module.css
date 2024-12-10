@@ -18,34 +18,34 @@
     }
 
     &.bbr {
-      border-bottom: var(--entity-relation-border-width)
-        var(--entity-relation-border-style) var(--entity-relation-border-color);
-      border-right: var(--entity-relation-border-width)
-        var(--entity-relation-border-style) var(--entity-relation-border-color);
+      border-bottom: var(--entity-relation-border-width) var(--entity-relation-border-style)
+        var(--entity-relation-border-color);
+      border-right: var(--entity-relation-border-width) var(--entity-relation-border-style)
+        var(--entity-relation-border-color);
       border-radius: 0 0 0.5rem 0;
     }
 
     &.bbl {
-      border-bottom: var(--entity-relation-border-width)
-        var(--entity-relation-border-style) var(--entity-relation-border-color);
-      border-left: var(--entity-relation-border-width)
-        var(--entity-relation-border-style) var(--entity-relation-border-color);
+      border-bottom: var(--entity-relation-border-width) var(--entity-relation-border-style)
+        var(--entity-relation-border-color);
+      border-left: var(--entity-relation-border-width) var(--entity-relation-border-style)
+        var(--entity-relation-border-color);
       border-radius: 0 0 0 0.5rem;
     }
 
     &.btl {
-      border-top: var(--entity-relation-border-width)
-        var(--entity-relation-border-style) var(--entity-relation-border-color);
-      border-left: var(--entity-relation-border-width)
-        var(--entity-relation-border-style) var(--entity-relation-border-color);
+      border-top: var(--entity-relation-border-width) var(--entity-relation-border-style)
+        var(--entity-relation-border-color);
+      border-left: var(--entity-relation-border-width) var(--entity-relation-border-style)
+        var(--entity-relation-border-color);
       border-radius: 0.5rem 0 0 0;
     }
 
     &.btr {
-      border-top: var(--entity-relation-border-width)
-        var(--entity-relation-border-style) var(--entity-relation-border-color);
-      border-right: var(--entity-relation-border-width)
-        var(--entity-relation-border-style) var(--entity-relation-border-color);
+      border-top: var(--entity-relation-border-width) var(--entity-relation-border-style)
+        var(--entity-relation-border-color);
+      border-right: var(--entity-relation-border-width) var(--entity-relation-border-style)
+        var(--entity-relation-border-color);
       border-radius: 0 0.5rem 0 0;
     }
   }

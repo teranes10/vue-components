@@ -1,17 +1,21 @@
 export async function getModule(moduleName: string, globalName?: string) {
-    let module
+  let module
 
-    try {
-        module = (await import(moduleName))
-    } catch (error) {
-        if (globalName) {
-            module = (window as any)[globalName];
-        }
+  try {
+    module = (await import(moduleName))
+  }
+  catch (e) {
+    if (globalName) {
+      module = (window as any)[globalName]
     }
-
-    if (!module) {
-        throw new Error(`${moduleName} module not found.`)
+    else {
+      console.error(e)
     }
+  }
 
-    return module;
+  if (!module) {
+    throw new Error(`${moduleName} module not found.`)
+  }
+
+  return module
 }

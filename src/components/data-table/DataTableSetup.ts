@@ -1,11 +1,11 @@
-import { computed, getCurrentInstance, nextTick, onMounted, ref, toRef } from 'vue'
-import { pagination, vModel } from '@teranes/vue-composables'
-import { call, objectAssign } from '@teranes/utils'
-import type { ItemIndex } from '@/functions/item/ItemIndex'
-import { getItemIndex } from '@/functions/item/ItemIndex'
-import type { ShortEmits } from '@teranes/vue-composables'
 import type { TableHeader } from '@/components/table'
+import type { ItemIndex } from '@/functions/item/ItemIndex'
+import type { ShortEmits } from '@teranes/vue-composables'
 import type { DataTableContext, DataTableEmits, DataTableLoadOptions, DataTableOnLoadListener, DataTableProps } from './DataTableConfig'
+import { getItemIndex } from '@/functions/item/ItemIndex'
+import { call, objectAssign } from '@teranes/utils'
+import { pagination, vModel } from '@teranes/vue-composables'
+import { computed, getCurrentInstance, nextTick, onMounted, ref, toRef } from 'vue'
 
 export function useDataTableSetup<T, K extends string | number>(props: DataTableProps<T, K>, emit: ShortEmits<DataTableEmits<T, K>>) {
   const search = toRef(props, 'search')

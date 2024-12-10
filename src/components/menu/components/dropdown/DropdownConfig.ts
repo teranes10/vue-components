@@ -14,7 +14,7 @@ export interface DropdownProps {
   sameWidth?: boolean
 }
 
-export type DropdownEmits = {
+export interface DropdownEmits {
   'update:modelValue': [value: boolean]
   'show': []
   'hide': []

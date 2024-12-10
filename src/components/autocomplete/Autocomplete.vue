@@ -1,34 +1,22 @@
-<template>
-  <Select ref="selectComponent" :items="pagination.items.value" v-bind="$attrs" :message="message">
-    <template v-if="pagination.isLoading.value || pagination.isWaiting.value" #footer>
-      <slot v-if="$slots.loading" name="loading" />
-      <div v-else :class="styles.autocompleteLoading">
-        <span>{{ pagination.isWaiting.value ? 'Waiting' : 'Fetching data' }} </span>
-        <LoadingIcon icon="dots" :class="styles.autocompleteLoadingIcon" />
-      </div>
-    </template>
-  </Select>
-</template>
-
 <script setup lang="ts" generic="T extends SelectItem">
-import { useAttrs, ref, computed, getCurrentInstance, onMounted, watch } from 'vue'
-import { debounce } from '@teranes/utils'
-import { type ComponentType, vModel, infiniteScroll, pagination as usePagination, eventListener } from '@teranes/vue-composables'
-import { LoadingIcon } from '@/components/loading'
-import type { AutocompleteEmits, AutocompleteProps, AutocompleteLoadOptions } from './AutocompleteConfig'
 import type { SelectItem } from '@/components/select'
+import type { AutocompleteEmits, AutocompleteLoadOptions, AutocompleteProps } from './AutocompleteConfig'
+import { LoadingIcon } from '@/components/loading'
 import Select from '@/components/select/Select.vue'
+import { debounce } from '@teranes/utils'
+import { type ComponentType, eventListener, infiniteScroll, pagination as usePagination, vModel } from '@teranes/vue-composables'
+import { computed, getCurrentInstance, onMounted, ref, useAttrs, watch } from 'vue'
 import styles from './Autocomplete.module.css'
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const emit = defineEmits<AutocompleteEmits<T>>()
-
 const props = withDefaults(defineProps<AutocompleteProps<T>>(), {
   visibleItems: 5,
 })
+
+const emit = defineEmits<AutocompleteEmits<T>>()
 
 const attrs = useAttrs()
 
@@ -46,18 +34,15 @@ if (getCurrentInstance()?.vnode.props?.onLoad) {
 const params = vModel(props, 'params')
 
 const errorMessage = ref('')
-const message = computed(() => !(pagination.isLoading.value || pagination.isWaiting.value) && !pagination.totalItems.value
-  ? errorMessage.value || 'No items found.'
-  : '')
 
 const pagination = usePagination(items, page, itemsPerPage, (options) => {
   const _options: AutocompleteLoadOptions<T> = {
     ...options,
-    callback: function (items: T[], totalItems: number): void {
+    callback(items: T[], totalItems: number): void {
       options.callback(items, totalItems)
       errorMessage.value = ''
     },
-    error: function (message: string): void {
+    error(message: string): void {
       options.callback([], 0)
       errorMessage.value = message || ''
     },
@@ -65,6 +50,11 @@ const pagination = usePagination(items, page, itemsPerPage, (options) => {
 
   emit('load', _options)
 }, { serverSideRendering, search, storePreviousItems: true, params })
+
+const message = computed(() => !(pagination.isLoading.value || pagination.isWaiting.value) && !pagination.totalItems.value
+  ? errorMessage.value || 'No items found.'
+  : '',
+)
 
 const totalPages = computed(() => Math.ceil(pagination.totalItems.value / itemsPerPage.value))
 
@@ -118,3 +108,15 @@ onMounted(() => {
   }
 })
 </script>
+
+<template>
+  <Select ref="selectComponent" :items="pagination.items.value" v-bind="$attrs" :message="message">
+    <template v-if="pagination.isLoading.value || pagination.isWaiting.value" #footer>
+      <slot v-if="$slots.loading" name="loading" />
+      <div v-else :class="styles.autocompleteLoading">
+        <span>{{ pagination.isWaiting.value ? 'Waiting' : 'Fetching data' }} </span>
+        <LoadingIcon icon="dots" :class="styles.autocompleteLoadingIcon" />
+      </div>
+    </template>
+  </Select>
+</template>

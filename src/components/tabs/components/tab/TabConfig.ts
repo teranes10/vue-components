@@ -1,6 +1,6 @@
-import { IconValue } from "@/shared/components/icon"
+import type { IconValue } from '@/shared/components/icon'
 
-export type TabProps = {
-    text?: string
-    icon?: IconValue
+export interface TabProps {
+  text?: string
+  icon?: IconValue
 }

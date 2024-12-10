@@ -9,7 +9,7 @@ export type CheckboxProps<V> = ValidationProps<boolean> & {
   disabled?: boolean
 }
 
-export type CheckboxEmits = {
+export interface CheckboxEmits {
   'update:modelValue': [value: boolean]
   'checked': [value: boolean]
 }

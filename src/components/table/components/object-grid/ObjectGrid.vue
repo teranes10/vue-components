@@ -1,6 +1,6 @@
 <script setup lang="ts" generic="T, K extends number | string">
-import { useTableSetup } from '../../TableSetup'
 import type { ObjectGridEmits, ObjectGridProps } from './ObjectGridConfig'
+import { useTableSetup } from '../../TableSetup'
 import styles from './ObjectGrid.module.css'
 
 const props = withDefaults(defineProps<ObjectGridProps<T, K>>(), {
@@ -14,7 +14,7 @@ const tableSetup = useTableSetup(props, emit)
 </script>
 
 <template>
-  <div :class="styles.objectGrid">
+  <div :class="styles.objectGrid" :style="{ '--object-card-width': cardWidth ? `${cardWidth}px` : '' }">
     <div v-for="item in tableSetup.items.value" :key="item.key" :class="styles.cardView">
       <div :class="styles.cardViewItem">
         <div v-for="header in tableSetup.headers.value" :key="header.key" :class="styles.cardViewGroup">
@@ -29,8 +29,10 @@ const tableSetup = useTableSetup(props, emit)
           </span>
 
           <span :class="styles.cardViewValue">
-            <slot v-if="header.value.type === 'slot'" :name="header.value.name" :item="item._item"
-              :internal-item="item" />
+            <slot
+              v-if="header.value.type === 'slot'" :name="header.value.name" :item="item._item"
+              :internal-item="item"
+            />
 
             <component :is="header.value.component(item)" v-else-if="header.value.type === 'component'" />
 

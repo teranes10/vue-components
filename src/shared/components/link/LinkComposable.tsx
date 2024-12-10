@@ -1,13 +1,13 @@
-import Link from "./Link.vue";
+import Link from './Link.vue'
 
 interface LinkViewOptions {
-  class: string;
+  class: string
 }
 
 export function useLinkView(
   text: string,
   onClick?: () => void,
-  options?: LinkViewOptions
+  options?: LinkViewOptions,
 ) {
-  return <Link class={options?.class} text={text} onClick={onClick} />;
+  return <Link class={options?.class} text={text} onClick={onClick} />
 }

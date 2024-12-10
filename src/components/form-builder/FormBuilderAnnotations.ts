@@ -1,9 +1,9 @@
-import 'reflect-metadata'
-import type { InputsProps, InputProps } from '@/components/input'
-import type { ComponentProps, ComponentsProps } from '@/components/component'
+import type { ElementProps, ElementsProps } from '@/components/element'
+import type { InputProps, InputsProps } from '@/components/input'
+import type { Component } from 'vue'
 import type { FormBuilderBase, Item } from './FormBuilderBase'
 import type { FieldAttrs } from './FormBuilderConfig'
-import { Component } from 'vue'
+import 'reflect-metadata'
 
 export const MetaKeyPrefix = 'form-builder'
 
@@ -22,7 +22,6 @@ export function fieldProps<T extends keyof InputsProps>(
   }
 }
 
-
 export function fieldWatcher<T extends FormBuilderBase, K extends keyof T>(
   setter: (item: Item<T>) => T[K],
   disableWatcherAfterUserEdit: boolean = false,
@@ -38,11 +37,11 @@ export function fieldWatcher<T extends FormBuilderBase, K extends keyof T>(
   }
 }
 
-export function fieldComponent<T extends keyof ComponentsProps | Component>(
-  type: ComponentProps<T>['type'],
-  props: ComponentProps<T>['props'],
+export function fieldComponent<T extends keyof ElementsProps | Component>(
+  type: ElementProps<T>['type'],
+  props: ElementProps<T>['props'],
   attrs?: FieldAttrs,
-  ...events: (keyof EventsOnly<ComponentProps<T>['props']>)[]
+  ...events: (keyof EventsOnly<ElementProps<T>['props']>)[]
 ) {
   return function (target: any, property: string) {
     Reflect.defineMetadata(

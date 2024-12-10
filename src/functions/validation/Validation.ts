@@ -1,9 +1,9 @@
-import { inject, onUnmounted, provide, ref, watch } from 'vue'
-import { call, isString } from '@teranes/utils'
-import { getShortUniqueId } from '@teranes/short-unique-id'
 import type { ValidationCallback, ValidationFieldContext, ValidationForm, ValidationFormContext, ValidationOptions } from './ValidationConfig'
-import { ValidationFormContextKey, ValidationFieldIdAttribute } from './ValidationConfig'
+import { getShortUniqueId } from '@teranes/short-unique-id'
+import { call, isString } from '@teranes/utils'
+import { inject, onUnmounted, provide, ref, watch } from 'vue'
 import styles from './Validation.module.css'
+import { ValidationFieldIdAttribute, ValidationFormContextKey } from './ValidationConfig'
 
 export function useFieldValidation<T>(options: ValidationOptions<T>): ValidationFieldContext | undefined {
   const formCtx = inject<ValidationFormContext | undefined>(ValidationFormContextKey, undefined)
@@ -17,8 +17,8 @@ export function useFormValidation(): ValidationForm {
     onFieldInitialize(options) {
       const ctx = initializeField(options)
       formFields.set(ctx.fieldId, ctx)
-      return ctx;
-    }
+      return ctx
+    },
   }
 
   provide(ValidationFormContextKey, ctx)
@@ -54,7 +54,7 @@ export function useFormValidation(): ValidationForm {
 }
 
 function initializeField<T>(
-  { rules, inputElement, inputContainer, errorsListElement, value, cb }: ValidationOptions<T>
+  { rules, inputElement, inputContainer, errorsListElement, value, cb }: ValidationOptions<T>,
 ): ValidationFieldContext {
   const fieldId = getShortUniqueId()
   const isError = ref(false)

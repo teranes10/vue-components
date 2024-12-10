@@ -1,62 +1,15 @@
-<template>
-  <label :class="styles.fileInput">
-    <div v-if="label || tag" :class="styles.fileInputLabelContainer">
-      <span v-if="label" :class="[styles.fileInputLabel, { [styles.required]: !!required }]" v-text="label" />
-      <span v-if="tag" :class="styles.fileInputTag" v-text="tag" />
-    </div>
-
-    <div ref="fileInputContainerElement" :class="[styles.fileInputMainContainer, { [styles.disabled]: disabled }]"
-      @dragover.prevent @drop.prevent>
-      <div :class="styles.fileInputContainer">
-        <div v-for="(item, i) in uploadedFiles" :key="item.name" :class="styles.fileItemContainer">
-          <div :class="styles.fileItem">
-            <img :class="styles.thumbnail" :src="item.dataUrl" alt="File" draggable="false" v-if="item.dataUrl">
-            <Icon v-bind="item.icon" stroke-width="1" :class="styles.thumbnail" v-else />
-
-            <div :class="styles.overlay">
-              <div :class="styles.fileInfo">
-                <div :class="styles.fileSize">{{ item.sizeInKb }} KB</div>
-                <div :class="styles.textContainer">
-                  <div :class="styles.fileName">{{ item.name }}</div>
-                </div>
-              </div>
-              <Icon :icon="XCircle" :class="styles.removeBtn" @click="(e) => remove(e, i)" />
-            </div>
-          </div>
-        </div>
-
-        <div :class="styles.fileDropzone" @drop="onFileDropped">
-          <Icon :icon="UploadCloud" :class="styles.icon" />
-          <h2 :class="styles.text">
-            Drag and drop or
-            <span :class="styles.textActive" @click="browseForFiles">browse</span> your files
-          </h2>
-        </div>
-
-        <input ref="fileInputElement" type="file" :multiple="multiple" style="display: none" :disabled="disabled"
-          @change="onFileSelected">
-      </div>
-    </div>
-
-    <div v-if="helperText" :class="styles.fileInputHelperText" v-text="helperText" />
-    <div v-if="message" :class="styles.fileInputMessage" v-text="message" />
-
-    <ul ref="errorsListElement" :class="styles.fileInputErrorContainer" />
-  </label>
-</template>
-
 <script setup lang="ts">
-import { Icon } from '@/shared/components/icon'
-import { XCircle, UploadCloud } from 'lucide'
-import { computed, onMounted, ref, shallowRef, watch } from 'vue'
-import { vModel } from '@teranes/vue-composables'
-import { isString } from '@teranes/utils'
 import type { ValidationFieldContext } from '@/functions/validation/ValidationConfig'
-import { useFieldValidation } from '@/functions/validation/Validation'
-import { useToast } from '@/components/toast'
-import { getFileExtension, getFileTypeByExt, imageFileToDataUrl, fileTypeIconInfo, fileTypes } from './FileUploadConfig'
 import type { FileItem, FileUploadEmits, FileUploadProps } from './FileUploadConfig'
+import { useToast } from '@/components/toast'
+import { useFieldValidation } from '@/functions/validation/Validation'
+import { Icon } from '@/shared/components/icon'
+import { isString } from '@teranes/utils'
+import { vModel } from '@teranes/vue-composables'
+import { UploadCloud, XCircle } from 'lucide'
+import { computed, onMounted, ref, shallowRef, watch } from 'vue'
 import styles from './FileUpload.module.css'
+import { fileTypeIconInfo, fileTypes, getFileExtension, getFileTypeByExt, imageFileToDataUrl } from './FileUploadConfig'
 
 const props = withDefaults(defineProps<FileUploadProps>(), {
   accept: () => [],
@@ -172,6 +125,57 @@ function validateFile(file: File): boolean | string {
   return true
 }
 </script>
+
+<template>
+  <label :class="styles.fileInput">
+    <div v-if="label || tag" :class="styles.fileInputLabelContainer">
+      <span v-if="label" :class="[styles.fileInputLabel, { [styles.required]: !!required }]" v-text="label" />
+      <span v-if="tag" :class="styles.fileInputTag" v-text="tag" />
+    </div>
+
+    <div
+      ref="fileInputContainerElement" :class="[styles.fileInputMainContainer, { [styles.disabled]: disabled }]"
+      @dragover.prevent @drop.prevent
+    >
+      <div :class="styles.fileInputContainer">
+        <div v-for="(item, i) in uploadedFiles" :key="item.name" :class="styles.fileItemContainer">
+          <div :class="styles.fileItem">
+            <img v-if="item.dataUrl" :class="styles.thumbnail" :src="item.dataUrl" alt="File" draggable="false">
+            <Icon v-else v-bind="item.icon" stroke-width="1" :class="styles.thumbnail" />
+
+            <div :class="styles.overlay">
+              <div :class="styles.fileInfo">
+                <div :class="styles.fileSize">{{ item.sizeInKb }} KB</div>
+                <div :class="styles.textContainer">
+                  <div :class="styles.fileName">{{ item.name }}</div>
+                </div>
+              </div>
+              <Icon :icon="XCircle" :class="styles.removeBtn" @click="(e) => remove(e, i)" />
+            </div>
+          </div>
+        </div>
+
+        <div :class="styles.fileDropzone" @drop="onFileDropped">
+          <Icon :icon="UploadCloud" :class="styles.icon" />
+          <h2 :class="styles.text">
+            Drag and drop or
+            <span :class="styles.textActive" @click="browseForFiles">browse</span> your files
+          </h2>
+        </div>
+
+        <input
+          ref="fileInputElement" type="file" :multiple="multiple" style="display: none" :disabled="disabled"
+          @change="onFileSelected"
+        >
+      </div>
+    </div>
+
+    <div v-if="helperText" :class="styles.fileInputHelperText" v-text="helperText" />
+    <div v-if="message" :class="styles.fileInputMessage" v-text="message" />
+
+    <ul ref="errorsListElement" :class="styles.fileInputErrorContainer" />
+  </label>
+</template>
 
 <style>
 .file-input {

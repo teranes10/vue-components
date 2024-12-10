@@ -1,3 +1,13 @@
+<script setup lang="ts">
+import { Button } from '@/components/button'
+import styles from './Alert.module.css'
+import { AlertColorClasses, AlertIcons, type AlertProps } from './AlertConfig'
+
+withDefaults(defineProps<AlertProps>(), {
+  type: 'info',
+})
+</script>
+
 <template>
   <div :class="[styles.alert, { [AlertColorClasses[type]]: type }]">
     <div :class="styles.alertContent">
@@ -10,21 +20,15 @@
     </div>
 
     <div :class="styles.alertActions">
-      <Button :class="[styles.alertAction, closeButton?.class]" :icon="closeButton?.icon" :text="closeButton?.text"
-        type="outline" color="gray" @click="closeButton?.onClick" />
+      <Button
+        :class="[styles.alertAction, closeButton?.class]" :icon="closeButton?.icon" :text="closeButton?.text"
+        type="outline" color="gray" @click="closeButton?.onClick"
+      />
 
-      <Button :class="[styles.alertAction, confirmButton?.class]" :color="type" :icon="confirmButton?.icon"
-        :text="confirmButton?.text" @click="confirmButton?.onClick" />
+      <Button
+        :class="[styles.alertAction, confirmButton?.class]" :color="type" :icon="confirmButton?.icon"
+        :text="confirmButton?.text" @click="confirmButton?.onClick"
+      />
     </div>
   </div>
 </template>
-
-<script setup lang="ts">
-import { Button } from '@/components/button'
-import { type AlertProps, AlertIcons, AlertColorClasses } from './AlertConfig'
-import styles from './Alert.module.css'
-
-withDefaults(defineProps<AlertProps>(), {
-  type: 'info',
-})
-</script>

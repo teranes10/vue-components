@@ -1,3 +1,11 @@
+<script setup lang="ts">
+import type { ButtonGroupProps } from './ButtonGroupConfig'
+import Button from '../../Button.vue'
+import styles from './ButtonGroup.module.css'
+
+withDefaults(defineProps<ButtonGroupProps>(), {})
+</script>
+
 <template>
   <div :class="styles.btnGroup">
     <Button
@@ -8,11 +16,3 @@
     <slot />
   </div>
 </template>
-
-<script setup lang="ts">
-import Button from '../../Button.vue'
-import type { ButtonGroupProps } from './ButtonGroupConfig'
-import styles from './ButtonGroup.module.css'
-
-withDefaults(defineProps<ButtonGroupProps>(), {})
-</script>

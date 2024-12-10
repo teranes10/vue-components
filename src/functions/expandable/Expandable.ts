@@ -1,9 +1,9 @@
-import { compare, isArray } from '@teranes/utils'
 import type { Ref } from 'vue'
-import { ref } from 'vue'
 import type { BaseInternalItem } from '../item/BaseInternalItem'
+import { compare, isArray } from '@teranes/utils'
+import { ref } from 'vue'
 
-export type ExpandableOptions = {
+export interface ExpandableOptions {
   singleExpand?: boolean
 }
 
@@ -68,12 +68,12 @@ export type Expandable<K> = {
   expandable?: boolean
 } & (SingleExpand<K> | MultipleExpand<K>)
 
-type SingleExpand<K> = {
+interface SingleExpand<K> {
   singleExpand?: true
   expanded?: K
 }
 
-type MultipleExpand<K> = {
+interface MultipleExpand<K> {
   singleExpand?: false
   expanded?: K[]
 }

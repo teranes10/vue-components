@@ -1,1 +1,1 @@
-export { useAlert, useArchiveAlert, useRestoreAlert, useDeleteAlert } from './AlertComposable'
+export { useAlert, useArchiveAlert, useDeleteAlert, useRestoreAlert } from './AlertComposable'

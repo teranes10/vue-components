@@ -1,46 +1,16 @@
-<template>
-  <ul :class="styles.pagination">
-    <li :class="[styles.pageItem, { [styles.disable]: !hasFirstPage }]" @click="gotoFirstPage">
-      <a :class="styles.pageLink">
-        <Icon :icon="ChevronsLeft" :class="styles.icon" />
-      </a>
-    </li>
-    <li :class="[styles.pageItem, { [styles.disable]: !hasPreviousPage }]" @click="gotoPreviousPage">
-      <a :class="styles.pageLink">
-        <Icon :icon="ChevronLeft" :class="styles.icon" />
-      </a>
-    </li>
-    <li v-for="pageNumber in visiblePages" :key="pageNumber"
-      :class="[styles.pageItem, { [styles.active]: pageNumber == page, [styles.disable]: pageNumber == '...' }]"
-      @click="(typeof (pageNumber) === 'number') && gotoPage(pageNumber)">
-      <a :class="styles.pageLink">{{ pageNumber }}</a>
-    </li>
-    <li :class="[styles.pageItem, { [styles.disable]: !hasNextPage }]" @click="gotoNextPage">
-      <a :class="styles.pageLink">
-        <Icon :icon="ChevronRight" :class="styles.icon" />
-      </a>
-    </li>
-    <li :class="[styles.pageItem, { [styles.disable]: !hasLastPage }]" @click="gotoLastPage">
-      <a :class="styles.pageLink">
-        <Icon :icon="ChevronsRight" :class="styles.icon" />
-      </a>
-    </li>
-  </ul>
-</template>
-
 <script setup lang="ts">
-import { Icon } from '@/shared/components/icon'
-import { ChevronLeft, ChevronsLeft, ChevronRight, ChevronsRight } from 'lucide'
-import { computed } from 'vue'
-import { vModel } from '@teranes/vue-composables'
 import type { PaginationEmits, PaginationProps } from './PaginationConfig'
+import { Icon } from '@/shared/components/icon'
+import { vModel } from '@teranes/vue-composables'
+import { ChevronLeft, ChevronRight, ChevronsLeft, ChevronsRight } from 'lucide'
+import { computed } from 'vue'
 import styles from './Pagination.module.css'
-
-const emit = defineEmits<PaginationEmits>()
 
 const props = withDefaults(defineProps<PaginationProps>(), {
   totalVisible: 9, // must be a odd number
 })
+
+const emit = defineEmits<PaginationEmits>()
 
 const page = vModel(props, 'modelValue', emit, 1)
 
@@ -92,23 +62,55 @@ const hasLastPage = computed(() => page.value < props.totalPages)
 const hasNextPage = computed(() => page.value < props.totalPages)
 const hasPreviousPage = computed(() => page.value > 1)
 
-const gotoFirstPage = () => {
+function gotoFirstPage() {
   page.value = 1
 }
 
-const gotoLastPage = () => {
+function gotoLastPage() {
   page.value = props.totalPages
 }
 
-const gotoPage = (pageNumber: number) => {
+function gotoPage(pageNumber: number) {
   page.value = pageNumber
 }
 
-const gotoNextPage = () => {
+function gotoNextPage() {
   page.value++
 }
 
-const gotoPreviousPage = () => {
+function gotoPreviousPage() {
   page.value--
 }
 </script>
+
+<template>
+  <ul :class="styles.pagination">
+    <li :class="[styles.pageItem, { [styles.disable]: !hasFirstPage }]" @click="gotoFirstPage">
+      <a :class="styles.pageLink">
+        <Icon :icon="ChevronsLeft" :class="styles.icon" />
+      </a>
+    </li>
+    <li :class="[styles.pageItem, { [styles.disable]: !hasPreviousPage }]" @click="gotoPreviousPage">
+      <a :class="styles.pageLink">
+        <Icon :icon="ChevronLeft" :class="styles.icon" />
+      </a>
+    </li>
+    <li
+      v-for="pageNumber in visiblePages" :key="pageNumber"
+      :class="[styles.pageItem, { [styles.active]: pageNumber === page, [styles.disable]: pageNumber === '...' }]"
+      @click="(typeof (pageNumber) === 'number') && gotoPage(pageNumber)"
+    >
+      <a :class="styles.pageLink">{{ pageNumber }}</a>
+    </li>
+    <li :class="[styles.pageItem, { [styles.disable]: !hasNextPage }]" @click="gotoNextPage">
+      <a :class="styles.pageLink">
+        <Icon :icon="ChevronRight" :class="styles.icon" />
+      </a>
+    </li>
+    <li :class="[styles.pageItem, { [styles.disable]: !hasLastPage }]" @click="gotoLastPage">
+      <a :class="styles.pageLink">
+        <Icon :icon="ChevronsRight" :class="styles.icon" />
+      </a>
+    </li>
+  </ul>
+</template>

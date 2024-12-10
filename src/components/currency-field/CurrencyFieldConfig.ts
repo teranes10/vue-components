@@ -5,6 +5,6 @@ export interface CurrencyFieldProps {
   addCents?: boolean
 }
 
-export type CurrencyFieldEmits = {
+export interface CurrencyFieldEmits {
   'update:modelValue': [value: number]
 }

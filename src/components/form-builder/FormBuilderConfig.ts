@@ -1,5 +1,5 @@
-import { getAccessedProps } from "@teranes/utils"
-import styles from "./FormBuilder.module.css"
+import { getAccessedProps } from '@teranes/utils'
+import styles from './FormBuilder.module.css'
 
 export interface FormBuilderProps<T> {
   label?: string
@@ -7,7 +7,7 @@ export interface FormBuilderProps<T> {
   modelValue: T
 }
 
-export type FormBuilderEmits<T> = {
+export interface FormBuilderEmits<T> {
   'update:modelValue': [value: T]
 }
 
@@ -59,18 +59,18 @@ export interface FieldAttrs {
 export const FormBuilderContextKey = 'FormBuilderContextKey'
 
 const SmFormFieldSizeClasses: Record<FormFieldSizeValue, string> = {
-  1: styles.smColSpan1,
-  2: styles.smColSpan2,
-  3: styles.smColSpan3,
-  4: styles.smColSpan4,
-  5: styles.smColSpan5,
-  6: styles.smColSpan6,
-  7: styles.smColSpan7,
-  8: styles.smColSpan8,
-  9: styles.smColSpan9,
-  10: styles.smColSpan10,
-  11: styles.smColSpan11,
-  12: styles.smColSpan12,
+  1: styles.colSpan1,
+  2: styles.colSpan2,
+  3: styles.colSpan3,
+  4: styles.colSpan4,
+  5: styles.colSpan5,
+  6: styles.colSpan6,
+  7: styles.colSpan7,
+  8: styles.colSpan8,
+  9: styles.colSpan9,
+  10: styles.colSpan10,
+  11: styles.colSpan11,
+  12: styles.colSpan12,
 }
 
 const MdFormFieldSizeClasses: Record<FormFieldSizeValue, string> = {
@@ -103,12 +103,12 @@ const LgFormFieldSizeClasses: Record<FormFieldSizeValue, string> = {
   12: styles.lgColSpan12,
 }
 
-const getSizeClass = (size?: FormFieldSize) => {
+function getSizeClass(size?: FormFieldSize) {
   if (size && typeof size === 'object') {
     return {
       [SmFormFieldSizeClasses[size.sm || 12]]: true,
-      [MdFormFieldSizeClasses[size.md || 12]]: true,
-      [LgFormFieldSizeClasses[size.lg || 12]]: true,
+      [MdFormFieldSizeClasses[size.md || 12]]: size.md,
+      [LgFormFieldSizeClasses[size.lg || 12]]: size.lg,
     }
   }
 
@@ -118,7 +118,7 @@ const getSizeClass = (size?: FormFieldSize) => {
   }
 }
 
-export const getFieldClasses = (attrs?: FieldAttrs) => {
+export function getFieldClasses(attrs?: FieldAttrs) {
   return [getSizeClass(attrs?.size), attrs?.class || '']
 }
 

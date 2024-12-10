@@ -1,52 +1,16 @@
-<template>
-  <label :class="styles.textField">
-    <div v-if="label || tag" :class="styles.textFieldLabelContainer">
-      <span v-if="label" :class="[styles.textFieldLabel, { [styles.textFieldLabel]: !!required }]" v-text="label" />
-      <span v-if="tag" :class="styles.textFieldTag" v-text="tag" />
-    </div>
-
-    <div :class="styles.textFieldInputContainer">
-      <div v-if="$slots.pre" ref="preTextElement" :class="styles.preText">
-        <slot name="pre" />
-      </div>
-
-      <div v-if="$slots.post" ref="postTextElement" :class="styles.postText">
-        <slot name="post" />
-      </div>
-
-      <textarea v-if="rows" ref="inputElement" :class="[styles.textFieldInput, {
-        [TextFieldsSizesClasses[size!]]: !!size,
-        [TextFieldBorderClasses[color!]]: !!color,
-      }]" :placeholder="placeholder" :disabled="disabled" :value="value" :rows="rows" @input="onTextChange" />
-
-      <input v-else ref="inputElement" :class="[styles.textFieldInput, {
-        [TextFieldsSizesClasses[size!]]: !!size,
-        [TextFieldBorderClasses[color!]]: !!color,
-      }]" :placeholder="placeholder" :disabled="disabled" :value="value" @input="onTextChange">
-    </div>
-
-    <div v-if="helperText" :class="styles.textFieldHelperText" v-text="helperText" />
-
-    <div v-if="message" :class="[styles.textFieldMessage, { [TextFieldMessageClasses[color!]]: !!color }]"
-      v-text="message" />
-
-    <ul ref="errorsListElement" :class="styles.textFieldErrorsContainer" />
-  </label>
-</template>
-
 <script setup lang="ts">
-import { ref, computed, shallowRef, onMounted } from 'vue'
-import { vModel } from '@teranes/vue-composables'
-import { type ValidationFieldContext } from '@/functions/validation/ValidationConfig'
+import type { ValidationFieldContext } from '@/functions/validation/ValidationConfig'
 import { useFieldValidation } from '@/functions/validation/Validation'
-import { TextFieldBorderClasses, TextFieldsSizesClasses, TextFieldMessageClasses, type TextFieldProps, type TextFieldEmits } from './TextFieldConfig'
+import { vModel } from '@teranes/vue-composables'
+import { computed, onMounted, ref, shallowRef } from 'vue'
 import styles from './TextField.module.css'
-
-const emit = defineEmits<TextFieldEmits>()
+import { TextFieldBorderClasses, type TextFieldEmits, TextFieldMessageClasses, type TextFieldProps, TextFieldsSizesClasses } from './TextFieldConfig'
 
 const props = withDefaults(defineProps<TextFieldProps>(), {
   required: false,
 })
+
+const emit = defineEmits<TextFieldEmits>()
 
 const value = vModel(props, 'modelValue', emit, '')
 
@@ -60,7 +24,7 @@ onMounted(() => {
   if (props.rules) {
     validationCtx.value = useFieldValidation({
       rules: props.rules,
-      value: value,
+      value,
       inputElement: inputElement.value,
       errorsListElement: errorsListElement.value,
     })
@@ -77,7 +41,7 @@ onMounted(() => {
   }
 })
 
-const onTextChange = (e: Event) => {
+function onTextChange(e: Event) {
   if (e.target instanceof (HTMLInputElement) || e.target instanceof (HTMLTextAreaElement)) {
     let _value = e.target.value
     if (props.formatter) {
@@ -97,3 +61,45 @@ defineExpose({
   validate: () => validationCtx.value?.validate(),
 })
 </script>
+
+<template>
+  <label :class="styles.textField">
+    <div v-if="label || tag" :class="styles.textFieldLabelContainer">
+      <span v-if="label" :class="[styles.textFieldLabel, { [styles.textFieldLabel]: !!required }]" v-text="label" />
+      <span v-if="tag" :class="styles.textFieldTag" v-text="tag" />
+    </div>
+
+    <div :class="styles.textFieldInputContainer">
+      <div v-if="$slots.pre" ref="preTextElement" :class="styles.preText">
+        <slot name="pre" />
+      </div>
+
+      <div v-if="$slots.post" ref="postTextElement" :class="styles.postText">
+        <slot name="post" />
+      </div>
+
+      <textarea
+        v-if="rows" ref="inputElement" :class="[styles.textFieldInput, {
+          [TextFieldsSizesClasses[size!]]: !!size,
+          [TextFieldBorderClasses[color!]]: !!color,
+        }]" :placeholder="placeholder" :disabled="disabled" :value="value" :rows="rows" @input="onTextChange"
+      />
+
+      <input
+        v-else ref="inputElement" :class="[styles.textFieldInput, {
+          [TextFieldsSizesClasses[size!]]: !!size,
+          [TextFieldBorderClasses[color!]]: !!color,
+        }]" :placeholder="placeholder" :disabled="disabled" :value="value" @input="onTextChange"
+      >
+    </div>
+
+    <div v-if="helperText" :class="styles.textFieldHelperText" v-text="helperText" />
+
+    <div
+      v-if="message" :class="[styles.textFieldMessage, { [TextFieldMessageClasses[color!]]: !!color }]"
+      v-text="message"
+    />
+
+    <ul ref="errorsListElement" :class="styles.textFieldErrorsContainer" />
+  </label>
+</template>

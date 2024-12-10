@@ -4,6 +4,6 @@ export interface NumberFieldProps {
   decrement?: number
 }
 
-export type NumberFieldEmits = {
+export interface NumberFieldEmits {
   'update:modelValue': [value: number]
 }

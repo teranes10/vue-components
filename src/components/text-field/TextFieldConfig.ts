@@ -16,7 +16,7 @@ export type TextFieldProps = ValidationProps<string> & {
   formatter?: (value: string) => string
 }
 
-export type TextFieldEmits = {
+export interface TextFieldEmits {
   'update:modelValue': [value: string]
 }
 

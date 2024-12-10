@@ -1,4 +1,4 @@
-@import url("flatpickr/dist/flatpickr.css");
+@import url('flatpickr/dist/flatpickr.css');
 
 .flatpickr-calendar {
   --date-picker-bg: #fff;
@@ -33,7 +33,7 @@
   color: var(--date-picker-text-selected);
 }
 
-html[data-theme="dark"] {
+html[data-theme='dark'] {
   .flatpickr-months {
     .flatpickr-prev-month,
     .flatpickr-next-month {

@@ -1,6 +1,6 @@
 import type { PaginationLoadOptions } from '@teranes/vue-composables'
 
-export type AutocompleteProps<T> = {
+export interface AutocompleteProps<T> {
   items?: T[]
   visibleItems?: number
   itemsPerPage?: number
@@ -9,7 +9,7 @@ export type AutocompleteProps<T> = {
   params?: Record<string, any>
 }
 
-export type AutocompleteEmits<T> = {
+export interface AutocompleteEmits<T> {
   'load': [options: AutocompleteLoadOptions<T>]
   'update:items': [items: T[]]
   'update:itemsPerPage': [value: number]

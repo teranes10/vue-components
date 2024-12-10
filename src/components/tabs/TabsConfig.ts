@@ -1,5 +1,5 @@
-import { Ref } from "vue"
-import { TabProps } from "./components/tab/TabConfig"
+import type { Ref } from 'vue'
+import type { TabProps } from './components/tab/TabConfig'
 
 export const TabsGroupContextKey = 'TabsGroupContextKey'
 
@@ -11,11 +11,11 @@ export interface TabsProps {
   tabClass?: string
 }
 
-export type TabsEmits = {
+export interface TabsEmits {
   'update:modelValue': [value: any]
 }
 
-export type TabsGroupContext = {
+export interface TabsGroupContext {
   selected: Ref<number>
   onTabInitialize: () => number
   onTabContentInitialize: () => number

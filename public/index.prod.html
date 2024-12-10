@@ -9,13 +9,7 @@
 
   <body style="display: flex; flex-direction: column; gap: 25px; padding: 3rem">
     <div>
-      <t-icon
-        size="50"
-        icon="File"
-        color="#f2786c"
-        stroke-width="1"
-        text="PDF"
-      ></t-icon>
+      <t-icon size="50" icon="File" color="#f2786c" stroke-width="1" text="PDF"></t-icon>
       <t-icon size="50" icon="File" color="#41d3b0" text="CSV"></t-icon>
     </div>
 
@@ -36,13 +30,7 @@
     </div>
 
     <div>
-      <t-button
-        text="Button"
-        tooltip="Button"
-        icon="Menu"
-        loading
-        on_clicked="onClicked"
-      ></t-button>
+      <t-button text="Button" tooltip="Button" icon="Menu" loading on_clicked="onClicked"></t-button>
 
       <t-button text="Show Alert" on_clicked="showAlert"></t-button>
 
@@ -126,135 +114,136 @@
     <t-button text="Show Form" on_clicked="showForm"></t-button>
 
     <script src="https://unpkg.com/@teranes/utils@11.0.0/dist/index.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/date@10.0.0/dist/index.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/date@10.0.0/dist/index.umd.js"></script>
     <script src="https://unpkg.com/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
     <script src="https://unpkg.com/@teranes/popper@12.0.0/dist/index.umd.js"></script>
     <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 
     <!-- web components -->
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/web-components.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/loading.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/tooltip.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/toast.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/accordion.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/button.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/modal.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/alert.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/chip.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/er-diagram.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/image.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/menu.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/notification.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/progress-bar.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/tabs.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/text-field.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/number-field.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/currency-field.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/date-picker.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/select.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/autocomplete.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/file-upload.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/checkbox.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/radio-button.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/switch.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/pagination.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/table.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/data-table.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/input-widget.umd.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@teranes/vue-components@1.0.13/dist/umd/bundle/form-builder.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/web-components.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/loading.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/tooltip.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/toast.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/accordion.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/button.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/modal.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/alert.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/chip.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/er-diagram.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/image.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/menu.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/notification.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/progress-bar.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/tabs.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/text-field.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/number-field.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/currency-field.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/date-picker.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/select.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/autocomplete.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/file-upload.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/checkbox.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/radio-button.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/switch.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/pagination.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/table.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/data-table.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/input-widget.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/vue-components@1.0.13/dist/umd/bundle/form-builder.umd.js"></script>
 
     <script>
       function showAlert() {
-        console.log("show Alert");
+        console.log('show Alert')
 
         WebComponents.useDeleteAlert(() => {
-          console.log("cc");
-        });
+          console.log('cc')
+        })
       }
 
       function showToast() {
-        WebComponents.useToast("Hello");
+        WebComponents.useToast('Hello')
       }
 
       function showLoading() {
-        const loadingEl = document.getElementById("loading");
-        loadingEl.loading = true;
+        const loadingEl = document.getElementById('loading')
+        loadingEl.loading = true
 
         setTimeout(() => {
-          loadingEl.loading = false;
-        }, 1500);
+          loadingEl.loading = false
+        }, 1500)
       }
 
       function onClicked(e) {
         setTimeout(() => {
-          e.stopLoading();
-        }, 1500);
+          e.stopLoading()
+        }, 1500)
       }
     </script>
 
     <script>
-      const dataTable = document.getElementById("data-table");
+      const dataTable = document.getElementById('data-table')
+
       dataTable.ctx.setHeaders([
         {
-          text: "Header 1",
-          value: "header1",
+          text: 'Header 1',
+          value: 'header1',
         },
         {
-          text: "Header 2",
-          value: "header2",
+          text: 'Header 2',
+          value: 'header2',
         },
         {
-          text: "Header 3",
-          value: "header3",
+          text: 'Header 3',
+          value: 'header3',
         },
-      ]);
+      ])
 
       dataTable.ctx.setItems([
         {
-          header1: "Value 1",
-          header2: "Value 2",
-          header3: "Value 3",
+          header1: 'Value 1',
+          header2: 'Value 2',
+          header3: 'Value 3',
         },
         {
-          header1: "Value 1",
-          header2: "Value 2",
-          header3: "Value 3",
+          header1: 'Value 1',
+          header2: 'Value 2',
+          header3: 'Value 3',
         },
-      ]);
+      ])
     </script>
 
     <script>
-      const formBuilder = document.getElementById("form-builder");
-      const formBuilderModel = document.getElementById("form-builder-modal");
+      const formBuilder = document.getElementById('form-builder')
+      const formBuilderModel = document.getElementById('form-builder-modal')
 
       class TestForm extends WebComponents.FormBuilderBase {
         getAttributes() {
           return [
             {
-              _type: "input",
-              name: "name",
-              type: "text",
-              value: "Name",
-              props: { label: "Name" },
+              _type: 'input',
+              name: 'name',
+              type: 'text',
+              value: 'Name',
+              props: { label: 'Name' },
             },
             {
-              _type: "input",
-              name: "age",
-              type: "number",
+              _type: 'input',
+              name: 'age',
+              type: 'number',
               value: 123,
-              props: { label: "Age" },
+              props: { label: 'Age' },
             },
-          ];
+          ]
         }
       }
 
-      formBuilder.modelValue = new TestForm();
+      formBuilder.modelValue = new TestForm()
 
-      formBuilderModel.label = "Test Form";
-      formBuilderModel.ctx.create(TestForm);
+      formBuilderModel.label = 'Test Form'
+      formBuilderModel.ctx.create(TestForm)
 
       function showForm() {
-        formBuilderModel.ctx.open();
+        formBuilderModel.ctx.open()
       }
     </script>
   </body>

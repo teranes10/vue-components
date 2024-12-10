@@ -6,7 +6,7 @@ export interface FormBuilderModalProps<T> {
   label?: string
   width?: number
 }
-export type FormBuilderModalEmits<T> = {
+export interface FormBuilderModalEmits<T> {
   'update:modelValue': [value: T]
   'update:show': [value: boolean]
 }
@@ -28,7 +28,7 @@ export interface FormBuilderModalContextGetter<T extends FormBuilderBase> {
 export function FormBuilderModalInitializer<T extends FormBuilderBase>(
   FormClass: ClassType<T>,
 ): FormBuilderModalContextGetter<T> {
-  let ctx: FormBuilderModalContext<T> | undefined = undefined
+  let ctx: FormBuilderModalContext<T> | undefined
   const mounted = (_el: HTMLElement, _binding: any, vNode: any) => {
     ctx = vNode.ctx.exposed.ctx
     if (FormClass) {

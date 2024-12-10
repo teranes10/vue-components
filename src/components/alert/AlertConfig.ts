@@ -1,11 +1,11 @@
+import type { IconValue } from '@/shared/components/icon'
 import {
-  CheckCircle,
-  XCircle,
   AlertCircle,
+  CheckCircle,
   Info,
+  XCircle,
 } from 'lucide'
 import styles from './Alert.module.css'
-import { IconValue } from '@/shared/components/icon'
 
 export type AlertType = 'success' | 'warning' | 'info' | 'danger'
 

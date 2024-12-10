@@ -1,27 +1,12 @@
-<template>
-  <TextField ref="textFieldComponent" v-bind="$attrs" :model-value="value" :class="styles.currencyField">
-    <template #post>
-      <div :class="styles.currencyFieldBtnGroup">
-        <a :class="styles.currencyBtn" @click="decrease">
-          <Icon :icon="Minus" :class="styles.currencyBtnIcon" />
-        </a>
-        <a :class="styles.currencyBtn" @click="increase">
-          <Icon :icon="Plus" :class="styles.currencyBtnIcon" />
-        </a>
-      </div>
-    </template>
-  </TextField>
-</template>
-
 <script setup lang="ts">
-import { Icon } from '@/shared/components/icon'
-import { Plus, Minus } from 'lucide'
-
-import { ref, computed, onMounted, onUnmounted } from 'vue'
-import { type ComponentType, vModel } from '@teranes/vue-composables'
-import { toNumber, toCurrencyString } from '@teranes/utils'
+import type { CurrencyFieldEmits, CurrencyFieldProps } from './CurrencyFieldConfig'
 import { TextField } from '@/components/text-field'
-import type { CurrencyFieldProps, CurrencyFieldEmits } from './CurrencyFieldConfig'
+
+import { Icon } from '@/shared/components/icon'
+import { toCurrencyString, toNumber } from '@teranes/utils'
+import { type ComponentType, vModel } from '@teranes/vue-composables'
+import { Minus, Plus } from 'lucide'
+import { computed, onMounted, onUnmounted, ref } from 'vue'
 import styles from './CurrencyField.module.css'
 
 defineOptions({
@@ -36,6 +21,10 @@ const props = withDefaults(defineProps<CurrencyFieldProps>(), {
 
 const emit = defineEmits<CurrencyFieldEmits>()
 
+const textFieldComponent = ref<ComponentType<typeof TextField>>()
+let inputElement: HTMLInputElement
+let isInFocus: boolean = false
+
 const modalValue = vModel(props, 'modelValue', emit, 0)
 
 const value = computed(() => {
@@ -46,10 +35,6 @@ const value = computed(() => {
 
   return value ? toCurrencyString(value?.toString() || '', { addCents: !isInFocus }) : ''
 })
-
-const textFieldComponent = ref<ComponentType<typeof TextField>>()
-let inputElement: HTMLInputElement
-let isInFocus: boolean = false
 
 onMounted(() => {
   if (textFieldComponent.value) {
@@ -89,14 +74,14 @@ function updateValue(addCents: boolean = false) {
   onValueChanged(value ? value.toString() : '', addCents)
 }
 
-const increase = (e: MouseEvent) => {
+function increase(e: MouseEvent) {
   e.preventDefault()
 
   const value = toNumber(inputElement.value) + props.increment
   onValueChanged(value ? value.toString() : '', true)
 }
 
-const decrease = (e: MouseEvent) => {
+function decrease(e: MouseEvent) {
   e.preventDefault()
 
   let value = toNumber(inputElement.value) - props.decrement
@@ -107,7 +92,7 @@ const decrease = (e: MouseEvent) => {
   onValueChanged(value ? value.toString() : '', true)
 }
 
-const onValueChanged = (val: string, addCents: boolean = false) => {
+function onValueChanged(val: string, addCents: boolean = false) {
   const input_val = val
   if (!input_val || !inputElement) {
     inputElement.value = ''
@@ -132,3 +117,18 @@ const onValueChanged = (val: string, addCents: boolean = false) => {
   modalValue.value = value
 }
 </script>
+
+<template>
+  <TextField ref="textFieldComponent" v-bind="$attrs" :model-value="value" :class="styles.currencyField">
+    <template #post>
+      <div :class="styles.currencyFieldBtnGroup">
+        <a :class="styles.currencyBtn" @click="decrease">
+          <Icon :icon="Minus" :class="styles.currencyBtnIcon" />
+        </a>
+        <a :class="styles.currencyBtn" @click="increase">
+          <Icon :icon="Plus" :class="styles.currencyBtnIcon" />
+        </a>
+      </div>
+    </template>
+  </TextField>
+</template>

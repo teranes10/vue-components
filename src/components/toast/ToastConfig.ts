@@ -1,11 +1,11 @@
+import type { IconValue } from '@/shared/components/icon'
 import {
-  CheckCircle,
-  XCircle,
   AlertCircle,
+  CheckCircle,
   Info,
+  XCircle,
 } from 'lucide'
 import styles from './Toast.module.css'
-import { IconValue } from '@/shared/components/icon'
 
 export type ToastType = 'success' | 'warning' | 'info' | 'danger'
 

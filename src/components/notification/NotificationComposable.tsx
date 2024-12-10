@@ -1,7 +1,7 @@
-import { createVNode, render, ref, type FunctionalComponent } from 'vue'
 import type { ComponentType } from '@teranes/vue-composables'
+import type { NotificationProps } from './NotificationConfig'
+import { createVNode, type FunctionalComponent, ref, render } from 'vue'
 import Notification from './Notification.vue'
-import { type NotificationProps } from './NotificationConfig'
 
 export function useNotification(
   Component: FunctionalComponent,
@@ -49,7 +49,7 @@ export function useNotification(
   return { show, hide }
 }
 
-const NotificationContainer = (): HTMLElement | undefined => {
+function NotificationContainer(): HTMLElement | undefined {
   if (document) {
     let container = document.getElementById('notifications')
     if (!container) {

@@ -1,2 +1,2 @@
-export type { AutocompleteProps, AutocompleteEmits, AutocompleteLoadOptions } from './AutocompleteConfig'
 export { default as Autocomplete } from './Autocomplete.vue'
+export type { AutocompleteEmits, AutocompleteLoadOptions, AutocompleteProps } from './AutocompleteConfig'

@@ -39,7 +39,7 @@
 
     &.required {
       &:after {
-        content: "*";
+        content: '*';
         margin-left: 0.25rem;
         color: var(--color-danger);
       }
@@ -71,12 +71,7 @@
   }
 }
 
-@mixin scrollbar(
-  $size: 7.5px,
-  $margin: 40px,
-  $color: var(--color-gray-200),
-  $hover-color: var(--color-gray-300)
-) {
+@mixin scrollbar($size: 7.5px, $margin: 40px, $color: var(--color-gray-200), $hover-color: var(--color-gray-300)) {
   &::-webkit-scrollbar {
     width: $size;
     height: $size;
