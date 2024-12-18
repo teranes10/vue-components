@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.17
+
+### Patch Changes
+
+- 59dde30: select & autocomplete fix
+
 ## 1.0.16
 
 ### Patch Changes
