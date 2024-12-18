@@ -5,17 +5,17 @@ export const TabsGroupContextKey = 'TabsGroupContextKey'
 
 export type TabItems = Record<string, string | TabProps>
 
-export interface TabsProps {
+export type TabsProps = {
   modelValue: number
   items: TabItems
   tabClass?: string
 }
 
-export interface TabsEmits {
+export type TabsEmits = {
   'update:modelValue': [value: any]
 }
 
-export interface TabsGroupContext {
+export type TabsGroupContext = {
   selected: Ref<number>
   onTabInitialize: () => number
   onTabContentInitialize: () => number

@@ -17,7 +17,7 @@ const props = withDefaults(defineProps<TableProps<T, K>>(), {
 
 const emit = defineEmits<TableEmits<T, K>>()
 
-const tableSetup = useTableSetup(props as TableProps<T, K>, emit)
+const tableSetup = useTableSetup(props, emit)
 
 const tableContainerElement = ref<HTMLElement>()
 const tableContainerRect = resizeObserver(tableContainerElement)
@@ -90,7 +90,7 @@ function getCellStyles<T>(header: TableInternalHeader<T, K, TableHeader<T, K>>, 
             <span :class="styles.tableOptions">
               <ChevronBtn
                 v-if="tableSetup.showExpandBtn.value" :model-value="item.expanded"
-                @changed="(v: boolean) => tableSetup.onExpand(item, v)"
+                @press="(v: boolean) => tableSetup.onExpand(item, v)"
               />
               <Checkbox
                 v-if="tableSetup.showSelectBox.value" :model-value="item.selected"

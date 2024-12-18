@@ -1,6 +1,6 @@
 import Link from './Link.vue'
 
-interface LinkViewOptions {
+type LinkViewOptions = {
   class: string
 }
 
@@ -9,5 +9,5 @@ export function useLinkView(
   onClick?: () => void,
   options?: LinkViewOptions,
 ) {
-  return <Link class={options?.class} text={text} onClick={onClick} />
+  return <Link class={options?.class} text={text} onPress={onClick} />
 }

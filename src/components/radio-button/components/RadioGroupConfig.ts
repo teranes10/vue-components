@@ -11,11 +11,11 @@ export type RadioGroupProps<V> = ValidationProps<V> & {
   items?: RadioButtonProps<V>[]
 }
 
-export interface RadioGroupEmits<V> {
+export type RadioGroupEmits<V> = {
   'update:modelValue': [value: V | undefined]
 }
 
-export interface RadioGroupContext<V> {
+export type RadioGroupContext<V> = {
   inline: boolean
   onInitialize: (value: V, checked: Ref<boolean>) => void
   onCheckChanged: (value: V, checked: boolean) => void

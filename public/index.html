@@ -8,11 +8,81 @@
   <title>Web Components</title>
 </head>
 
-<body style="display: flex; flex-direction: column; gap: 25px; padding: 3rem">
-  <div>
+<body style="display: flex; flex-direction: column; gap: 3rem; padding: 3rem">
+
+  <div style="display: flex; gap: 3rem">
+    <t-image src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg" alt="Sample Image"
+      title="Title" sub-title="Sub Title">
+    </t-image>
+  
+    <t-chip text="Chip"></t-chip>
+  
+    <t-link text="Link"></t-link>
+  
+    <t-tooltip text="Tooltip"> Tooltip </t-tooltip>
+  
+    <div style="width: 200px;">
+      <t-progress-bar percentage="25"></t-progress-bar>
+    </div>
+  
+    <div style="width: 36px; height: 36px">
+      <t-loading-icon color="#3fa5ca"></t-loading-icon>
+    </div>
+
     <t-icon size="50" icon="File" color="#f2786c" stroke-width="1" text="PDF"></t-icon>
+
     <t-icon size="50" icon="File" color="#41d3b0" text="CSV"></t-icon>
   </div>
+
+  <div>
+    <span style="margin: 5px;">Fill:</span>
+    <t-button type="fill" color="primary">1</t-button>
+    <t-button type="fill" color="secondary">2</t-button>
+    <t-button type="fill" color="success">3</t-button>
+    <t-button type="fill" color="info">4</t-button>
+    <t-button type="fill" color="warning">5</t-button>
+    <t-button type="fill" color="danger">6</t-button>
+    <t-button type="fill" color="gray">7</t-button>
+
+    <span style="margin: 5px;">Outline:</span>
+    <t-button type="outline" color="primary">1</t-button>
+    <t-button type="outline" color="secondary">2</t-button>
+    <t-button type="outline" color="success">3</t-button>
+    <t-button type="outline" color="info">4</t-button>
+    <t-button type="outline" color="warning">5</t-button>
+    <t-button type="outline" color="danger">6</t-button>
+    <t-button type="outline" color="gray">7</t-button>
+
+    <span style="margin: 5px;">Text:</span>
+    <t-button type="text" color="primary">1</t-button>
+    <t-button type="text" color="secondary">2</t-button>
+    <t-button type="text" color="success">3</t-button>
+    <t-button type="text" color="info">4</t-button>
+    <t-button type="text" color="warning">5</t-button>
+    <t-button type="text" color="danger">6</t-button>
+    <t-button type="text" color="gray">7</t-button>
+
+    <span style="margin: 5px;">Actions:</span>
+    <t-group>
+      <t-button type="icon" icon="Info" color="gray"></t-button>
+      <t-button type="icon" icon="SquarePen" color="info"></t-button>
+      <t-button type="icon" icon="Trash2" color="danger"></t-button>
+    </t-group>
+
+    <span style="margin: 5px;">Chevron:</span>
+    <t-chevron-btn></t-chevron-btn>
+  </div>
+
+  <div>
+    <t-button id="btn" text="Button Loading" tooltip="Button" icon="Menu" loading></t-button>
+
+    <t-button id="alert-btn" text="Show Alert"></t-button>
+
+    <t-button id="toast-btn" text="Show Toast"></t-button>
+
+    <t-button id="loading-btn" text="Show Loading"></t-button>
+  </div>
+
 
   <t-accordion>
     <t-accordion-item-group text="Accordion Group 1">
@@ -26,40 +96,6 @@
     </t-accordion-item-group>
   </t-accordion>
 
-  <div style="width: 36px; height: 36px">
-    <t-loading-icon color="#3fa5ca"></t-loading-icon>
-  </div>
-
-  <div>
-    <t-button text="Button" tooltip="Button" icon="Menu" loading on_clicked="onClicked"></t-button>
-
-    <t-button text="Show Alert" on_clicked="showAlert"></t-button>
-
-    <t-button text="Show Toast" on_clicked="showToast"></t-button>
-
-    <t-button text="Show Loading" on_clicked="showLoading"></t-button>
-  </div>
-
-  <t-loading id="loading"></t-loading>
-
-  <t-chevron-btn></t-chevron-btn>
-
-  <t-chip text="Chip"></t-chip>
-
-  <t-group>
-    <t-button text="1"></t-button>
-    <t-button text="2"></t-button>
-    <t-button text="3"></t-button>
-  </t-group>
-
-  <t-image src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg" alt="Sample Image"
-    title="Title" sub-title="Sub Title">
-  </t-image>
-
-  <t-link text="Link"></t-link>
-
-  <t-progress-bar percentage="25"></t-progress-bar>
-
   <t-tabs>
     <t-tab text="Tab 1"></t-tab>
     <t-tab text="Tab 2"></t-tab>
@@ -72,7 +108,6 @@
     </div>
   </t-tabs>
 
-  <t-tooltip text="Tooltip"> Tooltip </t-tooltip>
 
   <t-text-field label="Text Field"></t-text-field>
 
@@ -80,9 +115,9 @@
 
   <t-currency-field label="Currency Field"></t-currency-field>
 
-  <t-select label="Select"></t-select>
+  <t-select id="select" label="Select"></t-select>
 
-  <t-autocomplete label="Autocomplete"></t-autocomplete>
+  <t-autocomplete id="autocomplete" label="Autocomplete"></t-autocomplete>
 
   <t-date-picker label="Date Picker"></t-date-picker>
 
@@ -108,7 +143,7 @@
 
   <t-form-builder-modal label="User Form" id="form-builder-modal"></t-form-builder-modal>
 
-  <t-button text="Show Form" on_clicked="showForm"></t-button>
+  <t-button id="form-btn" text="Show Form"></t-button>
 
   <script src="https://unpkg.com/@teranes/utils@11.0.0/dist/index.umd.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/@teranes/date@10.0.0/dist/index.umd.js"></script>
@@ -159,32 +194,53 @@
   <script src="umd/bundle/form-builder.umd.js"></script>
 
   <script>
-    function showAlert() {
-      console.log("show Alert");
+    const { h } = WebComponents.Vue
+    const { useLoading, useToast, useAlert, useDeleteAlert, FormBuilderBase } = WebComponents
+  </script>
 
-      WebComponents.useDeleteAlert(() => {
-        console.log("cc");
-      });
-    }
-
-    function showToast() {
-      WebComponents.useToast("Hello");
-    }
-
-    function showLoading() {
-      const loadingEl = document.getElementById("loading");
-      loadingEl.loading = true;
-
-      setTimeout(() => {
-        loadingEl.loading = false;
-      }, 1500);
-    }
-
-    function onClicked(e) {
+  <script>
+    const btn = document.getElementById('btn')
+    btn.onPress = (e) => {
       setTimeout(() => {
         e.stopLoading();
       }, 1500);
     }
+
+    const alertBtn = document.getElementById('alert-btn')
+    alertBtn.onPress = () => {
+      useDeleteAlert(() => {
+        console.log("delete");
+      });
+    }
+
+    const toastBtn = document.getElementById('toast-btn')
+    toastBtn.onPress = () => {
+      useToast("Hello");
+    }
+
+    const loadingBtn = document.getElementById('loading-btn')
+    loadingBtn.onPress = () => {
+      const loading = useLoading();
+      setTimeout(() => {
+        loading.hide()
+      }, 2500);
+    }
+  </script>
+
+  <script>
+    const select = document.getElementById('select')
+    select.items = { 'Item 1': 1, 'Item 2': 2, 'Item 3': 3 }
+    //select.items = [['Item 1', 1], ['Item 2', 2], ['Item 3', 3]]
+    //select.items = [{ text:'Item 1', value: 1}, {text:'Item 2',value: 2}, {text:'Item 3',value: 3 }]
+    select.addEventListener('update:modelValue', (v) => {
+      console.log('on select changed', v.detail);
+    })
+
+    const autocomplete = document.getElementById('autocomplete')
+    autocomplete.items = [{ text: 'Item 1', value: 1 }, { text: 'Item 2', value: 2 }, { text: 'Item 3', value: 3 }]
+    autocomplete.addEventListener('update:modelValue', (v) => {
+      console.log('on autocomplete changed', v.detail);
+    })
   </script>
 
   <script>
@@ -231,7 +287,9 @@
     const formBuilder = document.getElementById("form-builder");
     const formBuilderModel = document.getElementById("form-builder-modal");
 
-    const types = ["Char", "Varchar", "int"];
+    const types = { "Char": 1, "Varchar": 2, "int": 3 };
+    //const types = [["Char", 1], ["Varchar", 2], ["int", 3]];
+    //const types = [{ text: "Char", value: 1 }, { text: "Varchar", value: 2 }, { text: "int", value: 3 }];
 
     const columnHeaders = [
       {
@@ -242,7 +300,7 @@
       {
         text: "Type",
         value: 'type',
-        component: x => ({ _type: 'select', items: types  })
+        component: x => ({ _type: 'select', items: types })
       },
       {
         text: "Size",
@@ -299,7 +357,7 @@
       },
     ]
 
-    class TestForm extends WebComponents.FormBuilderBase {
+    class TestForm extends FormBuilderBase {
       getAttributes() {
         return [
           {
@@ -327,8 +385,7 @@
               items: items,
               mobileView: 1125
             },
-            events: ['onUpdate:items'],
-            attrs: { size: 6 }
+            events: ['onUpdate:items']
           },
         ];
       }
@@ -342,7 +399,8 @@
 
     formBuilderModel.ctx.create(TestForm);
 
-    function showForm() {
+    const formBtn = document.getElementById('form-btn')
+    formBtn.onPress = () => {
       formBuilderModel.ctx.open();
     }
   </script>

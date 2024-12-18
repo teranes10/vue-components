@@ -1,12 +1,12 @@
 import type { ErDiagramEntityProps } from './components/er-diagram-entity/ErDiagramEntityConfig'
 import styles from './ErDiagram.module.css'
 
-export interface ErDiagramProps {
+export type ErDiagramProps = {
   items?: ErDiagramEntityProps[]
   gap?: number
 }
 
-export interface EntityElement {
+export type EntityElement = {
   name: string
   columns: ColumnElement[]
   el: HTMLElement
@@ -19,7 +19,7 @@ export interface EntityElement {
   connections?: ConnectionElement[]
 }
 
-export interface ColumnElement {
+export type ColumnElement = {
   name: string
   type: string
   el?: HTMLElement
@@ -32,14 +32,14 @@ export interface ColumnElement {
   connections?: ConnectionElement[]
 }
 
-export interface ConnectionElement {
+export type ConnectionElement = {
   parentRect: HTMLElement
   entityRect: HTMLElement
   setMouseOver: (event: MouseEvent) => void
   clear: () => void
 }
 
-export interface Connection {
+export type Connection = {
   _entity: EntityElement
   entity: string
   column: string

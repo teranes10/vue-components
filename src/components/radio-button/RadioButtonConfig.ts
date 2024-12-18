@@ -2,7 +2,7 @@ import { type ComponentColor, componentColors } from '@/shared/values/colors'
 import { toCamelCase } from '@teranes/utils'
 import styles from './RadioButton.module.css'
 
-export interface RadioButtonProps<V> {
+export type RadioButtonProps<V> = {
   label: string
   modelValue?: boolean
   value?: V
@@ -10,7 +10,7 @@ export interface RadioButtonProps<V> {
   disabled?: boolean
 }
 
-export interface RadioButtonEmits {
+export type RadioButtonEmits = {
   'update:modelValue': [value: boolean]
 }
 

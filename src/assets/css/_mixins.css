@@ -10,53 +10,56 @@
     color: var(--color-gray-600);
     border: 1px solid var(--color-gray-200);
 
-    &:hover {
-      border: 1px solid var(--color-gray-300);
-    }
-
-    &:focus {
+    &:focus-within {
       border: 1px solid var(--color-gray-200);
       box-shadow: 0 0 0 3px var(--color-gray-100);
     }
 
+    &:hover {
+      border: 1px solid var(--color-gray-300);
+    }
+
+    &.disabled,
     &:disabled,
-    &.disabled {
+    input:disabled {
       background-color: var(--color-gray-50);
       color: var(--color-gray-600);
       cursor: not-allowed;
       pointer-events: none;
     }
 
-    @content;
-  }
-}
+    &.sm {
+      height: 34px;
+      font-size: var(--text-xs);
+    }
 
-@mixin input-label($input) {
-  .$(input)-label {
-    font-size: var(--text-xs);
-    font-weight: var(--font-bold);
-    color: var(--color-gray-500);
+    &.lg {
+      height: 42px;
+      font-size: var(--text-md);
+    }
 
-    &.required {
-      &:after {
-        content: '*';
-        margin-left: 0.25rem;
-        color: var(--color-danger);
-      }
+    &.auto {
+      height: auto;
+    }
+
+    &.success {
+      border-color: var(--color-success);
+    }
+
+    &.error {
+      border-color: var(--color-danger);
+    }
+
+    &.info {
+      border-color: var(--color-info);
+    }
+
+    &.warning {
+      border-color: var(--color-warning);
     }
 
     @content;
   }
-}
-
-@mixin input-tag($input) {
-  .$(input)-tag {
-    font-size: var(--text-xs);
-    font-weight: var(--font-bold);
-    color: var(--color-gray-700);
-  }
-
-  @content;
 }
 
 @mixin input-label-container($input) {
@@ -67,11 +70,33 @@
     margin-bottom: 0.5rem;
     user-select: none;
 
+    .$(input)-label {
+      font-size: var(--text-xs);
+      font-weight: var(--font-bold);
+      color: var(--color-gray-500);
+
+      &.required {
+        &:after {
+          content: '*';
+          margin-left: 0.25rem;
+          color: var(--color-danger);
+        }
+      }
+    }
+
+    .$(input)-tag {
+      font-size: var(--text-xs);
+      font-weight: var(--font-bold);
+      color: var(--color-gray-700);
+    }
+
     @content;
   }
 }
 
-@mixin scrollbar($size: 7.5px, $margin: 40px, $color: var(--color-gray-200), $hover-color: var(--color-gray-300)) {
+@mixin scrollbar($size: 5px, $margin: 0) {
+  scroll-behavior: smooth;
+
   &::-webkit-scrollbar {
     width: $size;
     height: $size;
@@ -84,11 +109,11 @@
 
   &::-webkit-scrollbar-thumb {
     border-radius: $size 0 0 $size;
-    background-color: $color;
+    background-color: var(--color-gray-200);
   }
 
   &::-webkit-scrollbar-thumb:hover {
-    background-color: $hover-color;
+    background-color: var(--color-gray-300);
   }
 }
 

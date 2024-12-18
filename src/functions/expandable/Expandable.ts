@@ -1,13 +1,14 @@
 import type { Ref } from 'vue'
 import type { BaseInternalItem } from '../item/BaseInternalItem'
+import type { Key } from '../item/ItemKey'
 import { compare, isArray } from '@teranes/utils'
 import { ref } from 'vue'
 
-export interface ExpandableOptions {
+export type ExpandableOptions = {
   singleExpand?: boolean
 }
 
-export function useExpandable<T, K, B extends BaseInternalItem<T, K>>(
+export function useExpandable<T, K extends Key, B extends BaseInternalItem<T, K>>(
   expanded: Ref<K | K[] | undefined> = ref(),
   {
     singleExpand = true,
@@ -62,18 +63,4 @@ export function useExpandable<T, K, B extends BaseInternalItem<T, K>>(
     expandItem,
     isExpanded,
   }
-}
-
-export type Expandable<K> = {
-  expandable?: boolean
-} & (SingleExpand<K> | MultipleExpand<K>)
-
-interface SingleExpand<K> {
-  singleExpand?: true
-  expanded?: K
-}
-
-interface MultipleExpand<K> {
-  singleExpand?: false
-  expanded?: K[]
 }

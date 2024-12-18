@@ -16,32 +16,30 @@ const tableSetup = useTableSetup(props, emit)
 <template>
   <div :class="styles.objectGrid" :style="{ '--object-card-width': cardWidth ? `${cardWidth}px` : '' }">
     <div v-for="item in tableSetup.items.value" :key="item.key" :class="styles.cardView">
-      <div :class="styles.cardViewItem">
-        <div v-for="header in tableSetup.headers.value" :key="header.key" :class="styles.cardViewGroup">
-          <span :class="styles.cardViewKey">
-            <slot v-if="header.text.type === 'slot'" :name="header.text.name" />
+      <template v-for="header in tableSetup.headers.value" :key="header.key">
+        <span :class="styles.cardViewKey">
+          <slot v-if="header.text.type === 'slot'" :name="header.text.name" />
 
-            <component :is="header.text.component" v-else-if="header.text.type === 'component'" />
+          <component :is="header.text.component" v-else-if="header.text.type === 'component'" />
 
-            <template v-else-if="header.text.type === 'text'">
-              {{ header.text.text }}
-            </template>
-          </span>
+          <template v-else-if="header.text.type === 'text'">
+            {{ header.text.text }}
+          </template>
+        </span>
 
-          <span :class="styles.cardViewValue">
-            <slot
-              v-if="header.value.type === 'slot'" :name="header.value.name" :item="item._item"
-              :internal-item="item"
-            />
+        <span :class="styles.cardViewValue">
+          <slot
+            v-if="header.value.type === 'slot'" :name="header.value.name" :item="item._item"
+            :internal-item="item"
+          />
 
-            <component :is="header.value.component(item)" v-else-if="header.value.type === 'component'" />
+          <component :is="header.value.component(item)" v-else-if="header.value.type === 'component'" />
 
-            <template v-else-if="header.value.type === 'text'">
-              {{ header.value.text(item) }}
-            </template>
-          </span>
-        </div>
-      </div>
+          <template v-else-if="header.value.type === 'text'">
+            {{ header.value.text(item) }}
+          </template>
+        </span>
+      </template>
     </div>
   </div>
 </template>

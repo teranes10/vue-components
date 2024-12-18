@@ -1,4 +1,4 @@
-export interface ErDiagramColumnProps {
+export type ErDiagramColumnProps = {
   name: string
   type: string
   constraints?: string[]

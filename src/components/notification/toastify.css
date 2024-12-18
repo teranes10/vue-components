@@ -1,0 +1,9 @@
+@import 'toastify-js/src/toastify.css';
+
+.toastify {
+  background: none;
+  border-radius: 0;
+  box-shadow: none;
+  color: none;
+  padding: 0;
+}

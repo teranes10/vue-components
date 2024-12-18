@@ -3,7 +3,7 @@ import type { DropdownEmits, DropdownItem, DropdownProps } from './DropdownConfi
 import { type Popper, popper as usePopper } from '@teranes/popper'
 import { throttle } from '@teranes/utils'
 import { vModel } from '@teranes/vue-composables'
-import { onMounted, onUnmounted, ref, useAttrs } from 'vue'
+import { onMounted, onUnmounted, ref } from 'vue'
 import styles from './Dropdown.module.css'
 
 const props = withDefaults(defineProps<DropdownProps>(), {
@@ -12,7 +12,6 @@ const props = withDefaults(defineProps<DropdownProps>(), {
   noEvents: false,
 })
 const emit = defineEmits<DropdownEmits>()
-const attrs = useAttrs()
 const isShowing = vModel(props, 'modelValue', emit, false)
 
 let popper: Popper
@@ -22,18 +21,18 @@ const itemsContainerElement = ref<HTMLDivElement>()
 
 function show() {
   popper.show()
-  emit('show')
+  props.onShow?.()
 }
 
 function hide() {
   if (isShowing.value) {
     popper.hide()
-    emit('hide')
+    props.onHide?.()
   }
 }
 
 const toggle = throttle(() => {
-  if (attrs?.disabled) {
+  if (props?.disabled) {
     return
   }
 
@@ -42,7 +41,7 @@ const toggle = throttle(() => {
 
 function onSelect(item: DropdownItem) {
   hide()
-  emit('select', item)
+  props.onSelect?.(item)
   item.onSelect && item.onSelect()
 }
 

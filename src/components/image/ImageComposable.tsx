@@ -1,6 +1,6 @@
 import Image from './Image.vue'
 
-export interface ImageViewOptions {
+export type ImageViewOptions = {
   width?: number
   height?: number
   alt?: string
@@ -35,7 +35,7 @@ export function useImageView(
       subTitle={subTitle}
       alt={alt}
       preview={preview}
-      onClick={onClick}
+      onPress={onClick}
     />
   )
 }

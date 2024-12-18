@@ -1,39 +1,39 @@
-<script setup lang="ts" generic="T extends SelectItem">
-import type { SelectItem } from '@/components/select'
-import type { AutocompleteEmits, AutocompleteLoadOptions, AutocompleteProps } from './AutocompleteConfig'
+<script setup lang="ts" generic="T extends object, V, K extends Key">
+import type { Key } from '@/functions/item/ItemKey'
 import { LoadingIcon } from '@/components/loading'
 import Select from '@/components/select/Select.vue'
-import { debounce } from '@teranes/utils'
-import { type ComponentType, eventListener, infiniteScroll, pagination as usePagination, vModel } from '@teranes/vue-composables'
-import { computed, getCurrentInstance, onMounted, ref, useAttrs, watch } from 'vue'
+import { type ComponentType, infiniteScroll, pagination as usePagination, vModel } from '@teranes/vue-composables'
+import { computed, onMounted, ref, watch } from 'vue'
 import styles from './Autocomplete.module.css'
+import { type AutocompleteEmits, type AutocompleteLoadOptions, type AutocompleteProps, extractSelectProps } from './AutocompleteConfig'
 
 defineOptions({
   inheritAttrs: false,
 })
 
-const props = withDefaults(defineProps<AutocompleteProps<T>>(), {
+const props = withDefaults(defineProps<AutocompleteProps<T, V, K>>(), {
+  items: () => [],
+  itemsPerPage: 10,
   visibleItems: 5,
 })
 
-const emit = defineEmits<AutocompleteEmits<T>>()
+const emit = defineEmits<AutocompleteEmits<T, V>>()
 
-const attrs = useAttrs()
+const selectProps = computed(() => extractSelectProps(props))
+
+const modelValue = vModel(props, 'modelValue', emit)
 
 const search = ref('')
 const page = ref(1)
-
-const itemsPerPage = vModel(props, 'itemsPerPage', emit, 10)
-const items = vModel(props, 'items', emit, [])
-
+const itemsPerPage = vModel(props, 'itemsPerPage', emit)
 const serverSideRendering = vModel(props, 'serverSideRendering')
-if (getCurrentInstance()?.vnode.props?.onLoad) {
+const items = vModel(props, 'items', emit)
+const params = vModel(props, 'params')
+const errorMessage = ref('')
+
+if (props.onLoad) {
   serverSideRendering.value = true
 }
-
-const params = vModel(props, 'params')
-
-const errorMessage = ref('')
 
 const pagination = usePagination(items, page, itemsPerPage, (options) => {
   const _options: AutocompleteLoadOptions<T> = {
@@ -48,10 +48,10 @@ const pagination = usePagination(items, page, itemsPerPage, (options) => {
     },
   }
 
-  emit('load', _options)
+  props.onLoad?.(_options)
 }, { serverSideRendering, search, storePreviousItems: true, params })
 
-const message = computed(() => !(pagination.isLoading.value || pagination.isWaiting.value) && !pagination.totalItems.value
+const footerMessage = computed(() => !(pagination.isLoading.value || pagination.isWaiting.value) && !pagination.totalItems.value
   ? errorMessage.value || 'No items found.'
   : '',
 )
@@ -70,47 +70,15 @@ onMounted(() => {
       })
     }
 
-    const textFieldComponent = selectComponent.value.textFieldComponent
-    if (textFieldComponent) {
-      watch(() => textFieldComponent.value, debounce((val) => {
-        if (selectComponent.value?.isSearching) {
-          search.value = val
-        }
-      }, 10))
-
-      const inputElement = textFieldComponent.$refs.inputElement as HTMLInputElement
-      if (inputElement) {
-        inputElement.readOnly = false
-
-        const toggleElement = selectComponent.value.$refs.referenceElement
-        const toggleIcon = textFieldComponent.$refs.postText as HTMLElement
-
-        if (toggleElement && toggleIcon) {
-          eventListener([toggleElement, toggleIcon], 'click', (_, el) => {
-            if (attrs?.disabled) {
-              return
-            }
-
-            if (selectComponent.value) {
-              if (el === toggleIcon) {
-                selectComponent.value.toggle()
-                selectComponent.value.isShowing ? inputElement.focus() : inputElement.blur()
-              }
-              else {
-                selectComponent.value.show()
-                inputElement.focus()
-              }
-            }
-          })
-        }
-      }
-    }
+    watch(() => selectComponent.value?.search, (v) => {
+      search.value = v || ''
+    })
   }
 })
 </script>
 
 <template>
-  <Select ref="selectComponent" :items="pagination.items.value" v-bind="$attrs" :message="message">
+  <Select ref="selectComponent" v-model="modelValue" :filterable="false" :items="pagination.items.value" :footer-message="footerMessage" v-bind="{ ...selectProps, ...$attrs }">
     <template v-if="pagination.isLoading.value || pagination.isWaiting.value" #footer>
       <slot v-if="$slots.loading" name="loading" />
       <div v-else :class="styles.autocompleteLoading">

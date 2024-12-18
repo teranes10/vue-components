@@ -1,14 +1,13 @@
 import type { Directive } from 'vue'
 import tippy, { roundArrow } from 'tippy.js'
 
-export interface TooltipProps {
+export type TooltipProps = {
   text?: string
   placement?: TooltipPlacement
+  onPress?: (e: MouseEvent) => void
 }
 
-export interface TooltipEmits {
-  click: [e: MouseEvent]
-}
+export type TooltipEmits = {}
 
 export type TooltipPlacement = 'top' | 'top-start' | 'top-end' | 'right' | 'right-start' | 'right-end' | 'bottom' | 'bottom-start' | 'bottom-end' | 'left' | 'left-start' | 'left-end'
 

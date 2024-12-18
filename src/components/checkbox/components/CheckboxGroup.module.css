@@ -1,8 +1,5 @@
 .checkbox-group {
-  @include input-label-container(checkbox-group) {
-    @include input-label(checkbox-group);
-    @include input-tag(checkbox-group);
-  }
+  @include input-label-container(checkbox-group);
 
   @include input(checkbox-group-container) {
     height: auto;
@@ -17,10 +14,6 @@
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
-    }
-
-    &.error {
-      border-color: var(--color-danger);
     }
   }
 

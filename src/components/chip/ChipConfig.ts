@@ -1,15 +1,13 @@
 import type { FunctionalComponent } from 'vue'
 import styles from './Chip.module.css'
 
-export interface ChipProps {
+export type ChipProps = {
   icon?: FunctionalComponent
   text?: string
   color?: ChipColor
 }
 
-export interface ChipEmits {
-
-}
+export type ChipEmits = {}
 
 export type ChipColor = 'primary' | 'secondary' | 'success' | 'warning' | 'info' | 'danger' | (NonNullable<unknown> & `#${string}`)
 

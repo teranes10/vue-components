@@ -11,11 +11,11 @@ export type CheckboxGroupProps<V> = ValidationProps<V[]> & {
   items?: CheckboxProps<V>[]
 }
 
-export interface CheckboxGroupEmits<V> {
+export type CheckboxGroupEmits<V> = {
   'update:modelValue': [values: V[]]
 }
 
-export interface CheckBoxGroupContext<V> {
+export type CheckBoxGroupContext<V> = {
   inline: boolean
   onInitialize: (value: V, checked: Ref<boolean>) => void
   onCheckChanged: (value: V, checked: boolean) => void

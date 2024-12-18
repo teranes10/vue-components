@@ -14,7 +14,7 @@ const checked = vModel(props, 'modelValue', emit, false)
 
 function onClick(e: MouseEvent) {
   const checkbox = e.target as HTMLInputElement
-  emit('changed', checkbox.checked)
+  props.onChange?.(checkbox.checked)
 }
 </script>
 

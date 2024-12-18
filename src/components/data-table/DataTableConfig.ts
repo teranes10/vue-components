@@ -1,11 +1,12 @@
 import type { TableHeader } from '@/components/table'
 import type { ItemIndex } from '@/functions/item/ItemIndex'
+import type { ItemKey, Key } from '@/functions/item/ItemKey'
 import type { PaginationLoadOptions } from '@teranes/vue-composables'
+import type { Expandable, Selectable } from '../table/TableConfig'
 
-export interface DataTableProps<T, K> {
+export type DataTableProps<T, K extends Key> = TableCommonProps<T, K> & {
   headers: TableHeader<T, K>[]
   items: T[]
-  itemKey?: string | ((item: T) => K)
   itemsPerPage?: number
   itemsPerPageOptions?: number[]
   search?: string
@@ -13,18 +14,18 @@ export interface DataTableProps<T, K> {
   searchDelay?: number
   params?: { [key: string]: any }
   loading?: boolean
+  onLoad?: (options: DataTableLoadOptions<T>) => void
+  onInitialize?: (ctx: DataTableContext<T, K>) => void
 }
 
-export interface DataTableEmits<T, K> {
+export type DataTableEmits<T, K extends Key> = {
   'update:headers': [headers: TableHeader<T, K>[]]
   'update:items': [items: T[]]
   'update:itemsPerPage': [value: number]
-  'load': [options: DataTableLoadOptions<T>]
-  'initialize': [ctx: DataTableContext<T, K>]
   'update:loading': [value: boolean]
 }
 
-export interface DataTableContext<T, K> {
+export type DataTableContext<T, K extends Key> = {
   isServerSideRendering: () => boolean
   setHeaders: (headers: TableHeader<T, K>[]) => void
   setOnLoadListener: (cb: DataTableOnLoadListener<T>) => void
@@ -41,9 +42,9 @@ export type DataTableOnLoadListener<T> = (options: DataTableLoadOptions<T>) => v
 
 export type DataTableLoadOptions<T> = PaginationLoadOptions<T>
 
-export interface DataTableContextGetter<T, K> { ctx: () => DataTableContext<T, K> | undefined }
+export type DataTableContextGetter<T, K extends Key> = { ctx: () => DataTableContext<T, K> | undefined }
 
-export function DataTableInitializer<T, K>(
+export function DataTableInitializer<T, K extends Key>(
   cb?: (ctx: DataTableContext<T, K>) => void,
 ): DataTableContextGetter<T, K> {
   let ctx: DataTableContext<T, K> | undefined
@@ -56,4 +57,14 @@ export function DataTableInitializer<T, K>(
   }
 
   return { mounted, ctx: () => ctx } as DataTableContextGetter<T, K>
+}
+
+export type TableCommonProps<T, K extends Key> = {
+  itemKey?: ItemKey<T, K>
+  mobileView?: boolean | number
+  cardWidth?: number | string
+} & Selectable<K> & Expandable<K>
+
+export function extractTableProps<T, K extends Key>({ itemKey, mobileView, cardWidth, selectable, singleSelect, selected, expandable, singleExpand, expanded }: TableCommonProps<T, K>) {
+  return { itemKey, mobileView, cardWidth, selectable, singleSelect, selected, expandable, singleExpand, expanded }
 }

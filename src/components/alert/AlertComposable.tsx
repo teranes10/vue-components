@@ -40,7 +40,7 @@ export function useAlert(options: AlertProps) {
     />
   )
 
-  modal = useModal(component, { width: 450 })
+  modal = useModal(component, { width: 450, persistent: true })
   modal.show()
 }
 

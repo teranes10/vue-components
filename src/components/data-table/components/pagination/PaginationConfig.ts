@@ -1,9 +1,9 @@
-export interface PaginationProps {
+export type PaginationProps = {
   modelValue: number
   totalPages: number
   totalVisible?: number
 }
 
-export interface PaginationEmits {
+export type PaginationEmits = {
   'update:modelValue': [value: number]
 }

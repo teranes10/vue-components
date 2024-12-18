@@ -1,4 +1,5 @@
 import type { ModalProps } from './ModalConfig'
+import { getContainer } from '@/functions/dom/Container'
 import { createVNode, type FunctionalComponent, ref, render } from 'vue'
 import Modal from './Modal.vue'
 
@@ -28,25 +29,10 @@ export function useModal(Component: FunctionalComponent, props?: ModalProps) {
   )
 
   const node = createVNode(modal)
-  const container = ModalsContainer()
+  const container = getContainer('_models_container_')
   if (container && node) {
     render(node, container)
   }
 
   return { show, hide }
-}
-
-function ModalsContainer(): HTMLElement | undefined {
-  if (document) {
-    let container = document.getElementById('modals')
-    if (!container) {
-      container = document.createElement('div')
-      container.id = 'modals'
-      document.getElementById('app')?.append(container)
-    }
-
-    return container
-  }
-
-  return undefined
 }

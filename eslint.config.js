@@ -6,4 +6,10 @@ export default antfu({
   rules: {
     'perfectionist/sort-exports': 'off',
   },
+  typescript: {
+    overrides: {
+      'ts/consistent-type-definitions': ['error', 'type'],
+      'ts/no-empty-object-type': ['off'],
+    },
+  },
 })

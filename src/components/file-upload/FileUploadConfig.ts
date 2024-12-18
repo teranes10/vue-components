@@ -18,7 +18,7 @@ export type FileUploadProps<T = File | File[]> = ValidationProps<T> & {
   required?: boolean
 }
 
-export interface FileUploadEmits<T = File | File[]> {
+export type FileUploadEmits<T = File | File[]> = {
   'update:modelValue': [value: T]
 }
 

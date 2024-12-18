@@ -1,12 +1,9 @@
 import type { BaseInternalItem } from '../item/BaseInternalItem'
+import type { Key } from '../item/ItemKey'
 import { compare, isArray } from '@teranes/utils'
 import { type Ref, ref } from 'vue'
 
-export interface SelectableOptions {
-  singleSelect?: boolean
-}
-
-export function useSelectable<T, K>(
+export function useSelectable<T, K extends Key>(
   selected: Ref<K | K[] | undefined> = ref(),
   {
     singleSelect = false,
@@ -66,18 +63,4 @@ export function useSelectable<T, K>(
     selectItems,
     isSelected,
   }
-}
-
-export type Selectable<K> = {
-  selectable?: boolean
-} & (SingleSelect<K> | MultipleSelect<K>)
-
-interface SingleSelect<K> {
-  singleSelect?: true
-  selected?: K
-}
-
-interface MultipleSelect<K> {
-  singleSelect?: false
-  selected?: K[]
 }

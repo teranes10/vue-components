@@ -1,15 +1,16 @@
+import type { Key } from '@/functions/item/ItemKey'
 import type { ShortEmits } from '@teranes/vue-composables'
 import type { TableEmits, TableHeader, TableInternalHeader, TableInternalItem, TableProps } from './TableConfig'
 import { useExpandable } from '@/functions/expandable/Expandable'
+import { toBaseInternalItem } from '@/functions/item/BaseInternalItem'
 import { getItemComponent } from '@/functions/item/ItemComponent'
 import { getItemKey } from '@/functions/item/ItemKey'
 import { getItemValue } from '@/functions/item/ItemValue'
 import { useSelectable } from '@/functions/selectable/Selectable'
-import { getValueByObjectPath, setValueByObjectPath } from '@teranes/utils'
 import { vModel } from '@teranes/vue-composables'
 import { computed, onMounted, ref, useSlots } from 'vue'
 
-export function useTableSetup<T, K extends string | number>(props: TableProps<T, K>, emit: ShortEmits<TableEmits<T, K>>) {
+export function useTableSetup<T, K extends Key>(props: TableProps<T, K>, emit: ShortEmits<TableEmits<T, K>>) {
   const isMounted = ref(false)
   const slots = useSlots()
 
@@ -53,7 +54,7 @@ export function useTableSetup<T, K extends string | number>(props: TableProps<T,
   const { isSelected, selectItem, selectItems } = useSelectable<T, K>(selected, { singleSelect: props.singleSelect })
 
   function onSelect(item: TableInternalItem<T, K>, select: boolean) {
-    emit('select', item.key, select, item._item)
+    props.onSelect?.(item.key, select, item._item)
     selectItem(item, select)
   }
 
@@ -61,7 +62,7 @@ export function useTableSetup<T, K extends string | number>(props: TableProps<T,
     const keys = items.value.map(x => x.key)
     const itemsArray = items.value.map(x => x._item)
 
-    emit('selectAll', keys, select, itemsArray)
+    props.onSelectAll?.(keys, select, itemsArray)
     selectItems(items.value, select)
   }
 
@@ -79,7 +80,7 @@ export function useTableSetup<T, K extends string | number>(props: TableProps<T,
   const { isExpanded, expandItem } = useExpandable(expanded, { singleExpand: props.singleExpand })
 
   function onExpand(item: TableInternalItem<T, K>, expand: boolean) {
-    emit('expand', item.key, expand, item._item)
+    props.onExpand?.(item.key, expand, item._item)
     expandItem(item, expand)
   }
 
@@ -137,17 +138,9 @@ export function useTableSetup<T, K extends string | number>(props: TableProps<T,
     const key = getItemKey(item, i, props.itemKey)
 
     return {
-      _item: item,
-      index: i,
-      key,
+      ...toBaseInternalItem(item, i, key),
       selected: !!props.selectable && isSelected(key),
       expanded: !!props.expandable && isExpanded(key),
-      getValue(key) {
-        return getValueByObjectPath(this._item, key)
-      },
-      setValue(key, value) {
-        setValueByObjectPath(this._item, key, value)
-      },
     }
   }
 

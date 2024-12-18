@@ -1,6 +1,6 @@
 import { defineCustomElement } from 'vue'
 
-export interface RegisterOptions {
+export type RegisterOptions = {
   prefix?: string
 }
 
@@ -8,7 +8,7 @@ export function registerWebComponent(name: string, component: any, { prefix = 't
   customElements.define(`${prefix ? `${prefix}-` : ''}${name}`, component)
 }
 
-export interface DefineOptions {
+export type DefineOptions = {
   emits?: string[]
 }
 

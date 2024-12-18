@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import type { ButtonClickOptions, ButtonEmits, ButtonProps } from './ButtonConfig'
+import type { ButtonEmits, ButtonPressOptions, ButtonProps } from './ButtonConfig'
 import { LoadingIcon } from '@/components/loading'
 import { vTooltip } from '@/components/tooltip'
 import { Icon } from '@/shared/components/icon'
@@ -28,13 +28,13 @@ function onClick() {
     loading.value = true
   }
 
-  const options: ButtonClickOptions = {
+  const options: ButtonPressOptions = {
     stopLoading: () => {
       loading.value = false
     },
   }
 
-  emit('clicked', options)
+  props.onPress?.(options)
 }
 </script>
 
@@ -42,9 +42,8 @@ function onClick() {
   <button
     v-tooltip="tooltip!" :class="[styles.btn, {
       [styles.block]: block,
-      [ButtonSizeClasses[size!]]: size,
       [ButtonColorClasses[color][type]]: color && type,
-    }]" @click="onClick"
+    }, size ? ButtonSizeClasses[size] : type === 'icon' ? ButtonSizeClasses.xxs : undefined]" @click="onClick"
   >
     <LoadingIcon v-if="loading" icon="oval" :class="styles.btnIcon" />
 

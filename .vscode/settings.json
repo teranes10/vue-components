@@ -1,7 +1,18 @@
 {
+  "explorer.fileNesting.enabled": true,
+  "explorer.fileNesting.patterns": {
+    "tsconfig.json": "tsconfig.*.json, env.d.ts",
+    "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .prettier*, prettier*, .editorconfig, .npmrc, CHANGELOG*",
+    "vite-base.config.*": "vite*, postcss*, .eslint*, eslint*, index.html, .gitignore, README.md"
+  },
   "cSpell.words": [
+    "Arrayable",
+    "flatpickr",
     "Lexend",
-    "lucide"
+    "lucide",
+    "Pinia",
+    "toastify",
+    "vnode"
   ],
   // Disable the default formatter, use eslint instead
   "prettier.enable": false,

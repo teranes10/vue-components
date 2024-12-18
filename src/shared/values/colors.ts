@@ -140,7 +140,7 @@ export const componentColors = {
   gray: {
     ...colors.gray,
     color: colors.gray[50],
-    text: colors.gray[600],
+    text: colors.gray[400],
   },
 } as const
 

@@ -4,6 +4,6 @@
   flex-wrap: wrap;
   justify-content: flex-start;
   align-items: center;
-  column-gap: 0.5rem;
+  column-gap: 0.35rem;
   row-gap: 0.25rem;
 }

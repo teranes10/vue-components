@@ -1,4 +1,5 @@
 import type { IconValue } from '@/shared/components/icon'
+import type { Component } from 'vue'
 import {
   AlertCircle,
   CheckCircle,
@@ -9,16 +10,16 @@ import styles from './Alert.module.css'
 
 export type AlertType = 'success' | 'warning' | 'info' | 'danger'
 
-export interface AlertButton {
+export type AlertButton = {
   text?: string
   icon?: IconValue
   class?: string
   onClick?: () => void
 }
 
-export interface AlertProps {
+export type AlertProps = {
   title?: string
-  text?: string
+  text?: string | Component
   icon?: IconValue
   type?: AlertType
   closeButton?: AlertButton

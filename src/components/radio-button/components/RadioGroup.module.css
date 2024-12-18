@@ -1,8 +1,5 @@
 .radio-group {
-  @include input-label-container(radio-group) {
-    @include input-label(radio-group);
-    @include input-tag(radio-group);
-  }
+  @include input-label-container(radio-group);
 
   @include input(radio-group-container) {
     height: auto;
@@ -17,10 +14,6 @@
       flex-direction: row;
       justify-content: flex-start;
       align-items: center;
-    }
-
-    &.error {
-      border-color: var(--color-danger);
     }
   }
 

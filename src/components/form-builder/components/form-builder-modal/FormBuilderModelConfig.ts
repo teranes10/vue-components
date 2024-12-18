@@ -1,19 +1,19 @@
 import type { FormBuilderBase, FormBuilderObject } from '../../FormBuilderBase'
 
-export interface FormBuilderModalProps<T> {
+export type FormBuilderModalProps<T> = {
   modelValue?: T
   show?: boolean
   label?: string
   width?: number
 }
-export interface FormBuilderModalEmits<T> {
+export type FormBuilderModalEmits<T> = {
   'update:modelValue': [value: T]
   'update:show': [value: boolean]
 }
 export type FormBuilderModalConfirm<T> = (editedItem: T) => void
 export type FormBuilderModalSetter<T> = (input: FormBuilderObject<T>) => void
-export interface ClassType<T extends object = object> { new(...args: any[]): T }
-export interface FormBuilderModalContext<T extends FormBuilderBase> {
+export type ClassType<T extends object = object> = { new(...args: any[]): T }
+export type FormBuilderModalContext<T extends FormBuilderBase> = {
   create: (FormClass: ClassType<T>) => void
   assign: (map: (item: FormBuilderObject<T>) => void) => void
   reset: () => void
@@ -21,7 +21,7 @@ export interface FormBuilderModalContext<T extends FormBuilderBase> {
   close: () => void
 }
 
-export interface FormBuilderModalContextGetter<T extends FormBuilderBase> {
+export type FormBuilderModalContextGetter<T extends FormBuilderBase> = {
   ctx: () => FormBuilderModalContext<T> | undefined
 }
 

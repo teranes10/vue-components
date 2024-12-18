@@ -1,7 +1,7 @@
 export type NotificationGravity = 'top' | 'bottom'
 export type NotificationPosition = 'left' | 'center' | 'right'
 
-export interface NotificationProps {
+export type NotificationProps = {
   duration?: number
   gravity?: NotificationGravity
   position?: NotificationPosition

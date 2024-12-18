@@ -1,47 +1,33 @@
 .object-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(var(--object-card-width, 225px), 1fr));
+  grid-template-columns: repeat(auto-fill, minmax(var(--object-card-width, 240px), 1fr));
   grid-gap: 1rem;
 
   .card-view {
-    display: inline-block;
-    vertical-align: top;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.5rem 0.75rem;
     padding: 1rem;
     border-radius: 0.75rem;
     border: 1px solid var(--color-gray-100);
     box-shadow: 4px 4px 4px -3.5px var(--color-gray-100);
 
-    .card-view-item {
-      width: 100%;
-      display: table;
-      border-collapse: separate;
-      border-spacing: 0.5rem 0.75rem;
+    .card-view-key {
+      vertical-align: middle;
+      text-align: left;
 
-      .card-view-group {
-        display: table-row;
+      font-size: var(--text-xs);
+      font-weight: var(--font-bold);
+      color: var(--color-gray-500);
+    }
 
-        .card-view-key {
-          display: table-cell;
-          vertical-align: middle;
-          padding-right: 1rem;
-          text-align: left;
+    .card-view-value {
+      vertical-align: middle;
+      text-align: right;
 
-          font-size: var(--text-xs);
-          font-weight: var(--font-bold);
-          color: var(--color-gray-500);
-        }
-
-        .card-view-value {
-          display: table-cell;
-          vertical-align: middle;
-          padding-left: 1rem;
-          text-align: right;
-
-          font-size: var(--text-sm);
-          font-weight: var(--font-normal);
-          color: var(--color-gray-700);
-        }
-      }
+      font-size: var(--text-sm);
+      font-weight: var(--font-normal);
+      color: var(--color-gray-700);
     }
   }
 }

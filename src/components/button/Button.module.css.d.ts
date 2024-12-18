@@ -3,30 +3,38 @@ declare const styles: {
   readonly btnIcon: string
   readonly btnText: string
   readonly block: string
+  readonly btnXxs: string
   readonly btnXs: string
   readonly btnSm: string
   readonly btnLg: string
   readonly btnPrimary: string
   readonly btnPrimaryOutline: string
   readonly btnPrimaryText: string
+  readonly btnPrimaryIcon: string
   readonly btnSecondary: string
   readonly btnSecondaryOutline: string
   readonly btnSecondaryText: string
+  readonly btnSecondaryIcon: string
   readonly btnSuccess: string
   readonly btnSuccessOutline: string
   readonly btnSuccessText: string
+  readonly btnSuccessIcon: string
   readonly btnInfo: string
   readonly btnInfoOutline: string
   readonly btnInfoText: string
+  readonly btnInfoIcon: string
   readonly btnWarning: string
   readonly btnWarningOutline: string
   readonly btnWarningText: string
+  readonly btnWarningIcon: string
   readonly btnDanger: string
   readonly btnDangerOutline: string
   readonly btnDangerText: string
+  readonly btnDangerIcon: string
   readonly btnGray: string
   readonly btnGrayOutline: string
   readonly btnGrayText: string
+  readonly btnGrayIcon: string
 }
 
 export default styles

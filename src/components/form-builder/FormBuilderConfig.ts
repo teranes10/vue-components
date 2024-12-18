@@ -1,28 +1,28 @@
 import { getAccessedProps } from '@teranes/utils'
 import styles from './FormBuilder.module.css'
 
-export interface FormBuilderProps<T> {
+export type FormBuilderProps<T> = {
   label?: string
   group?: string
   modelValue: T
 }
 
-export interface FormBuilderEmits<T> {
+export type FormBuilderEmits<T> = {
   'update:modelValue': [value: T]
 }
 
-export interface FormBuilderContext {
+export type FormBuilderContext = {
   userEditedFields: Set<string>
   propsToWatch: FormBuilderPropsToWatch
   onValueUpdate: (fieldName: string, value: any, programmaticallyChanged?: boolean) => void
   setPropsToWatch: (propsToWatch: FormBuilderPropsToWatch) => void
 }
 
-interface FormBuilderPropsToWatch {
+type FormBuilderPropsToWatch = {
   [propToWatch: string]: FormBuilderWatcher[]
 }
 
-interface FormBuilderWatcher {
+type FormBuilderWatcher = {
   watcherProp: string
   setter: (item: any) => any
   disableWatcherAfterUserEdit: boolean
@@ -51,7 +51,7 @@ type FormFieldSize =
   }
   | FormFieldSizeValue
 
-export interface FieldAttrs {
+export type FieldAttrs = {
   size?: FormFieldSize
   class?: string
 }

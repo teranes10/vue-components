@@ -32,8 +32,8 @@
         content: '';
         display: inline-block;
         vertical-align: top;
-        width: 1.5rem;
-        height: 1.5rem;
+        width: var(--checkbox-size, 1.5rem);
+        height: var(--checkbox-size, 1.5rem);
         cursor: pointer;
         border: none;
         border-radius: 0.5rem !important;
@@ -43,6 +43,14 @@
 
       span {
         margin-left: 0.5rem;
+      }
+
+      &.sm {
+        --checkbox-size: 1.125rem;
+      }
+
+      &.lg {
+        --checkbox-size: 1.75rem;
       }
     }
 

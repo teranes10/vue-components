@@ -43,7 +43,7 @@ export function PostcssVite({
   }
 }
 
-interface PostcssPluginOptions {
+type PostcssPluginOptions = {
   prefix?: string
   content?: string[]
   colors?: Partial<ColorOptions>

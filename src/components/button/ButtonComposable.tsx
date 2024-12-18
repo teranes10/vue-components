@@ -1,7 +1,7 @@
 import type { IconValue } from '@/shared/components/icon'
 import Button from './Button.vue'
 
-export interface IconBtnViewOptions {
+export type IconBtnViewOptions = {
   class?: string
   text?: string
   tooltip?: string
@@ -23,7 +23,7 @@ export function useIconBtnView(
       icon={icon}
       text={text}
       tooltip={tooltip}
-      onClicked={onClick}
+      onPress={onClick}
     />
   )
 }

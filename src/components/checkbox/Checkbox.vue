@@ -1,12 +1,12 @@
 <script setup lang="ts" generic="V">
 import type { ValidationFieldContext } from '@/functions/validation/ValidationConfig'
-import type { CheckboxEmits, CheckboxProps } from './CheckboxConfig'
 import type { CheckBoxGroupContext } from './components/CheckboxGroupConfig'
 import { useFieldValidation } from '@/functions/validation/Validation'
 import { throttle } from '@teranes/utils'
 import { vModel } from '@teranes/vue-composables'
 import { computed, inject, onMounted, ref, shallowRef } from 'vue'
 import styles from './Checkbox.module.css'
+import { type CheckboxEmits, type CheckboxProps, CheckboxSizeClasses } from './CheckboxConfig'
 import { CheckboxGroupContextKey } from './components/CheckboxGroupConfig'
 
 const props = withDefaults(defineProps<CheckboxProps<V>>(), {})
@@ -38,7 +38,7 @@ group?.onInitialize(value.value as V, checked)
 const onCheckChanged = throttle(() => {
   checked.value = !checked.value
   group?.onCheckChanged(value.value as V, checked.value)
-  emit('checked', checked.value)
+  props.onChecked?.(checked.value)
 })
 </script>
 
@@ -54,7 +54,7 @@ const onCheckChanged = throttle(() => {
         ref="inputElement" :class="[styles.checkboxInput, { [styles.error]: validationCtx?.isError.value }]"
         type="checkbox" :value="value" :disabled="props.disabled" :checked="checked" @change="onCheckChanged"
       >
-      <span :class="styles.checkboxLabel">
+      <span :class="[styles.checkboxLabel, { [CheckboxSizeClasses[size!]]: size }]">
         <span v-if="label" v-text="label" />
       </span>
 

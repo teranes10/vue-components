@@ -8,10 +8,6 @@ import { reactive, ref } from 'vue'
 import FormBuilder from '../../FormBuilder.vue'
 import styles from './FormBuilderModal.module.css'
 
-defineOptions({
-  inheritAttrs: false,
-})
-
 const props = withDefaults(defineProps<FormBuilderModalProps<T>>(), {
   label: '',
   width: 650,
@@ -77,20 +73,18 @@ defineExpose({ ctx })
 </script>
 
 <template>
-  <div>
-    <Modal v-model="show" :class="styles.formBuilderModal" :width="width" persistent>
-      <template #header>
-        {{ label }}
-      </template>
+  <Modal v-model="show" :class="styles.formBuilderModal" :width="width" persistent>
+    <template #header>
+      {{ label }}
+    </template>
 
-      <FormBuilder v-if="!!value" ref="formBuilderComponent" v-model="value" />
+    <FormBuilder v-if="!!value" ref="formBuilderComponent" v-model="value" />
 
-      <template #footer>
-        <div :class="styles.actionsContainer">
-          <Button color="gray" text="Cancel" @click="() => show = false" />
-          <Button color="primary" text="Save" @click="onSave" />
-        </div>
-      </template>
-    </Modal>
-  </div>
+    <template #footer>
+      <div :class="styles.actionsContainer">
+        <Button color="gray" text="Cancel" @press="() => show = false" />
+        <Button color="primary" text="Save" @press="onSave" />
+      </div>
+    </template>
+  </Modal>
 </template>

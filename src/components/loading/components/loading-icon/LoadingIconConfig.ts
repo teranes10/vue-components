@@ -1,6 +1,6 @@
 export type LoadingIconType = 'oval' | 'dots'
 
-export interface LoadingIconProps {
+export type LoadingIconProps = {
   icon?: LoadingIconType
   color?: string
   class?: string

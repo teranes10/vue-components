@@ -6,10 +6,10 @@ import styles from './ChevronBtn.module.css'
 
 const props = defineProps<{
   modelValue?: boolean
+  onPress?: (value: boolean) => void
 }>()
 
 const emit = defineEmits<{
-  'changed': [value: boolean]
   'update:modelValue': [value: boolean]
 }>()
 
@@ -17,7 +17,7 @@ const active = vModel(props, 'modelValue', emit, false)
 
 function onClick(value: boolean) {
   active.value = value
-  emit('changed', value)
+  props.onPress?.(value)
 }
 </script>
 

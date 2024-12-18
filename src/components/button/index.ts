@@ -3,4 +3,4 @@ export { default as Button } from './Button.vue'
 export { default as ChevronBtn } from './components/chevron-btn/ChevronBtn.vue'
 
 export { useIconBtnView } from './ButtonComposable'
-export type { ButtonClickOptions, ButtonEmits, ButtonProps } from './ButtonConfig'
+export type { ButtonEmits, ButtonPressOptions, ButtonProps } from './ButtonConfig'

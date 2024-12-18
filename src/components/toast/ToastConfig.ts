@@ -9,7 +9,7 @@ import styles from './Toast.module.css'
 
 export type ToastType = 'success' | 'warning' | 'info' | 'danger'
 
-export interface ToastProps {
+export type ToastProps = {
   text: string
   type?: ToastType
   close?: () => void

@@ -4,7 +4,6 @@
     vertical-align: top;
     justify-content: center;
     align-items: center;
-    margin-right: 0.5rem;
     gap: 5px;
     user-select: none;
 
@@ -13,8 +12,7 @@
       vertical-align: top;
       outline: none;
       border: none;
-      padding: 0.25rem;
-      margin: 0.125rem;
+      padding: 0.125rem;
       cursor: pointer;
 
       &:hover {

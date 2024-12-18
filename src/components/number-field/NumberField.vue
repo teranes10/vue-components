@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { NumberFieldEmits, NumberFieldProps } from './NumberFieldConfig'
-import { TextField } from '@/components/text-field'
+import { extractTextFieldProps, TextField } from '@/components/text-field'
 import { Icon } from '@/shared/components/icon'
 import { toNumber } from '@teranes/utils'
 import { type ComponentType, vModel } from '@teranes/vue-composables'
@@ -8,16 +8,14 @@ import { Minus, Plus } from 'lucide'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import styles from './NumberField.module.css'
 
-defineOptions({
-  inheritAttrs: false,
-})
-
 const props = withDefaults(defineProps<NumberFieldProps>(), {
   increment: 1,
   decrement: 1,
 })
 
 const emit = defineEmits<NumberFieldEmits>()
+
+const textFieldProps = computed(() => extractTextFieldProps(props))
 
 const modalValue = vModel(props, 'modelValue', emit, 0)
 
@@ -70,7 +68,7 @@ function setValue(value: number) {
 </script>
 
 <template>
-  <TextField ref="textFieldComponent" v-bind="$attrs" :model-value="value" :class="styles.numberField">
+  <TextField ref="textFieldComponent" v-bind="textFieldProps" :model-value="value" :class="styles.numberField">
     <template #post>
       <div :class="styles.numberFieldBtnGroup">
         <a :class="styles.numberBtn" @click="decrease">

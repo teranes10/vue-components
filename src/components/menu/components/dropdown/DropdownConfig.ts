@@ -1,22 +1,23 @@
 import type { FunctionalComponent } from 'vue'
 
-export interface DropdownItem {
+export type DropdownItem = {
   icon?: FunctionalComponent<any>
   text?: string
   onSelect?: () => void
 }
 
-export interface DropdownProps {
+export type DropdownProps = {
   modelValue?: boolean
   items?: DropdownItem[]
   persistent?: boolean
   block?: boolean
   sameWidth?: boolean
+  disabled?: boolean
+  onShow?: () => void
+  onHide?: () => void
+  onSelect?: (item: DropdownItem) => void
 }
 
-export interface DropdownEmits {
+export type DropdownEmits = {
   'update:modelValue': [value: boolean]
-  'show': []
-  'hide': []
-  'select': [item: DropdownItem]
 }

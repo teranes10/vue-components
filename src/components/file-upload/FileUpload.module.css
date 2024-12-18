@@ -1,8 +1,5 @@
 .file-input {
-  @include input-label-container(file-input) {
-    @include input-label(file-input);
-    @include input-tag(file-input);
-  }
+  @include input-label-container(file-input);
 
   @include input(file-input-main-container) {
     height: auto;

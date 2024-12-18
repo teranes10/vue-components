@@ -4,16 +4,13 @@ import styles from './Link.module.css'
 const props = defineProps<{
   text: string
   class?: string
-}>()
-
-defineEmits<{
-  click: []
+  onPress?: () => void
 }>()
 </script>
 
 <template>
   <a
-    :class="[styles.link, props.class ? props.class : '']" href="javascript:void(0);" @click="onClick"
+    :class="[styles.link, props.class ? props.class : '']" href="javascript:void(0);" @click="onPress"
     v-text="text"
   />
 </template>

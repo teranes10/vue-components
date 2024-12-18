@@ -4,7 +4,7 @@
   justify-content: flex-start;
   align-items: center;
   overflow: auto;
-  @mixin scrollbar 5px, 0;
+  @include scrollbar;
 
   .accordion-item {
     @keyframes sliding-x-animation {

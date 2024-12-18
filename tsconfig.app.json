@@ -31,17 +31,21 @@
     "noUnusedParameters": true,
     "noEmit": false,
     "outDir": "dist",
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "isolatedModules": true,
     "skipLibCheck": true
   },
   "include": [
     "src/**/*",
+    "src/**/*.vue",
     "src/exports.json",
     "types"
   ],
   "exclude": [
     "node_modules",
-    "dist"
+    "dist",
+    "App.vue",
+    "main.ts"
   ]
 }

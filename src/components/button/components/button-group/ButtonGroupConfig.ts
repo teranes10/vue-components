@@ -1,5 +1,5 @@
 import type { ButtonProps } from '../../ButtonConfig'
 
-export interface ButtonGroupProps {
+export type ButtonGroupProps = {
   items?: ButtonProps[]
 }

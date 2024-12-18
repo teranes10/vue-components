@@ -52,6 +52,14 @@
     width: 100%;
   }
 
+  &.btn-xxs {
+    min-width: 22px;
+    min-height: 22px;
+
+    padding: 0;
+    font-size: var(--text-xs);
+  }
+
   &.btn-xs {
     min-width: 30px;
     min-height: 30px;
@@ -88,8 +96,8 @@
     }
 
     &.btn-$(name)-outline {
-      color: getItem($color, color);
-      box-shadow: 0 0 0.5px 0.5px $(getItem($color, color));
+      color: $(getItem($color, 400));
+      box-shadow: 0 0 0.5px 0.5px $(getItem($color, 400));
 
       &:hover {
         background: getItem($color, 50);
@@ -98,7 +106,13 @@
     }
 
     &.btn-$(name)-text {
-      color: getItem($color, color);
+      box-shadow: none;
+      color: $(getItem($color, 400));
+    }
+
+    &.btn-$(name)-icon {
+      box-shadow: none;
+      color: $(getItem($color, 400));
     }
   }
 }

@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { CurrencyFieldEmits, CurrencyFieldProps } from './CurrencyFieldConfig'
-import { TextField } from '@/components/text-field'
+import { extractTextFieldProps, TextField } from '@/components/text-field'
 
 import { Icon } from '@/shared/components/icon'
 import { toCurrencyString, toNumber } from '@teranes/utils'
@@ -9,10 +9,6 @@ import { Minus, Plus } from 'lucide'
 import { computed, onMounted, onUnmounted, ref } from 'vue'
 import styles from './CurrencyField.module.css'
 
-defineOptions({
-  inheritAttrs: false,
-})
-
 const props = withDefaults(defineProps<CurrencyFieldProps>(), {
   increment: 1,
   decrement: 1,
@@ -20,6 +16,8 @@ const props = withDefaults(defineProps<CurrencyFieldProps>(), {
 })
 
 const emit = defineEmits<CurrencyFieldEmits>()
+
+const textFieldProps = computed(() => extractTextFieldProps(props))
 
 const textFieldComponent = ref<ComponentType<typeof TextField>>()
 let inputElement: HTMLInputElement
@@ -119,7 +117,7 @@ function onValueChanged(val: string, addCents: boolean = false) {
 </script>
 
 <template>
-  <TextField ref="textFieldComponent" v-bind="$attrs" :model-value="value" :class="styles.currencyField">
+  <TextField ref="textFieldComponent" v-bind="textFieldProps" :model-value="value" :class="styles.currencyField">
     <template #post>
       <div :class="styles.currencyFieldBtnGroup">
         <a :class="styles.currencyBtn" @click="decrease">

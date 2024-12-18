@@ -8,6 +8,7 @@ import type { RadioButtonEmits, RadioButtonProps, RadioGroupEmits, RadioGroupPro
 import type { SelectEmits, SelectProps } from '@/components/select'
 import type { SwitchEmits, SwitchProps } from '@/components/switch'
 import type { TextFieldEmits, TextFieldProps } from '@/components/text-field'
+import type { Key } from '@/functions/item/ItemKey'
 import type { Attrs } from '@teranes/vue-composables'
 import type { Component } from 'vue'
 import { Autocomplete } from '@/components/autocomplete'
@@ -21,18 +22,18 @@ import { Select } from '@/components/select'
 import { Switch } from '@/components/switch'
 import { TextField } from '@/components/text-field'
 
-export interface InputsProps {
+export type InputsProps = {
   'checkbox-group': Attrs<CheckboxGroupProps<unknown>, CheckboxGroupEmits<unknown>>
   'checkbox': Attrs<CheckboxProps<unknown>, CheckboxEmits>
   'radio-group': Attrs<RadioGroupProps<unknown>, RadioGroupEmits<unknown>>
   'radio': Attrs<RadioButtonProps<unknown>, RadioButtonEmits>
   'switch': Attrs<SwitchProps, SwitchEmits>
   'date': Attrs<DatePickerProps, DatePickerEmits>
-  'select': TextFieldProps & Attrs<SelectProps<unknown, unknown>, SelectEmits<unknown>>
-  'autocomplete': TextFieldProps & SelectProps<unknown, unknown> & Attrs<AutocompleteProps<unknown>, AutocompleteEmits<unknown>>
+  'select': Attrs<SelectProps<object, unknown, Key>, SelectEmits<unknown>>
+  'autocomplete': Attrs<AutocompleteProps<object, unknown, Key>, AutocompleteEmits<unknown, Key>>
   'text': Attrs<TextFieldProps, TextFieldEmits>
-  'number': TextFieldProps & Attrs<NumberFieldProps, NumberFieldEmits>
-  'currency': TextFieldProps & Attrs<CurrencyFieldProps, CurrencyFieldEmits>
+  'number': Attrs<NumberFieldProps, NumberFieldEmits>
+  'currency': Attrs<CurrencyFieldProps, CurrencyFieldEmits>
   'file-upload': Attrs<FileUploadProps<unknown>, FileUploadEmits<unknown>>
 }
 
@@ -51,7 +52,7 @@ export const inputs: Record<keyof InputsProps, Component> = {
   'file-upload': FileUpload,
 }
 
-export interface InputProps<T extends keyof InputsProps> {
+export type InputProps<T extends keyof InputsProps> = {
   type: T
   props: InputsProps[T]
 }

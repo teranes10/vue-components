@@ -1,6 +1,6 @@
 import ProgressBar from './ProgressBar.vue'
 
-export interface useProgressBarViewOptions {
+export type useProgressBarViewOptions = {
   label?: string
   height?: number
   color?: string

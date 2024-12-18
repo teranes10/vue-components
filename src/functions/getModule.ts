@@ -2,7 +2,7 @@ export async function getModule(moduleName: string, globalName?: string) {
   let module
 
   try {
-    module = (await import(moduleName))
+    module = (await import(/* @vite-ignore */moduleName))
   }
   catch (e) {
     if (globalName) {

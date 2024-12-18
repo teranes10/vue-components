@@ -1,4 +1,4 @@
-export interface ImageProps {
+export type ImageProps = {
   src: string
   width?: string | number
   height?: string | number
@@ -10,8 +10,7 @@ export interface ImageProps {
   title?: string
   subTitle?: string
   alt?: string
+  onPress?: () => void
 }
 
-export interface ImageEmits {
-  click: []
-}
+export type ImageEmits = {}

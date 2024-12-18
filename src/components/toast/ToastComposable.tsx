@@ -6,7 +6,7 @@ import type { ToastType } from './ToastConfig'
 import { useNotification } from '../notification/NotificationComposable'
 import Toast from './Toast.vue'
 
-export interface ToastOptions {
+export type ToastOptions = {
   type?: ToastType
   duration?: number
   gravity?: NotificationGravity

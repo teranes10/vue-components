@@ -2,16 +2,16 @@ import { type ComponentColor, componentColors } from '@/shared/values/colors'
 import { toCamelCase } from '@teranes/utils'
 import styles from './Switch.module.css'
 
-export interface SwitchProps {
+export type SwitchProps = {
   label?: string
   modelValue?: boolean
   disabled?: boolean
   color?: ComponentColor
+  onChange?: (value: boolean) => void
 }
 
-export interface SwitchEmits {
+export type SwitchEmits = {
   'update:modelValue': [value: boolean]
-  'changed': [value: boolean]
 }
 
 export const switchColorStyles: Partial<Record<ComponentColor, string>> = {}

@@ -11,7 +11,7 @@ defineEmits<TooltipEmits>()
 </script>
 
 <template>
-  <a v-tooltip="props" @click="onClick">
+  <a v-tooltip="props" @click="onPress">
     <slot />
   </a>
 </template>

@@ -1,11 +1,11 @@
 import type { FunctionalComponent } from 'vue'
 
-export interface MenuItem {
+export type MenuItem = {
   icon?: FunctionalComponent<any>
   text?: string
   onSelect?: () => void
 }
 
-export interface MenuProps {
+export type MenuProps = {
   items: MenuItem[]
 }

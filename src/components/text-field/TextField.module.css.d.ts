@@ -4,17 +4,22 @@ declare const styles: {
   readonly textFieldLabel: string
   readonly required: string
   readonly textFieldTag: string
-  readonly textFieldInputContainer: string
-  readonly textFieldInput: string
+  readonly textFieldContainer: string
   readonly disabled: string
-  readonly textFieldSm: string
-  readonly textFieldLg: string
+  readonly sm: string
+  readonly lg: string
+  readonly auto: string
   readonly success: string
   readonly error: string
   readonly info: string
   readonly warning: string
+  readonly wrap: string
+  readonly textFieldInput: string
   readonly preText: string
   readonly postText: string
+  readonly inputTag: string
+  readonly inputTagText: string
+  readonly inputTagRemove: string
   readonly textFieldHelperText: string
   readonly textFieldMessage: string
   readonly messageSuccess: string

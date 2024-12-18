@@ -1,8 +1,24 @@
 import type { ValidationProps } from '@/functions/validation/ValidationConfig'
 import styles from './TextField.module.css'
 
-export type TextFieldProps = ValidationProps<string> & {
+export type TextFieldProps = TextFieldCommonProps<string> & {
   modelValue?: string
+  tags?: string[]
+  rows?: number | string
+  formatter?: (value: string) => string
+  addTagOnEnter?: boolean
+}
+
+export type TextFieldEmits = {
+  'update:modelValue': [value: string]
+  'update:tags': [value: string[]]
+}
+
+export type TextFieldSize = 'sm' | 'lg'
+
+export type TextFieldColor = 'success' | 'info' | 'warning' | 'danger'
+
+export type TextFieldCommonProps<T> = ValidationProps<T> & {
   label?: string
   placeholder?: string
   helperText?: string
@@ -11,21 +27,16 @@ export type TextFieldProps = ValidationProps<string> & {
   message?: string
   disabled?: boolean
   tag?: string
-  rows?: number
   required?: boolean
-  formatter?: (value: string) => string
 }
 
-export interface TextFieldEmits {
-  'update:modelValue': [value: string]
+export function extractTextFieldProps<V>({ label, placeholder, helperText, size, color, message, disabled, tag, required, rules }: TextFieldCommonProps<V> = {}): Omit<TextFieldCommonProps<V>, 'rules'> {
+  return { label, placeholder, helperText, size, color, message, disabled, tag, required, rules } as any
 }
-
-export type TextFieldSize = 'sm' | 'lg'
-export type TextFieldColor = 'success' | 'info' | 'warning' | 'danger'
 
 export const TextFieldsSizesClasses: Record<TextFieldSize, string> = {
-  sm: styles.textFieldSm,
-  lg: styles.textFieldLg,
+  sm: styles.sm,
+  lg: styles.lg,
 }
 
 export const TextFieldBorderClasses: Record<TextFieldColor, string> = {

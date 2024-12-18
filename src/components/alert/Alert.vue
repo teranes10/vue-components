@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { Button } from '@/components/button'
+import { Icon } from '@/shared/components/icon'
 import styles from './Alert.module.css'
 import { AlertColorClasses, AlertIcons, type AlertProps } from './AlertConfig'
 
@@ -11,23 +12,27 @@ withDefaults(defineProps<AlertProps>(), {
 <template>
   <div :class="[styles.alert, { [AlertColorClasses[type]]: type }]">
     <div :class="styles.alertContent">
-      <component :is="icon ? icon : AlertIcons[type]" v-bind="{ class: styles.alertIcon }" />
+      <Icon :icon="icon ? icon : AlertIcons[type]" v-bind="{ class: styles.alertIcon }" />
 
       <div v-if="title" :class="styles.alertTitle" v-text="title" />
 
-      <!-- eslint-disable vue/no-v-html -->
-      <div v-if="text" :class="styles.alertText" v-html="text" />
+      <div v-if="text" :class="styles.alertText">
+        <template v-if="typeof text === 'string'">
+          {{ text }}
+        </template>
+        <component :is="text" v-else />
+      </div>
     </div>
 
     <div :class="styles.alertActions">
       <Button
         :class="[styles.alertAction, closeButton?.class]" :icon="closeButton?.icon" :text="closeButton?.text"
-        type="outline" color="gray" @click="closeButton?.onClick"
+        color="gray" @press="closeButton?.onClick"
       />
 
       <Button
         :class="[styles.alertAction, confirmButton?.class]" :color="type" :icon="confirmButton?.icon"
-        :text="confirmButton?.text" @click="confirmButton?.onClick"
+        :text="confirmButton?.text" @press="confirmButton?.onClick"
       />
     </div>
   </div>

@@ -11,7 +11,7 @@ import cssInjectedByJsPlugin from 'vite-plugin-css-injected-by-js'
 import dtsPlugin from 'vite-plugin-dts'
 import { PostcssVite, resolvePath } from './postcss-config'
 
-export interface BaseConfigOptions {
+export type BaseConfigOptions = {
   entry: { [key: string]: string }
   url?: string
   fileName?: string

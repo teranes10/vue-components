@@ -1,42 +1,92 @@
-import type { ValidationProps } from '@/functions/validation/ValidationConfig'
-import { getValueByObjectPath, isFunction, isObject } from '@teranes/utils'
+import type { TextFieldCommonProps } from '@/components/text-field'
+import type { BaseInternalItem } from '@/functions/item/BaseInternalItem'
+import type { ItemComponent } from '@/functions/item/ItemComponent'
+import type { ItemKey, Key } from '@/functions/item/ItemKey'
+import type { ItemValue } from '@/functions/item/ItemValue'
+import type { Arrayable } from '@teranes/utils'
+import type { Ref } from 'vue'
+import { compare, isArray } from '@teranes/utils'
 
-export type SelectProps<T, V> = ValidationProps<V> & {
-  modelValue?: V
-  items?: T[]
-  itemText?: SelectItemText<T>
-  itemValue?: SelectItemValue<T, V>
-  persistent?: boolean
-  message?: string
+export type SelectProps<T extends object, V, K extends Key> = TextFieldCommonProps<V>
+  & (BasicSetup<V, K> | ComplexSetup<T, V, K>)
+  & {
+    modelValue?: Arrayable<V>
+    multiple?: boolean
+    persistent?: boolean
+    footerMessage?: string
+    filterable?: boolean
+    focusable?: boolean
+    onShow?: () => void
+    onHide?: () => void
+  }
+
+export type BasicSetup<V, K extends Key> = {
+  items?: Record<string, V>
+  itemComponent?: ItemComponent<SelectEntry<V>, K, SelectInternalItem<SelectEntry<V>, V, K>>
 }
 
-export interface SelectEmits<V> {
-  'update:modelValue': [value: V | undefined]
-  'show': []
-  'hide': []
+export type ComplexSetup<T, V, K extends Key> = {
+  items?: (string | number | T | [string, V])[]
+  itemText?: ItemValue<T, K, BaseInternalItem<T, K>, string>
+  itemValue?: ItemValue<T, K, BaseInternalItem<T, K>, V>
+  itemComponent?: ItemComponent<T, K, SelectInternalItem<T, V, K>>
+  itemKey?: ItemKey<T, K>
 }
 
-export type SelectItem = Record<string, any> | number | string
-export type SelectItemText<T> = string | ((item: T) => string)
-export type SelectItemValue<T, V> = string | ((item: T) => V)
-export interface SelectInternalItem<V> { text: string, value: V }
-
-export function getText<T>(item: T, itemText?: SelectItemText<T>) {
-  if (isFunction(itemText)) {
-    return itemText(item)
-  }
-  if (isObject(item)) {
-    return getValueByObjectPath(item, itemText || 'text')
-  }
-  return item
+export type SelectEmits<V> = {
+  'update:modelValue': [value?: Arrayable<V>]
 }
 
-export function getValue<T, V>(item: T, itemValue?: SelectItemValue<T, V>) {
-  if (isFunction(itemValue)) {
-    return itemValue(item)
+export type SelectInternalItem<T, V, K extends Key> = BaseInternalItem<T, K> & {
+  text: string
+  value: V
+  selected: boolean
+}
+
+export type SelectEntry<V> = { text: string, value: V }
+
+type SelectableOptions<V> = {
+  multiple: boolean
+  selected: Ref<Arrayable<V> | undefined>
+}
+
+export function useSelectable<T, V, K extends Key>({ multiple, selected }: SelectableOptions<V>) {
+  function isSelected(value: V) {
+    return isArray(selected.value)
+      ? selected.value.some(x => compare(x, value))
+      : compare(selected.value, value)
   }
-  if (isObject(itemValue)) {
-    return getValueByObjectPath(item, itemValue || 'value')
+
+  function selectItem(item: SelectInternalItem<T, V, K>, select: boolean) {
+    if (multiple) {
+      if (!isArray(selected.value)) {
+        selected.value = []
+      }
+
+      if (select) {
+        if (!isSelected(item.value)) {
+          selected.value.push(item.value)
+        }
+      }
+      else {
+        const index = selected.value.findIndex(x => compare(x, item.value))
+        if (index > -1) {
+          selected.value.splice(index, 1)
+        }
+      }
+    }
+    else {
+      selected.value = select ? item.value : undefined
+    }
   }
-  return item
+
+  function selectItems(items: SelectInternalItem<T, V, K>[], select: boolean) {
+    selected.value = select ? items.map(x => x.value) : []
+  }
+
+  return {
+    selectItem,
+    selectItems,
+    isSelected,
+  }
 }

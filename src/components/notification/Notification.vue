@@ -3,7 +3,7 @@ import type { NotificationProps } from './NotificationConfig'
 import Toastify from 'toastify-js'
 import { onMounted, ref } from 'vue'
 import styles from './Notification.module.css'
-import 'toastify-js/src/toastify.css'
+import './toastify.css'
 
 const props = withDefaults(defineProps<NotificationProps>(), {
   duration: 3000,

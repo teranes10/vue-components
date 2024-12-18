@@ -1,11 +1,11 @@
 import type { IconValue } from '@/shared/components/icon'
 
-export interface AccordionItemProps {
+export type AccordionItemProps = {
   icon?: IconValue
   text?: string
   active?: boolean
 }
 
-export interface AccordionItemEmits {
+export type AccordionItemEmits = {
   'update:active': [value: boolean]
 }

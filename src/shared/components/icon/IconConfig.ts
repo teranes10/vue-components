@@ -2,7 +2,7 @@ import type { IconNode } from 'lucide'
 
 export type IconValue = IconNode | string
 
-export interface IconProps {
+export type IconProps = {
   icon?: IconValue
   strokeWidth?: number | string
   size?: number | string

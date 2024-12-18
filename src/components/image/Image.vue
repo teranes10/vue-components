@@ -3,10 +3,10 @@ import type { ImageEmits, ImageProps } from './ImageConfig'
 import { getModule } from '@/functions/getModule'
 import { boolean } from '@teranes/utils'
 import { computed, onMounted, onUnmounted, ref, watch } from 'vue'
-import * as Zoom from 'zoom-vanilla.js'
 import DefaultImage from '../../assets/images/image-placeholder.webp'
 import styles from './Image.module.css'
 import './Image.css'
+import 'zoom-vanilla.js/dist/zoom-vanilla.min.js'
 
 const props = withDefaults(defineProps<ImageProps>(), {
   width: 36,
@@ -49,9 +49,7 @@ function hide() {
 }
 
 onMounted(async () => {
-  if (typeof Zoom === 'function') {
-    Zoom()
-  }
+  (window as any)?.Zoom?.()
 
   if (hoverWindow.value) {
     getModule('@teranes/popper', 'POPPER').then((module) => {
@@ -89,8 +87,8 @@ onUnmounted(() => {
     </div>
 
     <div
-      v-if="title || subTitle" :class="[styles.titleContainer, { [styles.clickable]: onClick }]"
-      @click="onClick"
+      v-if="title || subTitle" :class="[styles.titleContainer, { [styles.clickable]: onPress }]"
+      @click="onPress"
     >
       <div v-if="title" :class="styles.title" v-text="title" />
       <div v-if="subTitle" :class="styles.subTitle" v-text="subTitle" />
