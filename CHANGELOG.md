@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.18
+
+### Patch Changes
+
+- 9ca6557: select popup fix
+
 ## 1.0.17
 
 ### Patch Changes
