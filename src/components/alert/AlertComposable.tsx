@@ -2,10 +2,18 @@ import type { AlertProps } from './AlertConfig'
 
 import { useModal } from '@/components/modal'
 import { ArchiveRestore, ArchiveX, Trash2 } from 'lucide'
+import { nextTick } from 'vue'
 import Alert from './Alert.vue'
 
 export function useAlert(options: AlertProps) {
   let modal: ReturnType<typeof useModal>
+
+  function hide() {
+    if (modal) {
+      modal.hide()
+      nextTick(modal.remove)
+    }
+  }
 
   const props: AlertProps = {
     ...options,
@@ -13,7 +21,7 @@ export function useAlert(options: AlertProps) {
       ? {
           ...options.confirmButton,
           onClick: () => {
-            modal.hide()
+            hide()
             options.confirmButton?.onClick?.()
           },
         }
@@ -23,7 +31,7 @@ export function useAlert(options: AlertProps) {
       text:
         (options.closeButton?.text ?? options.confirmButton) ? 'Cancel' : 'Ok',
       onClick: () => {
-        modal.hide()
+        hide()
         options.closeButton?.onClick?.()
       },
     },

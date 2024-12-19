@@ -109,7 +109,7 @@
                   text-decoration: none;
                   text-overflow: ellipsis;
                   white-space: nowrap;
-                  z-index: 10;
+                  z-index: 2;
 
                   &:hover {
                     position: absolute;

@@ -17,14 +17,14 @@ const externals = Object.keys(entries)
 const componentExternals = {
   '@/shared/values/colors': 'WebComponents',
   '@/shared/components/icon': 'WebComponents',
-  '@/shared/vue': 'WebComponents',
   'vue': 'WebComponents.Vue',
   '@teranes/vue-composables': 'WebComponents.VueComposables',
+  '@teranes/short-unique-id': 'WebComponents.ShortUniqueId',
   ...externals,
 }
 const excludedComponentExternals = ['tippy.js', 'toastify-js', 'zoom-vanilla.js', 'flatpickr']
 const excludedComponentExports = ['FormBuilderBase', 'Vue', 'VueComposables']
-const excludedComponentImports = ['vue', '@teranes/vue-composables']
+const excludedComponentImports = ['vue', '@teranes/vue-composables', '@teranes/short-unique-id']
 const componentExports = {}
 const componentImports = {}
 const dependencyTree = {}

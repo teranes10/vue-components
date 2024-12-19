@@ -26,6 +26,7 @@ onMounted(() => {
       gravity: props.gravity,
       position: props.position,
       stopOnFocus: props.stopOnFocus,
+      callback: props.onHide,
     })
 
     if (props.autoShow) {

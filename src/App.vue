@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import { ref, watch } from 'vue'
-import { useDeleteAlert, useLoading } from './components'
+import { useDeleteAlert, useLoading, useToast } from './components'
 import Autocomplete from './components/autocomplete/Autocomplete.vue'
 import Button from './components/button/Button.vue'
 import Select from './components/select/Select.vue'
@@ -12,17 +12,18 @@ type Item = {
   text: string
   value: number
 }
-const items = ref<Item[]>([{ text: 'Item 1', value: 1 }, { text: 'Item 2', value: 2 }, { text: 'Item 3', value: 3 }])
+const items = ref<Item[]>()
+
+setTimeout(() => {
+  items.value = [{ text: 'Item 1', value: 1 }, { text: 'Item 2', value: 2 }, { text: 'Item 3', value: 3 }]
+}, 2000)
 
 function onChange(v: any) {
   console.log('change', v)
 }
 
 function onPress() {
-  const loading = useLoading()
-  setTimeout(() => {
-    loading.hide()
-  }, 5000)
+  useToast('Hello')
 }
 </script>
 

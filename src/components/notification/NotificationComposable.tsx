@@ -1,7 +1,7 @@
 import type { ComponentType } from '@teranes/vue-composables'
 import type { NotificationProps } from './NotificationConfig'
-import { getContainer } from '@/functions/dom/Container'
-import { createVNode, type FunctionalComponent, ref, render } from 'vue'
+import { vRender } from '@/functions/dom/Container'
+import { type FunctionalComponent, nextTick, ref } from 'vue'
 import Notification from './Notification.vue'
 
 export function useNotification(
@@ -16,7 +16,7 @@ export function useNotification(
 ) {
   const notificationComponent = ref<ComponentType<typeof Notification>>()
 
-  const notification = () => (
+  const { remove } = vRender('_notifications_container_', () => (
     <Notification
       ref={notificationComponent}
       duration={duration}
@@ -24,10 +24,11 @@ export function useNotification(
       position={position}
       stopOnFocus={stopOnFocus}
       autoShow={autoShow}
+      onHide={() => remove()}
     >
       {() => <Component />}
     </Notification>
-  )
+  ))
 
   const show = () => {
     if (notificationComponent.value) {
@@ -39,12 +40,6 @@ export function useNotification(
     if (notificationComponent.value) {
       notificationComponent.value.hide()
     }
-  }
-
-  const node = createVNode(notification)
-  const container = getContainer('_notifications_container_')
-  if (container && node) {
-    render(node, container)
   }
 
   return { show, hide }

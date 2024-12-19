@@ -1,0 +1,1 @@
+export {getShortUniqueId} from '@teranes/short-unique-id'

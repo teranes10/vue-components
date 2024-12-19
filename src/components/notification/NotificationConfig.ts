@@ -7,4 +7,5 @@ export type NotificationProps = {
   position?: NotificationPosition
   stopOnFocus?: boolean
   autoShow?: boolean
+  onHide?: () => void
 }

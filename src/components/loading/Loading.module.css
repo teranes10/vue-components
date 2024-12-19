@@ -11,7 +11,7 @@
   align-items: center;
   gap: 1rem;
   backdrop-filter: brightness(0.5);
-  z-index: 100000;
+  z-index: 10000;
 
   &.inline {
     flex-direction: row;

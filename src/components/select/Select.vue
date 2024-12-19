@@ -1,8 +1,8 @@
 <script setup lang="ts" generic="T extends object, V, K extends Key">
 import type { Key } from '@/functions/item/ItemKey'
 import type { ComplexSetup, SelectEmits, SelectEntry, SelectInternalItem, SelectProps } from './SelectConfig'
-import { Checkbox } from '@/components/checkbox'
 import { extractTextFieldProps, TextField } from '@/components/text-field'
+import { vRender } from '@/functions/dom/Container'
 import { toBaseInternalItem } from '@/functions/item/BaseInternalItem'
 import { getItemKey } from '@/functions/item/ItemKey'
 import { getItemValue } from '@/functions/item/ItemValue'
@@ -10,8 +10,10 @@ import { Icon } from '@/shared/components/icon'
 import { type Popper, popper as usePopper } from '@teranes/popper'
 import { debounce, isArray, isObject } from '@teranes/utils'
 import { type ComponentType, vModel } from '@teranes/vue-composables'
-import { Check, ChevronDown, ChevronUp } from 'lucide'
+import { ChevronDown, ChevronUp } from 'lucide'
 import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
+import dropdownStyles from './components/dropdown/Dropdown.module.css'
+import Dropdown from './components/dropdown/Dropdown.vue'
 import styles from './Select.module.css'
 import { useSelectable } from './SelectConfig'
 
@@ -118,19 +120,19 @@ function onSelect(item: SelectInternalItem<T, V, K>, select: boolean) {
   selectItem(item, select)
 }
 
-let popper: Popper
+let popper: Popper | undefined
 
 function show() {
   text.value = undefined
 
   if (!isShowing.value) {
-    popper.show()
+    popper?.show()
   }
 }
 
 function hide() {
   if (isShowing.value) {
-    popper.hide()
+    popper?.hide()
   }
 
   nextTick(() => {
@@ -150,8 +152,6 @@ const debouncedToggle = debounce(toggle, 5)
 
 const referenceElement = ref<HTMLDivElement>()
 const textFieldComponent = ref<ComponentType<typeof TextField>>()
-const dropdownElement = ref<HTMLDivElement>()
-const itemsContainerElement = ref<HTMLDivElement>()
 
 function updateCursor() {
   const inputElement = textFieldComponent.value?.$refs?.inputElement as HTMLInputElement
@@ -161,33 +161,61 @@ function updateCursor() {
   }
 }
 
+const dropdownElement = ref<HTMLDivElement>()
+const itemsContainerElement = ref<HTMLDivElement>()
+
+const { node, remove } = vRender('_selects_container_', Dropdown, {
+  items,
+  multiple: props.multiple,
+  footerMessage,
+  onSelect,
+}, { watchProps: true })
+
 onMounted(() => {
   updateCursor()
 
-  if (dropdownElement.value && referenceElement.value) {
-    popper = usePopper({
-      popperEl: dropdownElement.value,
-      referenceEl: referenceElement.value,
-      persistent: props.persistent,
-      activeClass: styles.show,
-      offset: [0, 5],
-      onStateChanged(type, value) {
-        if (type === 'show') {
-          isShowing.value = value
-          value ? props.onShow?.() : props.onHide?.()
-        }
-      },
-    })
+  dropdownElement.value = node.component?.exposed?.dropdownElement?.value
+  itemsContainerElement.value = node.component?.exposed?.itemsContainerElement?.value
+
+  if (!referenceElement.value || !dropdownElement.value) {
+    return
   }
+
+  popper = usePopper({
+    popperEl: dropdownElement.value,
+    referenceEl: referenceElement.value,
+    persistent: props.persistent,
+    activeClass: dropdownStyles.show,
+    offset: [0, 5],
+    modifiers: ['same-width', 'prevent-overflow'],
+    onStateChanged(type, value) {
+      if (type === 'show') {
+        isShowing.value = value
+        value ? props.onShow?.() : props.onHide?.()
+      }
+    },
+  })
 })
 
 onUnmounted(() => {
-  if (popper) {
-    popper.destroy()
-  }
+  popper?.destroy?.()
+  remove?.()
 })
 
-defineExpose({ isShowing, toggle, show, hide, textFieldComponent, dropdownElement, itemsContainerElement, text, search, selected, selectedText, selectedTags })
+defineExpose({
+  isShowing,
+  toggle,
+  show,
+  hide,
+  text,
+  search,
+  selected,
+  selectedText,
+  selectedTags,
+  textFieldComponent,
+  dropdownElement,
+  itemsContainerElement,
+})
 </script>
 
 <template>
@@ -199,41 +227,6 @@ defineExpose({ isShowing, toggle, show, hide, textFieldComponent, dropdownElemen
           <Icon v-else :icon="ChevronDown" :class="styles.selectBtn" />
         </template>
       </TextField>
-    </div>
-
-    <div ref="dropdownElement" :class="styles.selectDropdown">
-      <div v-if="$slots.header" :class="styles.selectDropdownHeader">
-        <slot name="header" />
-      </div>
-
-      <div v-if="items && items.length > 0" :class="styles.selectDropdownContent">
-        <slot v-if="$slots.items" name="items" :items="items" />
-        <div v-else ref="itemsContainerElement" :class="styles.selectDropdownItemsContainer">
-          <div
-            v-for="item in items" :key="item.key"
-            :class="[styles.selectDropdownItem, { [styles.active]: item.selected }]" @click="onSelect(item, !item.selected)"
-          >
-            <span v-if="multiple" :class="styles.selectDropdownItemIconContainer">
-              <Checkbox size="sm" :model-value="item.selected" @update:model-value="onSelect(item, !item.selected)" />
-            </span>
-            <span v-else-if="item.selected" :class="styles.selectDropdownItemIconContainer">
-              <Icon :icon="Check" :class="styles.selectDropdownItemIcon" />
-            </span>
-            <span :class="styles.selectDropdownItemText">
-              {{ item.text }}
-            </span>
-          </div>
-        </div>
-      </div>
-
-      <div v-if="footerMessage || $slots.footerMessage" :class="styles.selectDropdownMessageContainer">
-        <slot v-if="$slots.footerMessage" name="footerMessage" :items="items" />
-        <div v-else :class="styles.selectDropdownMessage" v-text="footerMessage" />
-      </div>
-
-      <div v-if="$slots.footer" :class="styles.selectDropdownFooter">
-        <slot v-if="$slots.footer" name="footer" />
-      </div>
     </div>
   </div>
 </template>

@@ -1,6 +1,6 @@
 import type { ModalProps } from './ModalConfig'
-import { getContainer } from '@/functions/dom/Container'
-import { createVNode, type FunctionalComponent, ref, render } from 'vue'
+import { vRender } from '@/functions/dom/Container'
+import { type FunctionalComponent, ref } from 'vue'
 import Modal from './Modal.vue'
 
 export function useModal(Component: FunctionalComponent, props?: ModalProps) {
@@ -28,11 +28,7 @@ export function useModal(Component: FunctionalComponent, props?: ModalProps) {
     </Modal>
   )
 
-  const node = createVNode(modal)
-  const container = getContainer('_models_container_')
-  if (container && node) {
-    render(node, container)
-  }
+  const { remove } = vRender('_models_container_', modal)
 
-  return { show, hide }
+  return { show, hide, remove }
 }

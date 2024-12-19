@@ -34,6 +34,6 @@ export function useToast(
   })
 
   function close() {
-    notification.hide()
+    notification?.hide?.()
   }
 }

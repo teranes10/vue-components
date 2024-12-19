@@ -13,7 +13,7 @@
 .image-hover-window {
   background: #fff;
   border-radius: 0.5rem;
-  z-index: 1000;
+  z-index: 1010;
   box-shadow: '1px 1px 4px rgba(0, 0, 0, 0.25)';
 
   .image-hover-window-image {
