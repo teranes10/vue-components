@@ -121,7 +121,7 @@ type ClassObject<T> = {
 
 type AttributeCommon = {
   name: string
-  value: any
+  value?: any
   showIf?: any
 }
 
@@ -147,4 +147,4 @@ type InputAttribute = AttributeCommon & {
   attrs?: FieldAttrs
 }
 
-type Attribute = GroupAttribute | ComponentAttribute | InputAttribute
+export type Attribute = GroupAttribute | ComponentAttribute | InputAttribute

@@ -2,7 +2,7 @@ import type { BaseInternalItem } from '@/functions/item/BaseInternalItem'
 import type { ItemComponent } from '@/functions/item/ItemComponent'
 import type { ItemKey, Key } from '@/functions/item/ItemKey'
 import type { ItemValue } from '@/functions/item/ItemValue'
-import type { Component } from 'vue'
+import type { Component, CSSProperties } from 'vue'
 
 export type TableProps<T, K extends Key> = {
   headers?: TableHeader<T, K>[]
@@ -61,6 +61,9 @@ export type TableHeader<T, K extends Key> = {
   headerComponent?: Component
   class?: string
   cardClass?: string
+  width?: string | number
+  align?: 'left' | 'right' | 'center'
+  style?: CSSProperties
 }
 
 export type TableInternalHeader<T, K extends Key, H = TableHeader<T, K>> = Omit<H, 'text' | 'value' | 'component' | 'headerComponent'> & {

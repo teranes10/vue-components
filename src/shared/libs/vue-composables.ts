@@ -1,1 +1,1 @@
-export {vModel,eventListener,resizeObserver,pagination,infiniteScroll,getScreenWidth} from '@teranes/vue-composables'
+export {vModel,eventListener,resizeObserver,watchOnce,pagination,infiniteScroll,getScreenWidth} from '@teranes/vue-composables'

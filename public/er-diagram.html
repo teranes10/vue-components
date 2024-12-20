@@ -109,5 +109,22 @@
 
     <script src="umd/bundle/web-components.umd.js"></script>
     <script src="umd/bundle/er-diagram.umd.js"></script>
+
+    <script>
+      const { watch } = WebComponents.Vue
+
+      const erDiagram = document.getElementById('er-diagram')
+      watch(
+        () => erDiagram.entities,
+        (v) => {
+          console.log(v)
+        },
+        { immediate: true, deep: true },
+      )
+
+      setTimeout(() => {
+        erDiagram.addEntity({ name: 'test test', columns: [{ name: 'name', type: 'char' }] })
+      }, 2000)
+    </script>
   </body>
 </html>

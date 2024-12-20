@@ -69,7 +69,7 @@ function getCellStyles<T>(header: TableInternalHeader<T, K, TableHeader<T, K>>, 
             </span>
           </th>
 
-          <th v-for="header in tableSetup.headers.value" :key="header.key" :class="getCellStyles(header, 'th')">
+          <th v-for="header in tableSetup.headers.value" :key="header.key" :class="getCellStyles(header, 'th')" :style="{ ...(header.width && { width: `${header.width}px` }) }">
             <slot v-if="header.text.type === 'slot'" :name="header.text.name" />
 
             <component :is="header.text.component" v-else-if="header.text.type === 'component'" />
@@ -99,7 +99,7 @@ function getCellStyles<T>(header: TableInternalHeader<T, K, TableHeader<T, K>>, 
             </span>
           </td>
 
-          <td v-for="header in tableSetup.headers.value" :key="header.key" :class="getCellStyles(header, 'td')">
+          <td v-for="header in tableSetup.headers.value" :key="header.key" :class="getCellStyles(header, 'td')" :style="{ ...(header.align && { textAlign: header.align }), ...(header.style) }">
             <slot
               v-if="header.value.type === 'slot'" :name="header.value.name" :item="item._item"
               :internal-item="item"

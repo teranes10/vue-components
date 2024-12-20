@@ -6,5 +6,5 @@ export { default as FormBuilder } from './FormBuilder.vue'
 
 export { fieldComponent, fieldProps, fieldShowIf, fieldWatcher, formGroup } from './FormBuilderAnnotations'
 
-export { FormBuilderBase } from './FormBuilderBase'
+export { type Attribute, FormBuilderBase } from './FormBuilderBase'
 export type { FormBuilderEmits, FormBuilderProps } from './FormBuilderConfig'

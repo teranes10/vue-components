@@ -1,5 +1,5 @@
 <script setup lang="ts" generic="T extends FormBuilderBase">
-import type { FormBuilderBase, FormBuilderMapper } from './FormBuilderBase'
+import type { Attribute, FormBuilderBase, FormBuilderMapper } from './FormBuilderBase'
 import { Element } from '@/components/element'
 import { Input } from '@/components/input'
 import { useFormValidation } from '@/functions/validation/Validation'
@@ -61,7 +61,7 @@ provide(FormBuilderContextKey, ctx)
 
 const defaultValue: any = editedItem.value?.getValue()
 
-const elements = computed(() => editedItem.value?.getAttributes ? editedItem.value.getAttributes() : [])
+const elements = computed<Attribute[]>(() => editedItem.value?.getAttributes ? cloneDeep(editedItem.value.getAttributes()) : [])
 
 const fields = computed(() => elements.value?.filter(x => x._type === 'input') || []);
 (function updateInitialValues() {

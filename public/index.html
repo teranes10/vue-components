@@ -14,17 +14,17 @@
     <t-image src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg" alt="Sample Image"
       title="Title" sub-title="Sub Title">
     </t-image>
-  
+
     <t-chip text="Chip"></t-chip>
-  
+
     <t-link text="Link"></t-link>
-  
+
     <t-tooltip text="Tooltip"> Tooltip </t-tooltip>
-  
+
     <div style="width: 200px;">
       <t-progress-bar percentage="25"></t-progress-bar>
     </div>
-  
+
     <div style="width: 36px; height: 36px">
       <t-loading-icon color="#3fa5ca"></t-loading-icon>
     </div>
@@ -35,7 +35,7 @@
   </div>
 
   <div>
-    <span style="margin: 5px;">Fill:</span>
+    <span style="margin: 0 15px;">Fill:</span>
     <t-button type="fill" color="primary">1</t-button>
     <t-button type="fill" color="secondary">2</t-button>
     <t-button type="fill" color="success">3</t-button>
@@ -44,7 +44,7 @@
     <t-button type="fill" color="danger">6</t-button>
     <t-button type="fill" color="gray">7</t-button>
 
-    <span style="margin: 5px;">Outline:</span>
+    <span style="margin: 0 15px;">Outline:</span>
     <t-button type="outline" color="primary">1</t-button>
     <t-button type="outline" color="secondary">2</t-button>
     <t-button type="outline" color="success">3</t-button>
@@ -53,7 +53,7 @@
     <t-button type="outline" color="danger">6</t-button>
     <t-button type="outline" color="gray">7</t-button>
 
-    <span style="margin: 5px;">Text:</span>
+    <span style="margin: 0 15px;">Text:</span>
     <t-button type="text" color="primary">1</t-button>
     <t-button type="text" color="secondary">2</t-button>
     <t-button type="text" color="success">3</t-button>
@@ -62,14 +62,14 @@
     <t-button type="text" color="danger">6</t-button>
     <t-button type="text" color="gray">7</t-button>
 
-    <span style="margin: 5px;">Actions:</span>
+    <span style="margin: 0 15px;">Actions:</span>
     <t-group>
       <t-button type="icon" icon="Info" color="gray"></t-button>
       <t-button type="icon" icon="SquarePen" color="info"></t-button>
       <t-button type="icon" icon="Trash2" color="danger"></t-button>
     </t-group>
 
-    <span style="margin: 5px;">Chevron:</span>
+    <span style="margin: 0 15px;">Chevron:</span>
     <t-chevron-btn></t-chevron-btn>
   </div>
 
@@ -194,7 +194,7 @@
   <script src="umd/bundle/form-builder.umd.js"></script>
 
   <script>
-    const { h } = WebComponents.Vue
+    const { h, reactive } = WebComponents.Vue
     const { useLoading, useToast, useAlert, useDeleteAlert, FormBuilderBase } = WebComponents
   </script>
 
@@ -288,8 +288,6 @@
     const formBuilderModel = document.getElementById("form-builder-modal");
 
     const types = { "Char": 1, "Varchar": 2, "int": 3 };
-    //const types = [["Char", 1], ["Varchar", 2], ["int", 3]];
-    //const types = [{ text: "Char", value: 1 }, { text: "Varchar", value: 2 }, { text: "int", value: 3 }];
 
     const columnHeaders = [
       {
@@ -316,33 +314,43 @@
         text: "PK",
         value: 'primaryKey',
         component: x => ({ _type: 'switch' }),
+        width: 25,
+        align: 'center',
       },
       {
         text: "Nulls",
         value: 'allowNulls',
         component: x => ({ _type: 'switch' }),
+        width: 25,
+        align: 'center',
       },
       {
         text: "Unique",
         value: 'unique',
         component: x => ({ _type: 'switch' }),
+        width: 25,
+        align: 'center',
       },
       {
         text: "Identity",
         value: 'identity',
         component: x => ({ _type: 'switch' }),
+        width: 25,
+        align: 'center',
       },
       {
         text: "FK",
         value: 'foreignKey',
         component: x => ({ _type: 'switch' }),
+        width: 25,
+        align: 'center',
       },
       { text: "Reference Table", value: "name" },
       { text: "Reference Field", value: "name" },
       { text: "Relationship Type", value: "name" },
     ];
 
-    const items = [
+    const items = reactive([
       {
         name: "test",
         type: 'Varchar',
@@ -355,7 +363,7 @@
         size: 1,
         default: 1,
       },
-    ]
+    ])
 
     class TestForm extends FormBuilderBase {
       getAttributes() {
