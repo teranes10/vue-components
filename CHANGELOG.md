@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.19
+
+### Patch Changes
+
+- c5180fa: form fix
+
 ## 1.0.18
 
 ### Patch Changes
