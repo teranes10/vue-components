@@ -2,7 +2,7 @@
 import type { SwitchEmits, SwitchProps } from './SwitchConfig'
 import { vModel } from '@teranes/vue-composables'
 import styles from './Switch.module.css'
-import { switchColorStyles } from './SwitchConfig'
+import { switchColorStyles, SwitchSizeClasses } from './SwitchConfig'
 
 const props = withDefaults(defineProps<SwitchProps>(), {
   color: 'primary',
@@ -21,7 +21,7 @@ function onClick(e: MouseEvent) {
 <template>
   <label :class="[styles.switch, { [styles.disabled]: disabled, [switchColorStyles[color] as string]: color }]">
     <input v-model="checked" :class="styles.switchInput" type="checkbox" :disabled="disabled" @click="onClick">
-    <span :class="styles.switchInputUi" />
+    <span :class="[styles.switchInputUi, { [SwitchSizeClasses[size!]]: !!size }]" />
     <span v-if="label" :class="styles.switchLabel" v-text="label" />
   </label>
 </template>

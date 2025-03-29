@@ -4,7 +4,7 @@ export type FormBuilderModalProps<T> = {
   modelValue?: T
   show?: boolean
   label?: string
-  width?: number
+  width?: number | string
 }
 export type FormBuilderModalEmits<T> = {
   'update:modelValue': [value: T]
@@ -31,6 +31,7 @@ export function FormBuilderModalInitializer<T extends FormBuilderBase>(
   let ctx: FormBuilderModalContext<T> | undefined
   const mounted = (_el: HTMLElement, _binding: any, vNode: any) => {
     ctx = vNode.ctx.exposed.ctx
+
     if (FormClass) {
       ctx?.create(FormClass)
     }

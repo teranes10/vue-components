@@ -10,17 +10,27 @@ type ToUnion<T> = {
 
 export type ItemComponent<T, K extends Key, B extends BaseInternalItem<T, K>> = ((item: T, internalItem: B) => Component | ToUnion<ElementsProps>)
 
-export function getItemComponent<T, K extends Key, B extends BaseInternalItem<T, K>>(item: B, component: ItemComponent<T, K, B>, key?: string): Component {
+export function getItemComponent<T, K extends Key, B extends BaseInternalItem<T, K>>(item: B, component: ItemComponent<T, K, B>, key?: string): Component | undefined {
   const value = component(item._item, item)
   if (isComponent(value)) {
     return value
   }
 
+  if (!value) {
+    return undefined
+  }
+
   const { _type, ...props } = value
 
   return useComponentView(_type, {
-    ...(key && { 'modelValue': item.getValue(key), 'onUpdate:modelValue': debounce((v: any) => { item.setValue(key, v) }, 1000) }),
     ...props,
+    ...(key && {
+      'modelValue': item.getValue(key),
+      'onUpdate:modelValue': debounce((v: any) => {
+        item.setValue(key, v);
+        (props as any)?.['onUpdate:modelValue']?.(v)
+      }, 1000),
+    }),
   })
 }
 

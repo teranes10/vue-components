@@ -124,9 +124,13 @@ export function autoCorrectPositions(entities: Map<string, EntityElement>, conta
   let currentTop = 0
   let currentLeft = 0
   let maxY = 0
-  for (const entity of _entities) {
+  for (const [index, entity] of _entities.entries()) {
     if (added.has(entity.name)) {
       continue
+    }
+
+    if (index === 0) {
+      updateEntityPosition(entity, 0, 0)
     }
 
     const connections = entityConnections.get(entity.name)

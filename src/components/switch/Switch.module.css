@@ -1,7 +1,6 @@
 .switch {
   display: inline-flex;
   vertical-align: top;
-  justify-content: center;
   align-items: center;
 
   &.disabled {
@@ -20,8 +19,8 @@
 
   .switch-input-ui {
     display: inline-block;
-    width: 2.5rem;
-    height: 1.5rem;
+    width: var(--switch-width, 2.5rem);
+    height: var(--switch-height, 1.4rem);
     cursor: pointer;
     border: none;
     border-radius: 1rem !important;
@@ -29,6 +28,16 @@
     background-repeat: no-repeat;
     background-position: center left;
     background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='-4 -4 8 8'%3e%3ccircle r='3' fill='%23FFFFFF'/%3e%3c/svg%3e");
+
+    &.sm {
+      --switch-width: 2.125rem;
+      --switch-height: 1.145rem;
+    }
+
+    &.lg {
+      --switch-width: 3rem;
+      --switch-height: 1.65rem;
+    }
   }
 
   .switch-label {

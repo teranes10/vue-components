@@ -4,9 +4,10 @@
   justify-content: center;
   align-items: center;
 
-  min-width: 38px;
-  min-height: 38px;
+  min-width: var(--button-width, 38px);
+  min-height: var(--button-height, 38px);
   padding: 0.5rem 1.25rem;
+  margin: 0.75px;
 
   font-size: var(--text-md);
   font-weight: var(--font-medium);
@@ -23,12 +24,10 @@
 
   background: var(--btn-background, white);
   color: var(--btn-text-color, var(--color-gray-600));
-  box-shadow: 0 0 0.5px 0.5px var(--btn-shadow, var(--color-gray-200));
 
   &:hover {
     background: var(--btn-active-background, var(--btn-background, var(--color-gray-50)));
     color: var(--btn-active-text-color, var(--btn-text-color, var(--color-gray-600)));
-    box-shadow: 0 0 0.5px 0.5px var(--btn-active-shadow, var(--btn-shadow, var(--color-gray-100)));
     opacity: 0.85;
   }
 
@@ -53,32 +52,32 @@
   }
 
   &.btn-xxs {
-    min-width: 22px;
-    min-height: 22px;
+    --button-width: 22px;
+    --button-height: 22px;
 
     padding: 0;
     font-size: var(--text-xs);
   }
 
   &.btn-xs {
-    min-width: 30px;
-    min-height: 30px;
+    --button-width: 30px;
+    --button-height: 30px;
 
     padding: 0.1rem 0.65rem;
     font-size: var(--text-xs);
   }
 
   &.btn-sm {
-    min-width: 34px;
-    min-height: 34px;
+    --button-width: 34px;
+    --button-height: 34px;
 
     padding: 0.125rem 0.75rem;
     font-size: var(--text-xs);
   }
 
   &.btn-lg {
-    min-width: 42px;
-    min-height: 42px;
+    --button-width: 42px;
+    --button-height: 42px;
 
     padding: 0.5rem 1rem;
     font-size: var(--text-md);
@@ -92,27 +91,70 @@
     &.btn-$(name) {
       background: getItem($color, color);
       color: getItem($color, text);
-      box-shadow: 0 0 0.5px 0.5px $(getItem($color, 100));
+
+      &.active {
+        opacity: 0.85;
+      }
     }
 
     &.btn-$(name)-outline {
       color: $(getItem($color, 400));
-      box-shadow: 0 0 0.5px 0.5px $(getItem($color, 400));
+      border: 1px solid $(getItem($color, 400));
+
+      &:hover,
+      &:active,
+      &.active {
+        background: getItem($color, 50);
+      }
+    }
+
+    &.btn-$(name)-outline-fill {
+      color: $(getItem($color, 400));
+      border: 1px solid $(getItem($color, 400));
 
       &:hover {
         background: getItem($color, 50);
-        box-shadow: 0 0 0.5px 0.5px $(getItem($color, 100));
+      }
+
+      &:active,
+      &.active {
+        background: getItem($color, color);
+        color: getItem($color, text);
       }
     }
 
     &.btn-$(name)-text {
-      box-shadow: none;
       color: $(getItem($color, 400));
+
+      &:hover,
+      &:active,
+      &.active {
+        background: getItem($color, 50);
+      }
+    }
+
+    &.btn-$(name)-text-fill {
+      color: $(getItem($color, 400));
+
+      &:hover {
+        background: getItem($color, 50);
+      }
+
+      &:active,
+      &.active {
+        background: getItem($color, color);
+        color: getItem($color, text);
+      }
     }
 
     &.btn-$(name)-icon {
-      box-shadow: none;
       color: $(getItem($color, 400));
+
+      &:hover,
+      &:active,
+      &.active {
+        background: getItem($color, 50);
+      }
     }
   }
 }

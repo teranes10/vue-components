@@ -57,7 +57,7 @@
     grid-column: span 12;
   }
 
-  @media (min-width: 768px) {
+  @media (--md-view) {
     .md-col-span-1 {
       grid-column: span 1;
     }
@@ -96,7 +96,7 @@
     }
   }
 
-  @media (min-width: 1024px) {
+  @media (--lg-view) {
     .lg-col-span-1 {
       grid-column: span 1;
     }

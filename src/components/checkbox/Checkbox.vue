@@ -1,12 +1,13 @@
 <script setup lang="ts" generic="V">
 import type { ValidationFieldContext } from '@/functions/validation/ValidationConfig'
+import type { ComputedRef } from 'vue'
 import type { CheckBoxGroupContext } from './components/CheckboxGroupConfig'
 import { useFieldValidation } from '@/functions/validation/Validation'
 import { throttle } from '@teranes/utils'
 import { vModel } from '@teranes/vue-composables'
 import { computed, inject, onMounted, ref, shallowRef } from 'vue'
 import styles from './Checkbox.module.css'
-import { type CheckboxEmits, type CheckboxProps, CheckboxSizeClasses } from './CheckboxConfig'
+import { checkboxColorStyles, type CheckboxEmits, type CheckboxProps, CheckboxSizeClasses } from './CheckboxConfig'
 import { CheckboxGroupContextKey } from './components/CheckboxGroupConfig'
 
 const props = withDefaults(defineProps<CheckboxProps<V>>(), {})
@@ -32,12 +33,12 @@ onMounted(() => {
   }
 })
 
-const group = inject<CheckBoxGroupContext<V> | undefined>(CheckboxGroupContextKey, undefined)
-group?.onInitialize(value.value as V, checked)
+const group = inject<ComputedRef<CheckBoxGroupContext<V>> | undefined>(CheckboxGroupContextKey, undefined)
+group?.value?.onInitialize(value.value as V, checked)
 
 const onCheckChanged = throttle(() => {
   checked.value = !checked.value
-  group?.onCheckChanged(value.value as V, checked.value)
+  group?.value?.onCheckChanged(value.value as V, checked.value)
   props.onChecked?.(checked.value)
 })
 </script>
@@ -45,16 +46,16 @@ const onCheckChanged = throttle(() => {
 <template>
   <span :class="styles.checkboxContainer">
     <label
-      :class="[styles.checkbox, {
-        [styles.minusIcon]: icon === 'minus',
-        [styles.squareIcon]: icon === 'square',
+      :class="[styles.checkbox, (color || group?.color || 'primary') ? checkboxColorStyles[(color || group?.color || 'primary')!] : '', {
+        [styles.minusIcon]: (icon || group?.icon) === 'minus',
+        [styles.squareIcon]: (icon || group?.icon) === 'square',
       }]"
     >
       <input
         ref="inputElement" :class="[styles.checkboxInput, { [styles.error]: validationCtx?.isError.value }]"
         type="checkbox" :value="value" :disabled="props.disabled" :checked="checked" @change="onCheckChanged"
       >
-      <span :class="[styles.checkboxLabel, { [CheckboxSizeClasses[size!]]: size }]">
+      <span :class="[styles.checkboxLabel, { [CheckboxSizeClasses[(size || group?.size)!]]: (size || group?.size) }]">
         <span v-if="label" v-text="label" />
       </span>
 

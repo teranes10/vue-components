@@ -18,10 +18,11 @@ export function useTableSetup<T, K extends Key>(props: TableProps<T, K>, emit: S
     isMounted.value = true
   })
 
+  const _headers = vModel(props, 'headers', emit, [])
   const _items = vModel(props, 'items', emit, [])
 
   const headers = computed<TableInternalHeader<T, K>[]>(() =>
-    props.headers?.map(toInternalHeader) || [],
+    _headers.value.map(toInternalHeader) || [],
   )
 
   const items = computed<TableInternalItem<T, K>[]>(() =>
@@ -88,9 +89,21 @@ export function useTableSetup<T, K extends Key>(props: TableProps<T, K>, emit: S
     const { text, value, headerComponent, component, ...others } = header
 
     return {
+      _header: header,
       key: i,
       text: toInternalHeaderText({ text, value, headerComponent }),
       value: toInternalHeaderValue({ value, component }),
+      getWidth() {
+        return this.headerElement?.clientWidth
+      },
+      addClass(value: string) {
+        if (!header.class?.includes(` ${value}`)) {
+          header.class = `${header.class || ''} ${value}`
+        }
+      },
+      removeClass(value: string) {
+        header.class = header.class?.replace(` ${value}`, '')
+      },
       ...others,
     }
   }

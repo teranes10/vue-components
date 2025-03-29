@@ -1,7 +1,7 @@
 export type ModalProps = {
   modelValue?: boolean
   persistent?: boolean
-  width?: number
+  width?: number | string
 }
 
 export type ModalEmits = {

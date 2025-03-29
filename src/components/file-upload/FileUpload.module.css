@@ -30,10 +30,14 @@
         .text {
           user-select: none;
           margin: 0 0 0 15px;
-          font-size: var(--text-lg);
+          font-size: var(--text-md);
           font-weight: var(--font-medium);
           color: var(--file-input-color, var(--color-gray-400));
-          text-wrap: nowrap;
+          text-align: center;
+
+          @media (--md-view) {
+            font-size: var(--text-lg);
+          }
 
           .text-active {
             cursor: pointer;

@@ -3,10 +3,10 @@ import type { ValidationFieldContext } from '@/functions/validation/ValidationCo
 import type { CheckBoxGroupContext, CheckboxGroupEmits, CheckboxGroupProps } from './CheckboxGroupConfig'
 import { useFieldValidation } from '@/functions/validation/Validation'
 import { vModel } from '@teranes/vue-composables'
-import { onMounted, provide, reactive, ref, type Ref, shallowRef, watch } from 'vue'
+import { computed, onMounted, provide, reactive, ref, type Ref, shallowRef, watch } from 'vue'
 import Checkbox from '../Checkbox.vue'
 import styles from './CheckboxGroup.module.css'
-import { CheckboxGroupContextKey } from './CheckboxGroupConfig'
+import { CheckboxGroupContextKey, CheckboxGroupSizeClasses } from './CheckboxGroupConfig'
 
 const props = withDefaults(defineProps<CheckboxGroupProps<V>>(), {
   inline: true,
@@ -27,7 +27,10 @@ watch(value, (values: V[]) => {
   })
 })
 
-const ctx: CheckBoxGroupContext<V> = {
+const ctx = computed<CheckBoxGroupContext<V>>(() => ({
+  icon: props.icon,
+  color: props.color,
+  size: props.size,
   inline: props.inline,
   onInitialize: (value: V, checked: Ref<boolean>) => {
     checkboxes.set(value, checked)
@@ -39,7 +42,7 @@ const ctx: CheckBoxGroupContext<V> = {
 
     value.value = values
   },
-}
+}))
 
 const checkboxContainerElement = ref<HTMLDivElement>()
 const errorsListElement = ref<HTMLUListElement>()
@@ -55,6 +58,8 @@ onMounted(() => {
   }
 })
 
+const items = computed(() => props.items?.map(x => ({ ...{ icon: props.icon, color: props.color, size: props.size }, ...x })))
+
 provide(CheckboxGroupContextKey, ctx)
 </script>
 
@@ -67,9 +72,13 @@ provide(CheckboxGroupContextKey, ctx)
 
     <div
       ref="checkboxContainerElement"
-      :class="[styles.checkboxGroupContainer, { [styles.inline]: props.inline, [styles.error]: validationCtx?.isError.value }]"
+      :class="[styles.checkboxGroupContainer, styles.auto, {
+        [CheckboxGroupSizeClasses[size!]]: !!size,
+        [styles.inline]: props.inline,
+        [styles.error]: validationCtx?.isError.value,
+      }]"
     >
-      <Checkbox v-for="item in items" v-bind="item" :key="item.label" />
+      <Checkbox v-for="item in items" v-bind="{ ...item, ...(size && { size }) }" :key="item.label" />
       <slot />
     </div>
 

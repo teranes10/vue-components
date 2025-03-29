@@ -8,32 +8,47 @@ declare const styles: {
   readonly btnSm: string
   readonly btnLg: string
   readonly btnPrimary: string
+  readonly active: string
   readonly btnPrimaryOutline: string
+  readonly btnPrimaryOutlineFill: string
   readonly btnPrimaryText: string
+  readonly btnPrimaryTextFill: string
   readonly btnPrimaryIcon: string
   readonly btnSecondary: string
   readonly btnSecondaryOutline: string
+  readonly btnSecondaryOutlineFill: string
   readonly btnSecondaryText: string
+  readonly btnSecondaryTextFill: string
   readonly btnSecondaryIcon: string
   readonly btnSuccess: string
   readonly btnSuccessOutline: string
+  readonly btnSuccessOutlineFill: string
   readonly btnSuccessText: string
+  readonly btnSuccessTextFill: string
   readonly btnSuccessIcon: string
   readonly btnInfo: string
   readonly btnInfoOutline: string
+  readonly btnInfoOutlineFill: string
   readonly btnInfoText: string
+  readonly btnInfoTextFill: string
   readonly btnInfoIcon: string
   readonly btnWarning: string
   readonly btnWarningOutline: string
+  readonly btnWarningOutlineFill: string
   readonly btnWarningText: string
+  readonly btnWarningTextFill: string
   readonly btnWarningIcon: string
   readonly btnDanger: string
   readonly btnDangerOutline: string
+  readonly btnDangerOutlineFill: string
   readonly btnDangerText: string
+  readonly btnDangerTextFill: string
   readonly btnDangerIcon: string
   readonly btnGray: string
   readonly btnGrayOutline: string
+  readonly btnGrayOutlineFill: string
   readonly btnGrayText: string
+  readonly btnGrayTextFill: string
   readonly btnGrayIcon: string
 }
 

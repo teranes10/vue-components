@@ -1,417 +1,468 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Web Components" />
+    <title>Web Components</title>
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="Web Components" />
-  <title>Web Components</title>
-</head>
+  <body style="display: flex; flex-direction: column; gap: 3rem; padding: 3rem">
+    <div style="display: flex; flex-wrap: wrap; gap: 3rem">
+      <t-image
+        src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg"
+        alt="Sample Image"
+        title="Title"
+        sub-title="Sub Title"
+      >
+      </t-image>
 
-<body style="display: flex; flex-direction: column; gap: 3rem; padding: 3rem">
+      <t-chip text="Chip"></t-chip>
 
-  <div style="display: flex; gap: 3rem">
-    <t-image src="https://letsenhance.io/static/8f5e523ee6b2479e26ecc91b9c25261e/1015f/MainAfter.jpg" alt="Sample Image"
-      title="Title" sub-title="Sub Title">
-    </t-image>
+      <t-link text="Link"></t-link>
 
-    <t-chip text="Chip"></t-chip>
+      <t-tooltip text="Tooltip"> Tooltip </t-tooltip>
 
-    <t-link text="Link"></t-link>
+      <div style="width: 200px">
+        <t-progress-bar percentage="25"></t-progress-bar>
+      </div>
 
-    <t-tooltip text="Tooltip"> Tooltip </t-tooltip>
+      <div style="width: 36px; height: 36px">
+        <t-loading-icon color="#3fa5ca"></t-loading-icon>
+      </div>
 
-    <div style="width: 200px;">
-      <t-progress-bar percentage="25"></t-progress-bar>
+      <t-icon size="50" icon="File" color="#f2786c" stroke-width="1" text="PDF"></t-icon>
+
+      <t-icon size="50" icon="File" color="#41d3b0" text="CSV"></t-icon>
     </div>
 
-    <div style="width: 36px; height: 36px">
-      <t-loading-icon color="#3fa5ca"></t-loading-icon>
+    <div>
+      <span style="margin: 0 15px">Fill:</span>
+      <t-button type="fill" color="primary">1</t-button>
+      <t-button type="fill" color="secondary">2</t-button>
+      <t-button type="fill" color="success">3</t-button>
+      <t-button type="fill" color="info">4</t-button>
+      <t-button type="fill" color="warning">5</t-button>
+      <t-button type="fill" color="danger">6</t-button>
+      <t-button type="fill" color="gray">7</t-button>
+
+      <span style="margin: 0 15px">Outline:</span>
+      <t-button type="outline" color="primary">1</t-button>
+      <t-button type="outline" color="secondary">2</t-button>
+      <t-button type="outline" color="success">3</t-button>
+      <t-button type="outline" color="info">4</t-button>
+      <t-button type="outline" color="warning">5</t-button>
+      <t-button type="outline" color="danger">6</t-button>
+      <t-button type="outline" color="gray">7</t-button>
+
+      <span style="margin: 0 15px">Text:</span>
+      <t-button type="text" color="primary">1</t-button>
+      <t-button type="text" color="secondary">2</t-button>
+      <t-button type="text" color="success">3</t-button>
+      <t-button type="text" color="info">4</t-button>
+      <t-button type="text" color="warning">5</t-button>
+      <t-button type="text" color="danger">6</t-button>
+      <t-button type="text" color="gray">7</t-button>
+
+      <span style="margin: 0 15px">Actions:</span>
+      <t-group>
+        <t-button type="icon" icon="Info" color="gray"></t-button>
+        <t-button type="icon" icon="SquarePen" color="info"></t-button>
+        <t-button type="icon" icon="Trash2" color="danger"></t-button>
+      </t-group>
+
+      <span style="margin: 0 15px">Chevron:</span>
+      <t-chevron-btn></t-chevron-btn>
+
+      <span style="margin: 0 15px">Group:</span>
+      <t-button-group>
+        <t-button text="1"></t-button>
+        <t-button text="2"></t-button>
+        <t-button text="3"></t-button>
+      </t-button-group>
     </div>
 
-    <t-icon size="50" icon="File" color="#f2786c" stroke-width="1" text="PDF"></t-icon>
+    <div>
+      <t-button id="btn" text="Button Loading" tooltip="Button" icon="Menu" loading></t-button>
 
-    <t-icon size="50" icon="File" color="#41d3b0" text="CSV"></t-icon>
-  </div>
+      <t-button id="alert-btn" text="Show Alert"></t-button>
 
-  <div>
-    <span style="margin: 0 15px;">Fill:</span>
-    <t-button type="fill" color="primary">1</t-button>
-    <t-button type="fill" color="secondary">2</t-button>
-    <t-button type="fill" color="success">3</t-button>
-    <t-button type="fill" color="info">4</t-button>
-    <t-button type="fill" color="warning">5</t-button>
-    <t-button type="fill" color="danger">6</t-button>
-    <t-button type="fill" color="gray">7</t-button>
+      <t-button id="toast-btn" text="Show Toast"></t-button>
 
-    <span style="margin: 0 15px;">Outline:</span>
-    <t-button type="outline" color="primary">1</t-button>
-    <t-button type="outline" color="secondary">2</t-button>
-    <t-button type="outline" color="success">3</t-button>
-    <t-button type="outline" color="info">4</t-button>
-    <t-button type="outline" color="warning">5</t-button>
-    <t-button type="outline" color="danger">6</t-button>
-    <t-button type="outline" color="gray">7</t-button>
-
-    <span style="margin: 0 15px;">Text:</span>
-    <t-button type="text" color="primary">1</t-button>
-    <t-button type="text" color="secondary">2</t-button>
-    <t-button type="text" color="success">3</t-button>
-    <t-button type="text" color="info">4</t-button>
-    <t-button type="text" color="warning">5</t-button>
-    <t-button type="text" color="danger">6</t-button>
-    <t-button type="text" color="gray">7</t-button>
-
-    <span style="margin: 0 15px;">Actions:</span>
-    <t-group>
-      <t-button type="icon" icon="Info" color="gray"></t-button>
-      <t-button type="icon" icon="SquarePen" color="info"></t-button>
-      <t-button type="icon" icon="Trash2" color="danger"></t-button>
-    </t-group>
-
-    <span style="margin: 0 15px;">Chevron:</span>
-    <t-chevron-btn></t-chevron-btn>
-  </div>
-
-  <div>
-    <t-button id="btn" text="Button Loading" tooltip="Button" icon="Menu" loading></t-button>
-
-    <t-button id="alert-btn" text="Show Alert"></t-button>
-
-    <t-button id="toast-btn" text="Show Toast"></t-button>
-
-    <t-button id="loading-btn" text="Show Loading"></t-button>
-  </div>
-
-
-  <t-accordion>
-    <t-accordion-item-group text="Accordion Group 1">
-      <t-accordion-item text="Accordion Item 1"></t-accordion-item>
-      <t-accordion-item text="Accordion Item 2"></t-accordion-item>
-    </t-accordion-item-group>
-
-    <t-accordion-item-group text="Accordion Group 2">
-      <t-accordion-item text="Accordion Item 1"></t-accordion-item>
-      <t-accordion-item text="Accordion Item 2"></t-accordion-item>
-    </t-accordion-item-group>
-  </t-accordion>
-
-  <t-tabs>
-    <t-tab text="Tab 1"></t-tab>
-    <t-tab text="Tab 2"></t-tab>
-    <t-tab text="Tab 3"></t-tab>
-
-    <div slot="content">
-      <t-tab-content>Tab Content 1</t-tab-content>
-      <t-tab-content>Tab Content 2</t-tab-content>
-      <t-tab-content>Tab Content 3</t-tab-content>
+      <t-button id="loading-btn" text="Show Loading"></t-button>
     </div>
-  </t-tabs>
 
+    <t-accordion>
+      <t-accordion-item-group text="Accordion Group 1">
+        <t-accordion-item text="Accordion Item 1"></t-accordion-item>
+        <t-accordion-item text="Accordion Item 2"></t-accordion-item>
+      </t-accordion-item-group>
 
-  <t-text-field label="Text Field"></t-text-field>
+      <t-accordion-item-group text="Accordion Group 2">
+        <t-accordion-item text="Accordion Item 1"></t-accordion-item>
+        <t-accordion-item text="Accordion Item 2"></t-accordion-item>
+      </t-accordion-item-group>
+    </t-accordion>
 
-  <t-number-field label="Number Field"></t-number-field>
+    <t-tabs>
+      <t-tab text="Tab 1"></t-tab>
+      <t-tab text="Tab 2"></t-tab>
+      <t-tab text="Tab 3"></t-tab>
 
-  <t-currency-field label="Currency Field"></t-currency-field>
+      <div slot="content">
+        <t-tab-content>Tab Content 1</t-tab-content>
+        <t-tab-content>Tab Content 2</t-tab-content>
+        <t-tab-content>Tab Content 3</t-tab-content>
+      </div>
+    </t-tabs>
 
-  <t-select id="select" label="Select"></t-select>
+    <t-text-field label="Text Field"></t-text-field>
 
-  <t-autocomplete id="autocomplete" label="Autocomplete"></t-autocomplete>
+    <t-number-field label="Number Field"></t-number-field>
 
-  <t-date-picker label="Date Picker"></t-date-picker>
+    <t-currency-field label="Currency Field"></t-currency-field>
 
-  <t-file-upload label="Icon"></t-file-upload>
+    <t-select id="select" label="Select"></t-select>
 
-  <t-radio-group label="Radio Group">
-    <t-radio-button label="Item 1"></t-radio-button>
-    <t-radio-button label="Item 2"></t-radio-button>
-    <t-radio-button label="Item 3"></t-radio-button>
-  </t-radio-group>
+    <t-autocomplete id="autocomplete" label="Autocomplete"></t-autocomplete>
 
-  <t-checkbox-group label="Checkbox Group">
-    <t-checkbox label="Item 1"></t-checkbox>
-    <t-checkbox label="Item 2"></t-checkbox>
-    <t-checkbox label="Item 3"></t-checkbox>
-  </t-checkbox-group>
+    <t-date-picker label="Date Picker"></t-date-picker>
 
-  <t-switch label="Switch"> </t-switch>
+    <t-file-upload label="Icon"></t-file-upload>
 
-  <t-data-table id="data-table"></t-data-table>
+    <t-radio-group label="Button Type Radio Group" type="outline-fill">
+      <t-radio-button label="Item 1"></t-radio-button>
+      <t-radio-button label="Item 2"></t-radio-button>
+      <t-radio-button label="Item 3"></t-radio-button>
+    </t-radio-group>
 
-  <t-form-builder label="User Form" size="6" id="form-builder"></t-form-builder>
+    <t-radio-group label="Radio Group">
+      <t-radio-button label="Item 1"></t-radio-button>
+      <t-radio-button label="Item 2"></t-radio-button>
+      <t-radio-button label="Item 3"></t-radio-button>
+    </t-radio-group>
 
-  <t-form-builder-modal label="User Form" id="form-builder-modal"></t-form-builder-modal>
+    <t-checkbox-group label="Checkbox Group">
+      <t-checkbox label="Item 1"></t-checkbox>
+      <t-checkbox label="Item 2"></t-checkbox>
+      <t-checkbox label="Item 3"></t-checkbox>
+    </t-checkbox-group>
 
-  <t-button id="form-btn" text="Show Form"></t-button>
+    <t-switch label="Switch"> </t-switch>
 
-  <script src="https://unpkg.com/@teranes/utils@11.0.0/dist/index.umd.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@teranes/date@10.0.0/dist/index.umd.js"></script>
-  <script src="https://unpkg.com/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
-  <script src="https://unpkg.com/@teranes/popper@12.0.0/dist/index.umd.js"></script>
-  <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
+    <t-data-table id="data-table"></t-data-table>
 
-  <!-- web components -->
-  <script src="umd/bundle/web-components.umd.js"></script>
-  <script src="umd/bundle/loading.umd.js"></script>
-  <script src="umd/bundle/tooltip.umd.js"></script>
-  <script src="umd/bundle/toast.umd.js"></script>
+    <t-form-builder label="User Form" size="6" id="form-builder"></t-form-builder>
 
-  <script src="umd/bundle/accordion.umd.js"></script>
+    <t-form-builder-modal label="User Form" id="form-builder-modal"></t-form-builder-modal>
 
-  <script src="umd/bundle/button.umd.js"></script>
-  <script src="umd/bundle/modal.umd.js"></script>
-  <script src="umd/bundle/alert.umd.js"></script>
+    <t-button id="form-btn" text="Show Form"></t-button>
 
-  <script src="umd/bundle/chip.umd.js"></script>
+    <script src="https://unpkg.com/@teranes/utils@11.0.0/dist/index.umd.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@teranes/date@10.0.0/dist/index.umd.js"></script>
+    <script src="https://unpkg.com/@popperjs/core@2.11.8/dist/umd/popper.min.js"></script>
+    <script src="https://unpkg.com/@teranes/popper@12.0.0/dist/index.umd.js"></script>
+    <script src="https://unpkg.com/lucide@0.460.0/dist/umd/lucide.min.js"></script>
 
-  <script src="umd/bundle/er-diagram.umd.js"></script>
-  <script src="umd/bundle/image.umd.js"></script>
+    <!-- web components -->
+    <script src="umd/bundle/web-components.umd.js"></script>
+    <script src="umd/bundle/loading.umd.js"></script>
+    <script src="umd/bundle/tooltip.umd.js"></script>
+    <script src="umd/bundle/toast.umd.js"></script>
 
-  <script src="umd/bundle/menu.umd.js"></script>
-  <script src="umd/bundle/notification.umd.js"></script>
+    <script src="umd/bundle/accordion.umd.js"></script>
 
-  <script src="umd/bundle/progress-bar.umd.js"></script>
-  <script src="umd/bundle/tabs.umd.js"></script>
+    <script src="umd/bundle/button.umd.js"></script>
+    <script src="umd/bundle/modal.umd.js"></script>
+    <script src="umd/bundle/alert.umd.js"></script>
 
-  <script src="umd/bundle/text-field.umd.js"></script>
-  <script src="umd/bundle/number-field.umd.js"></script>
-  <script src="umd/bundle/currency-field.umd.js"></script>
-  <script src="umd/bundle/date-picker.umd.js"></script>
-  <script src="umd/bundle/select.umd.js"></script>
-  <script src="umd/bundle/autocomplete.umd.js"></script>
-  <script src="umd/bundle/file-upload.umd.js"></script>
-  <script src="umd/bundle/checkbox.umd.js"></script>
-  <script src="umd/bundle/radio-button.umd.js"></script>
-  <script src="umd/bundle/switch.umd.js"></script>
+    <script src="umd/bundle/chip.umd.js"></script>
 
-  <script src="umd/bundle/pagination.umd.js"></script>
-  <script src="umd/bundle/table.umd.js"></script>
-  <script src="umd/bundle/data-table.umd.js"></script>
+    <script src="umd/bundle/er-diagram.umd.js"></script>
+    <script src="umd/bundle/image.umd.js"></script>
 
-  <script src="umd/bundle/input.umd.js"></script>
-  <script src="umd/bundle/element.umd.js"></script>
-  <script src="umd/bundle/form-builder.umd.js"></script>
+    <script src="umd/bundle/menu.umd.js"></script>
+    <script src="umd/bundle/notification.umd.js"></script>
 
-  <script>
-    const { h, reactive } = WebComponents.Vue
-    const { useLoading, useToast, useAlert, useDeleteAlert, FormBuilderBase } = WebComponents
-  </script>
+    <script src="umd/bundle/progress-bar.umd.js"></script>
+    <script src="umd/bundle/tabs.umd.js"></script>
 
-  <script>
-    const btn = document.getElementById('btn')
-    btn.onPress = (e) => {
-      setTimeout(() => {
-        e.stopLoading();
-      }, 1500);
-    }
+    <script src="umd/bundle/text-field.umd.js"></script>
+    <script src="umd/bundle/number-field.umd.js"></script>
+    <script src="umd/bundle/currency-field.umd.js"></script>
+    <script src="umd/bundle/date-picker.umd.js"></script>
+    <script src="umd/bundle/select.umd.js"></script>
+    <script src="umd/bundle/autocomplete.umd.js"></script>
+    <script src="umd/bundle/file-upload.umd.js"></script>
+    <script src="umd/bundle/checkbox.umd.js"></script>
+    <script src="umd/bundle/radio-button.umd.js"></script>
+    <script src="umd/bundle/switch.umd.js"></script>
 
-    const alertBtn = document.getElementById('alert-btn')
-    alertBtn.onPress = () => {
-      useDeleteAlert(() => {
-        console.log("delete");
-      });
-    }
+    <script src="umd/bundle/pagination.umd.js"></script>
+    <script src="umd/bundle/table.umd.js"></script>
+    <script src="umd/bundle/data-table.umd.js"></script>
 
-    const toastBtn = document.getElementById('toast-btn')
-    toastBtn.onPress = () => {
-      useToast("Hello");
-    }
+    <script src="umd/bundle/input.umd.js"></script>
+    <script src="umd/bundle/element.umd.js"></script>
+    <script src="umd/bundle/form-builder.umd.js"></script>
 
-    const loadingBtn = document.getElementById('loading-btn')
-    loadingBtn.onPress = () => {
-      const loading = useLoading();
-      setTimeout(() => {
-        loading.remove()
-      }, 2500);
-    }
-  </script>
+    <script>
+      const { h, reactive } = WebComponents.Vue
+      const { useLoading, useToast, useAlert, useDeleteAlert, FormBuilderBase } = WebComponents
+    </script>
 
-  <script>
-    const select = document.getElementById('select')
-    select.items = { 'Item 1': 1, 'Item 2': 2, 'Item 3': 3 }
-    //select.items = [['Item 1', 1], ['Item 2', 2], ['Item 3', 3]]
-    //select.items = [{ text:'Item 1', value: 1}, {text:'Item 2',value: 2}, {text:'Item 3',value: 3 }]
-    select.addEventListener('update:modelValue', (v) => {
-      console.log('on select changed', v.detail);
-    })
+    <script>
+      const btn = document.getElementById('btn')
+      btn.onPress = (e) => {
+        setTimeout(() => {
+          e.stopLoading()
+        }, 1500)
+      }
 
-    const autocomplete = document.getElementById('autocomplete')
-    autocomplete.items = [{ text: 'Item 1', value: 1 }, { text: 'Item 2', value: 2 }, { text: 'Item 3', value: 3 }]
-    autocomplete.addEventListener('update:modelValue', (v) => {
-      console.log('on autocomplete changed', v.detail);
-    })
-  </script>
+      const alertBtn = document.getElementById('alert-btn')
+      alertBtn.onPress = () => {
+        useDeleteAlert(() => {
+          console.log('delete')
+        })
+      }
 
-  <script>
-    const dataTable = document.getElementById("data-table");
+      const toastBtn = document.getElementById('toast-btn')
+      toastBtn.onPress = () => {
+        useToast('Hello')
+      }
 
-    dataTable.ctx.setHeaders([
-      {
-        text: "Header 1",
-        value: "header1",
-      },
-      {
-        text: "Header 2",
-        value: "header2",
-      },
-      {
-        text: "Header 3",
-        value: "header3",
-      },
-      {
-        text: "Input",
-        component: () => ({ _type: 'text', label: "Test Label" }),
-      },
-      {
-        text: "Component",
-        component: x => ({ _type: "chip", text: x.header1 }),
-      },
-    ]);
+      const loadingBtn = document.getElementById('loading-btn')
+      loadingBtn.onPress = () => {
+        const loading = useLoading()
+        setTimeout(() => {
+          loading.remove()
+        }, 2500)
+      }
+    </script>
 
-    dataTable.ctx.setItems([
-      {
-        header1: "Value 1",
-        header2: "Value 2",
-        header3: "Value 3",
-      },
-      {
-        header1: "Value 1",
-        header2: "Value 2",
-        header3: "Value 3",
-      },
-    ]);
-  </script>
+    <script>
+      const select = document.getElementById('select')
+      select.items = { 'Item 1': 1, 'Item 2': 2, 'Item 3': 3 }
+      //select.items = [['Item 1', 1], ['Item 2', 2], ['Item 3', 3]]
+      //select.items = [{ text:'Item 1', value: 1}, {text:'Item 2',value: 2}, {text:'Item 3',value: 3 }]
+      select.addEventListener('update:modelValue', (v) => {
+        console.log('on select changed', v.detail)
+      })
 
-  <script>
-    const formBuilder = document.getElementById("form-builder");
-    const formBuilderModel = document.getElementById("form-builder-modal");
+      const autocomplete = document.getElementById('autocomplete')
+      autocomplete.items = [
+        { text: 'Item 1', value: 1 },
+        { text: 'Item 2', value: 2 },
+        { text: 'Item 3', value: 3 },
+      ]
+      autocomplete.addEventListener('update:modelValue', (v) => {
+        console.log('on autocomplete changed', v.detail)
+      })
+    </script>
 
-    const types = { "Char": 1, "Varchar": 2, "int": 3 };
+    <script>
+      const dataTable = document.getElementById('data-table')
 
-    const columnHeaders = [
-      {
-        text: "Name",
-        value: "name",
-        component: x => ({ _type: 'text' }),
-      },
-      {
-        text: "Type",
-        value: 'type',
-        component: x => ({ _type: 'select', items: types })
-      },
-      {
-        text: "Size",
-        value: 'size',
-        component: x => ({ _type: 'number' }),
-      },
-      {
-        text: "Default",
-        value: 'default',
-        component: x => ({ _type: 'text' }),
-      },
-      {
-        text: "PK",
-        value: 'primaryKey',
-        component: x => ({ _type: 'switch' }),
-        width: 25,
-        align: 'center',
-      },
-      {
-        text: "Nulls",
-        value: 'allowNulls',
-        component: x => ({ _type: 'switch' }),
-        width: 25,
-        align: 'center',
-      },
-      {
-        text: "Unique",
-        value: 'unique',
-        component: x => ({ _type: 'switch' }),
-        width: 25,
-        align: 'center',
-      },
-      {
-        text: "Identity",
-        value: 'identity',
-        component: x => ({ _type: 'switch' }),
-        width: 25,
-        align: 'center',
-      },
-      {
-        text: "FK",
-        value: 'foreignKey',
-        component: x => ({ _type: 'switch' }),
-        width: 25,
-        align: 'center',
-      },
-      { text: "Reference Table", value: "name" },
-      { text: "Reference Field", value: "name" },
-      { text: "Relationship Type", value: "name" },
-    ];
+      dataTable.ctx.setHeaders([
+        {
+          text: 'Header 1',
+          value: 'header1',
+        },
+        {
+          text: 'Header 2',
+          value: 'header2',
+        },
+        {
+          text: 'Header 3',
+          value: 'header3',
+        },
+        {
+          text: 'Header 1',
+          value: 'header1',
+        },
+        {
+          text: 'Header 2',
+          value: 'header2',
+        },
+        {
+          text: 'Header 3',
+          value: 'header3',
+        },
+        {
+          text: 'Header 1',
+          value: 'header1',
+        },
+        {
+          text: 'Header 2',
+          value: 'header2',
+        },
+        {
+          text: 'Header 3',
+          value: 'header3',
+        },
+        {
+          text: 'Input',
+          component: () => ({
+            _type: 'text',
+            label: 'Test Label',
+            'onUpdate:modelValue': (v) => {
+              console.log('changed', v)
+            }
+          }),
+        },
+        {
+          text: 'Component',
+          component: (x) => ({ _type: 'chip', text: x.header1 }),
+        },
+      ])
 
-    const items = reactive([
-      {
-        name: "test",
-        type: 'Varchar',
-        size: 1,
-        default: 1,
-      },
-      {
-        name: "test",
-        type: 'Varchar',
-        size: 1,
-        default: 1,
-      },
-    ])
+      dataTable.ctx.setItems([
+        {
+          header1: 'Value 1',
+          header2: 'Value 2',
+          header3: 'Value 3',
+        },
+        {
+          header1: 'Value 1',
+          header2: 'Value 2',
+          header3: 'Value 3',
+        },
+      ])
+    </script>
 
-    class TestForm extends FormBuilderBase {
-      getAttributes() {
-        return [
-          {
-            _type: "input",
-            name: "name",
-            value: "Name",
-            type: "text",
-            props: { label: "Name" },
-            attrs: { size: 6 }
-          },
-          {
-            _type: "input",
-            name: "age",
-            value: 123,
-            type: "number",
-            props: { label: "Age" },
-            attrs: { size: 6 }
-          },
-          {
-            _type: "component",
-            name: "fields",
-            type: "table",
-            props: {
-              headers: columnHeaders,
-              items: items,
-              mobileView: 1125
+    <script>
+      const formBuilder = document.getElementById('form-builder')
+      const formBuilderModel = document.getElementById('form-builder-modal')
+
+      const types = { Char: 1, Varchar: 2, int: 3 }
+
+      const columnHeaders = [
+        {
+          text: 'Name',
+          value: 'name',
+          component: (x) => (x.primaryKey ? { _type: 'text' } : null),
+        },
+        {
+          text: 'Type',
+          value: 'type',
+          component: (x) => ({ _type: 'select', items: types }),
+        },
+        {
+          text: 'Size',
+          value: 'size',
+          component: (x) => ({ _type: 'number' }),
+        },
+        {
+          text: 'Default',
+          value: 'default',
+          component: (x) => ({
+            _type: 'text',
+            'onUpdate:modelValue': (v) => {
+              console.log('changed', v)
             },
-            events: ['onUpdate:items']
-          },
-        ];
+          }),
+        },
+        {
+          text: 'PK',
+          value: 'primaryKey',
+          component: (x) => ({ _type: 'switch' }),
+          width: 25,
+          align: 'center',
+        },
+        {
+          text: 'Nulls',
+          value: 'allowNulls',
+          component: (x) => ({ _type: 'switch' }),
+          width: 25,
+          align: 'center',
+        },
+        {
+          text: 'Unique',
+          value: 'unique',
+          component: (x) => ({ _type: 'switch' }),
+          width: 25,
+          align: 'center',
+        },
+        {
+          text: 'Identity',
+          value: 'identity',
+          component: (x) => ({ _type: 'switch' }),
+          width: 25,
+          align: 'center',
+        },
+        {
+          text: 'FK',
+          value: 'foreignKey',
+          component: (x) => ({ _type: 'switch' }),
+          width: 25,
+          align: 'center',
+        },
+        { text: 'Reference Table', value: 'name' },
+        { text: 'Reference Field', value: 'name' },
+        { text: 'Relationship Type', value: 'name' },
+      ]
+
+      const items = reactive([
+        {
+          name: 'test',
+          type: 'Varchar',
+          size: 1,
+          default: 1,
+        },
+        {
+          name: 'test',
+          type: 'Varchar',
+          size: 1,
+          default: 1,
+        },
+      ])
+
+      class TestForm extends FormBuilderBase {
+        getAttributes() {
+          return [
+            {
+              _type: 'input',
+              name: 'name',
+              value: 'Name',
+              type: 'text',
+              props: { label: 'Name' },
+              attrs: { size: 6 },
+            },
+            {
+              _type: 'input',
+              name: 'age',
+              value: 123,
+              type: 'number',
+              props: { label: 'Age' },
+              attrs: { size: 6 },
+            },
+            {
+              _type: 'component',
+              name: 'fields',
+              type: 'table',
+              props: {
+                headers: columnHeaders,
+                items: items,
+                mobileView: 1125,
+              },
+              events: ['onUpdate:items'],
+            },
+          ]
+        }
+
+        onValueChanged(k, v) {
+          console.log(k, v)
+        }
       }
 
-      onValueChanged(k, v) {
-        console.log(k, v);
+      formBuilder.modelValue = new TestForm()
+
+      formBuilderModel.ctx.create(TestForm)
+
+      const formBtn = document.getElementById('form-btn')
+      formBtn.onPress = () => {
+        formBuilderModel.ctx.open()
       }
-    }
-
-    formBuilder.modelValue = new TestForm();
-
-    formBuilderModel.ctx.create(TestForm);
-
-    const formBtn = document.getElementById('form-btn')
-    formBtn.onPress = () => {
-      formBuilderModel.ctx.open();
-    }
-  </script>
-</body>
-
+    </script>
+  </body>
 </html>

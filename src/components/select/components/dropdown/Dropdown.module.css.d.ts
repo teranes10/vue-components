@@ -3,12 +3,14 @@ declare const styles: {
   readonly show: string
   readonly selectDropdownHeader: string
   readonly selectDropdownContent: string
+  readonly multiLevel: string
   readonly selectDropdownItemsContainer: string
   readonly selectDropdownItem: string
   readonly active: string
   readonly selectDropdownItemIconContainer: string
   readonly selectDropdownItemIcon: string
   readonly selectDropdownItemText: string
+  readonly selectDropdownExpandIcon: string
   readonly selectDropdownFooter: string
   readonly selectDropdownMessageContainer: string
   readonly selectDropdownMessage: string

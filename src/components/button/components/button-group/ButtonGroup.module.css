@@ -2,22 +2,45 @@
   display: inline-flex;
   vertical-align: top;
   flex-wrap: nowrap;
-  gap: 0 1px;
   border-radius: 0.375rem;
-  box-shadow: 0 0 0.5px 0.5px var(--color-gray-100);
 
-  button {
+  &.boxed {
+    border: 1px solid var(--color-gray-100);
+    padding: 0.125rem 0.135rem;
+    border-radius: 0.5rem;
+  }
+
+  &.text {
+  }
+
+  &.text-fill {
+  }
+
+  &:not(.boxed):not(.text):not(.text-fill) > button,
+  &:not(.boxed):not(.text):not(.text-fill) > t-button button,
+  &:not(.boxed):not(.text):not(.text-fill) > t-radio-button button {
     margin: 0;
     border-radius: 0;
+  }
 
-    &:first-child {
-      border-top-left-radius: 0.375rem;
-      border-bottom-left-radius: 0.375rem;
-    }
+  &:not(.boxed):not(.text):not(.text-fill) > button:first-child,
+  &:not(.boxed):not(.text):not(.text-fill) > t-button:first-child button,
+  &:not(.boxed):not(.text):not(.text-fill) > t-radio-button:first-child button {
+    border-top-left-radius: 0.375rem;
+    border-bottom-left-radius: 0.375rem;
+    border-inline-end-width: 0 !important;
+  }
 
-    &:last-child {
-      border-top-right-radius: 0.375rem;
-      border-bottom-right-radius: 0.375rem;
-    }
+  &:not(.boxed):not(.text):not(.text-fill) > button:last-child,
+  &:not(.boxed):not(.text):not(.text-fill) > t-button:last-child button,
+  &:not(.boxed):not(.text):not(.text-fill) > t-radio-button:last-child button {
+    border-top-right-radius: 0.375rem;
+    border-bottom-right-radius: 0.375rem;
+  }
+
+  &:not(.boxed):not(.text):not(.text-fill) > button:not(:first-child):not(:last-child),
+  &:not(.boxed):not(.text):not(.text-fill) > t-button:not(:first-child):not(:last-child) button,
+  &:not(.boxed):not(.text):not(.text-fill) > t-radio-button:not(:first-child):not(:last-child) button {
+    border-inline-end: 0 !important;
   }
 }

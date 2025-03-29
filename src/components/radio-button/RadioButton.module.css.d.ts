@@ -1,7 +1,8 @@
 declare const styles: {
   readonly radio: string
   readonly radioLabel: string
-  readonly radioInputUi: string
+  readonly sm: string
+  readonly lg: string
   readonly radioInput: string
   readonly radioPrimary: string
   readonly radioSecondary: string

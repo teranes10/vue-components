@@ -1,6 +1,6 @@
 <script setup lang="ts">
 import type { Attribute } from '@/components'
-import { FormBuilderBase } from '@/components'
+import { FormBuilder, FormBuilderBase } from '@/components'
 import { ref } from 'vue'
 
 const types = { Char: 1, Varchar: 2, int: 3 }
@@ -45,11 +45,6 @@ const columnHeaders = [
     text: 'Identity',
     value: 'identity',
     component: () => ({ _type: 'switch' }),
-    width: 10,
-    align: 'center',
-    style: {
-      background: 'red',
-    },
   },
   {
     text: 'FK',

@@ -3,6 +3,8 @@ declare const styles: {
   readonly disabled: string
   readonly switchInput: string
   readonly switchInputUi: string
+  readonly sm: string
+  readonly lg: string
   readonly switchLabel: string
   readonly switchPrimary: string
   readonly switchSecondary: string

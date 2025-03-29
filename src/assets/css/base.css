@@ -17,6 +17,10 @@ html {
   color: var(--color-gray-600);
 }
 
+button {
+  background: none;
+}
+
 :root {
   @each $color in getColors() {
     @each $shade in getColors($color) {
@@ -37,8 +41,4 @@ html {
   --text-md: 1rem;
   --text-lg: 1.125rem;
   --text-xl: 1.25rem;
-}
-
-button {
-  background: none;
 }

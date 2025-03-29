@@ -20,7 +20,7 @@ const width = vModel(props, 'width', emit)
 
 function updateWidth() {
   const screenWidth = window.innerWidth
-  width.value = props.width > screenWidth ? screenWidth - 25 : props.width
+  width.value = Number.parseInt(props.width.toString()) > screenWidth ? screenWidth - 25 : props.width
 }
 
 const modalElement = ref<HTMLDivElement>()

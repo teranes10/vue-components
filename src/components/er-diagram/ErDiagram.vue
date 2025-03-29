@@ -115,7 +115,9 @@ async function addEntity(props: ErDiagramEntityProps) {
   entities.value.set(entity.name, entity)
 
   setupEntityElement(entity)
-  update()
+
+  autoCorrect()
+  setTimeout(update, 25)
 }
 
 defineExpose({ entities, getEntityElements, getEntityFromElement, setupEntityElement, render, autoCorrect, update, addEntity })

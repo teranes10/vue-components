@@ -15,8 +15,8 @@ importers:
         specifier: ^9.0.0
         version: 9.0.0
       '@teranes/popper':
-        specifier: ^11.0.0
-        version: 11.0.0
+        specifier: ^15.0.0
+        version: 15.0.0
       '@teranes/short-unique-id':
         specifier: ^9.0.0
         version: 9.0.0
@@ -833,8 +833,8 @@ packages:
   '@teranes/date@9.0.0':
     resolution: {integrity: sha512-tgxWX/tMpw3jQy5fTXM/oZ1AqKpkmHnPV+N485C8S1nf0LYFc0GHecSRfzHHD8SvyMUjv1F0NtP5Rgjn703LDQ==}
 
-  '@teranes/popper@11.0.0':
-    resolution: {integrity: sha512-wsMNxfn/gBEYJOWFHejHOTSda6Ly/1tXio0BWABeC/YPQ8YlyycwWpCdxRROJ6witclQedLEjCF+w5HAzuKv/w==}
+  '@teranes/popper@15.0.0':
+    resolution: {integrity: sha512-tNnL5jM17HUM+EUOWbTaBQQtvNY7ZgeWrxztunD5EfEF/3MP3AHIyhR+wcvDV92zKAuWgvM0aeC9WXZYJpmGAg==}
 
   '@teranes/postcss-variables@1.0.1':
     resolution: {integrity: sha512-RoMM3Xm5eVFMlvjUnTbQKC9ViELEfVp/9jQVXxRefAajkc+AbZ/fSlO0vSC2t9ycd15YDjQqQVw0p1JlGdaPhA==}
@@ -3942,7 +3942,7 @@ snapshots:
     dependencies:
       dayjs: 1.11.13
 
-  '@teranes/popper@11.0.0':
+  '@teranes/popper@15.0.0':
     dependencies:
       '@popperjs/core': 2.11.8
 

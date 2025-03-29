@@ -3,6 +3,8 @@ declare const styles: {
   readonly table: string
   readonly tableHead: string
   readonly tableHeader: string
+  readonly dummy: string
+  readonly resizeHandle: string
   readonly tableBody: string
   readonly tableRow: string
   readonly tableData: string

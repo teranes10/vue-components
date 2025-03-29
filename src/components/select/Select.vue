@@ -1,63 +1,101 @@
 <script setup lang="ts" generic="T extends object, V, K extends Key">
 import type { Key } from '@/functions/item/ItemKey'
-import type { ComplexSetup, SelectEmits, SelectEntry, SelectInternalItem, SelectProps } from './SelectConfig'
+import type { ComputedRef } from 'vue'
 import { extractTextFieldProps, TextField } from '@/components/text-field'
-import { vRender } from '@/functions/dom/Container'
 import { toBaseInternalItem } from '@/functions/item/BaseInternalItem'
 import { getItemKey } from '@/functions/item/ItemKey'
 import { getItemValue } from '@/functions/item/ItemValue'
 import { Icon } from '@/shared/components/icon'
-import { type Popper, popper as usePopper } from '@teranes/popper'
 import { debounce, isArray, isObject } from '@teranes/utils'
 import { type ComponentType, vModel } from '@teranes/vue-composables'
 import { ChevronDown, ChevronUp } from 'lucide'
-import { computed, nextTick, onMounted, onUnmounted, ref, watch } from 'vue'
-import dropdownStyles from './components/dropdown/Dropdown.module.css'
-import Dropdown from './components/dropdown/Dropdown.vue'
+import { computed, onMounted, ref, useAttrs, watch } from 'vue'
 import styles from './Select.module.css'
-import { useSelectable } from './SelectConfig'
+import { useSelectable } from './Selectable'
+import { type ComplexSetup, filterItems, getSelectedText, type SelectEmits, type SelectEntry, type SelectInternalItem, type SelectProps } from './SelectConfig'
+import { useSelectPopper } from './SelectPopper'
 
 const props = withDefaults(defineProps<SelectProps<T, V, K>>(), {
   persistent: false,
   itemText: 'text',
   itemValue: 'value',
+  itemSubItems: 'items',
   filterable: true,
   focusable: true,
+  popperWidth: 'fit-content',
+  popperHeight: 180,
 })
 
-const emit = defineEmits<SelectEmits<V>>()
+const emit = defineEmits<SelectEmits<V, K>>()
 
 const textFieldProps = computed(() => extractTextFieldProps(props))
 const selected = vModel(props, 'modelValue', emit)
-const { isSelected, selectItem } = useSelectable<T, V, K>({ multiple: props.multiple, selected })
+const expanded = vModel(props, 'expanded', emit)
+
+const { isSelected, isExpanded, selectItem, expandItem } = useSelectable<T, V, K>({ multiple: props.multiple, selected, expanded })
+
+function entryToSelectItems({ text, value }: SelectEntry<V>, i: number): SelectInternalItem<T | undefined, V, K> {
+  const key = i as K
+  return {
+    ...toBaseInternalItem(undefined, i, key),
+    text,
+    value,
+    selected: isSelected(value),
+  }
+}
+
+function itemToSelectItem(item: T, i: number, options: ComplexSetup<T, V, K>): SelectInternalItem<T, V, K> {
+  let key = getItemKey(item, i, options.itemKey)
+  const baseItem = toBaseInternalItem(item, i, key)
+  const text = getItemValue(baseItem, options.itemText!)
+  const value = getItemValue(baseItem, options.itemValue!)
+
+  baseItem.key = key = text
+
+  let items
+  if (props.multiLevel) {
+    const subItems = getItemValue(baseItem, options.itemSubItems!)
+    if (subItems) {
+      items = toSelectItem(subItems) as SelectInternalItem<T, V, K>[]
+    }
+  }
+
+  return {
+    ...baseItem,
+    text,
+    value,
+    selected: isSelected(value),
+    expanded: isExpanded(key),
+    items,
+  }
+}
+
+function toSelectItem(items: Record<string, V> | (string | number | T | [string, V])[]) {
+  if (isComplexSetup(props) && isArray(items)) {
+    return items.map((item, i) => isArray(item)
+      ? entryToSelectItems({ text: item[0], value: item[1] }, i)
+      : isObject(item)
+        ? itemToSelectItem(item, i, props)
+        : entryToSelectItems({ text: item?.toString(), value: item as V }, i),
+    ) || []
+  }
+
+  return Object.entries(items || {})
+    .map(([text, value], i) => entryToSelectItems({ text, value }, i))
+}
 
 const isShowing = ref(false)
 const text = ref<string | undefined>(undefined)
 const search = ref<string | undefined>(undefined)
 const debouncedSearch = ref<string | undefined>(undefined)
 
-const _items = computed<SelectInternalItem<T | undefined, V, K>[]>(() => {
-  if (isComplexSetup(props)) {
-    return props.items?.map((item, i) => isArray(item)
-      ? selectEntryToSelectItems({ text: item[0], value: item[1] }, i)
-      : isObject(item)
-        ? itemToSelectItem(item, i, props)
-        : selectEntryToSelectItems({ text: item?.toString(), value: item as V }, i),
-    ) || []
-  }
+const _items = computed<SelectInternalItem<T | undefined, V, K>[]>(() => toSelectItem(props.items || {}))
 
-  return Object.entries(props.items || {}).map(([text, value], i) =>
-    selectEntryToSelectItems({ text, value }, i))
-})
+const items = computed(() => props.filterable ? filterItems(_items.value, debouncedSearch.value) : _items.value)
 
-const items = computed(() => props.filterable
-  ? _items.value.filter(x =>
-    x.text?.toLowerCase()?.includes(debouncedSearch.value?.toLowerCase() || ''))
-  : _items.value,
-)
+const selectedText = computed(() => props.multiple ? '' : getSelectedText((_items.value || []) as SelectInternalItem<T, V, K>[]))
 
-const selectedText = computed(() => props.multiple ? '' : _items.value.find(x => x.selected)?.text?.toString() || '')
-const selectedTags = computed(() => props.multiple ? _items.value.filter(x => x.selected).map(x => x.text) : [])
+const selectedTags = computed(() => props.multiple ? _items.value.flatMap(x => x.items || x).filter(x => x.selected).map(x => x.text) : [])
 
 const footerMessage = computed(() => props.footerMessage != null
   ? props.footerMessage
@@ -90,68 +128,33 @@ function isComplexSetup(props: any): props is ComplexSetup<T, V, K> {
   return Array.isArray(props.items)
 }
 
-function selectEntryToSelectItems({ text, value }: SelectEntry<V>, i: number): SelectInternalItem<T | undefined, V, K> {
-  const key = i as K
-  return {
-    ...toBaseInternalItem(undefined, i, key),
-    text,
-    value,
-    selected: isSelected(value),
-  }
-}
+const referenceElement = ref<HTMLElement>()
+const textFieldComponent = ref<ComponentType<typeof TextField>>()
 
-function itemToSelectItem(item: T, i: number, options: ComplexSetup<T, V, K>): SelectInternalItem<T, V, K> {
-  const key = getItemKey(item, i, options.itemKey)
-  const baseItem = toBaseInternalItem(item, i, key)
-  const value = getItemValue(baseItem, options.itemValue!)
-  return {
-    ...baseItem,
-    text: getItemValue(baseItem, options.itemText!),
-    value,
-    selected: isSelected(value),
-  }
-}
+const { dropdownElement, itemsContainerElement, show, hide, toggle, debouncedToggle } = useSelectPopper({
+  ...props,
+  onShow() {
+    text.value = undefined
+  },
+  onHidden() {
+    text.value = undefined
+  },
+  onSelect,
+  onExpand: expandItem,
+  footerMessage,
+}, {
+  items: items as ComputedRef<SelectInternalItem<T, V, K>[]>,
+  isShowing,
+  referenceElement,
+})
 
-function onSelect(item: SelectInternalItem<T, V, K>, select: boolean) {
+function onSelect(item: SelectInternalItem<T, V, K>, select: boolean, level: number) {
   if (!props.multiple) {
     hide()
   }
 
-  selectItem(item, select)
+  selectItem(item, select, level)
 }
-
-let popper: Popper | undefined
-
-function show() {
-  text.value = undefined
-
-  if (!isShowing.value) {
-    popper?.show()
-  }
-}
-
-function hide() {
-  if (isShowing.value) {
-    popper?.hide()
-  }
-
-  nextTick(() => {
-    text.value = undefined
-  })
-}
-
-function toggle() {
-  if (props.disabled) {
-    return
-  }
-
-  isShowing.value ? hide() : show()
-}
-
-const debouncedToggle = debounce(toggle, 5)
-
-const referenceElement = ref<HTMLDivElement>()
-const textFieldComponent = ref<ComponentType<typeof TextField>>()
 
 function updateCursor() {
   const inputElement = textFieldComponent.value?.$refs?.inputElement as HTMLInputElement
@@ -161,45 +164,8 @@ function updateCursor() {
   }
 }
 
-const dropdownElement = ref<HTMLDivElement>()
-const itemsContainerElement = ref<HTMLDivElement>()
-
-const { node, remove } = vRender('_selects_container_', Dropdown, {
-  items,
-  multiple: props.multiple,
-  footerMessage,
-  onSelect,
-}, { watchProps: true })
-
 onMounted(() => {
   updateCursor()
-
-  dropdownElement.value = node.component?.exposed?.dropdownElement?.value
-  itemsContainerElement.value = node.component?.exposed?.itemsContainerElement?.value
-
-  if (!referenceElement.value || !dropdownElement.value) {
-    return
-  }
-
-  popper = usePopper({
-    popperEl: dropdownElement.value,
-    referenceEl: referenceElement.value,
-    persistent: props.persistent,
-    activeClass: dropdownStyles.show,
-    offset: [0, 5],
-    modifiers: ['same-width', 'prevent-overflow'],
-    onStateChanged(type, value) {
-      if (type === 'show') {
-        isShowing.value = value
-        value ? props.onShow?.() : props.onHide?.()
-      }
-    },
-  })
-})
-
-onUnmounted(() => {
-  popper?.destroy?.()
-  remove?.()
 })
 
 defineExpose({
@@ -221,7 +187,11 @@ defineExpose({
 <template>
   <div :class="styles.select">
     <div ref="referenceElement" :class="styles.selectReference" @click="debouncedToggle">
-      <TextField ref="textFieldComponent" v-model="text" :class="styles.selectTextField" :tags="selectedTags" v-bind="textFieldProps">
+      <TextField
+        ref="textFieldComponent" v-model="text" :class="styles.selectTextField"
+        :tags="multiple ? selectedTags : undefined"
+        v-bind="textFieldProps"
+      >
         <template #post>
           <Icon v-if="isShowing" :icon="ChevronUp" :class="styles.selectBtn" />
           <Icon v-else :icon="ChevronDown" :class="styles.selectBtn" />

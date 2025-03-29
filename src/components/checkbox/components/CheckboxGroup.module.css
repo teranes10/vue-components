@@ -2,7 +2,6 @@
   @include input-label-container(checkbox-group);
 
   @include input(checkbox-group-container) {
-    height: auto;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;

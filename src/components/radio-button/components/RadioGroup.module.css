@@ -2,7 +2,6 @@
   @include input-label-container(radio-group);
 
   @include input(radio-group-container) {
-    height: auto;
     display: flex;
     flex-wrap: wrap;
     flex-direction: column;

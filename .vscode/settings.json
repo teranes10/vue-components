@@ -1,5 +1,6 @@
 {
   "explorer.fileNesting.enabled": true,
+  "explorer.autoReveal": false,
   "explorer.fileNesting.patterns": {
     "tsconfig.json": "tsconfig.*.json, env.d.ts",
     "package.json": "package-lock.json, pnpm*, .yarnrc*, yarn*, .prettier*, prettier*, .editorconfig, .npmrc, CHANGELOG*",
@@ -11,7 +12,9 @@
     "Lexend",
     "lucide",
     "Pinia",
+    "teranes",
     "toastify",
+    "unref",
     "vnode"
   ],
   // Disable the default formatter, use eslint instead

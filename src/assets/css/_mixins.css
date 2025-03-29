@@ -4,7 +4,7 @@
     height: 38px;
     outline: none;
     border-radius: 0.375rem;
-    padding: 8px 10px;
+    padding: 5px 10px;
     font-size: var(--text-sm);
     font-weight: var(--font-normal);
     color: var(--color-gray-600);
@@ -39,7 +39,18 @@
     }
 
     &.auto {
+      min-height: 38px;
       height: auto;
+
+      &.sm {
+        min-height: 34px;
+        font-size: var(--text-xs);
+      }
+
+      &.lg {
+        min-height: 42px;
+        font-size: var(--text-md);
+      }
     }
 
     &.success {

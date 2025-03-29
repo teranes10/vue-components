@@ -1,0 +1,26 @@
+form builder table items ref and add new item is reset to initial state of object so entered value are gone
+also open form table items still has previous value 
+
+description. https://antdv.com/components/descriptions
+
+table fixed columns. https://antdv.com/components/table#components-table-demo-fixed-columns-header
+
+cascader (cascading dropdown | hierarchical dropdown). https://rsuitejs.com/components/cascader/ | https://antdv.com/components/cascader 
+    - on search it show like path check in first sample
+
+slider. https://antdv.com/components/slider https://codepen.io/CSharperMantle/pen/dyMrzge https://codepen.io/cbolson/pen/ExzKdjG https://codepen.io/vinaymuliya/pen/gOqjEaj
+
+date time picker. https://antdv.com/components/date-picker | https://antdv.com/components/time-picker
+
+wysiwyg
+
+button group like. https://midone-vue.vercel.app/tab
+
+
+add a feature to date and tim picker to type the date like dd/mm/yyyy so add placeholder on init then add add / auto matically with validations like 31 day max and 12 months 
+
+
+switch not inline 
+radio group does not get default value
+small checkbox is like radio reduce border radius
+radio group create underline on select like boxed

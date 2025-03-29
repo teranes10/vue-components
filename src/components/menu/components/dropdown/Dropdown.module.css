@@ -1,4 +1,5 @@
 .dropdown-container {
+  width: 100%;
   display: block;
   position: relative;
 
@@ -23,7 +24,8 @@
     opacity: 0;
     background-color: #fff;
     border-radius: 0.75rem !important;
-    box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15); /*dark 0px 0px 30px rgba(0, 0, 0, 0.3); */
+    box-shadow: 0px 0px 50px 0px rgba(82, 63, 105, 0.15);
+    /*dark 0px 0px 30px rgba(0, 0, 0, 0.3); */
     transition: opacity 0.1s;
     z-index: 1010;
 
