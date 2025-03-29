@@ -1,5 +1,11 @@
 # @teranes/vue-components
 
+## 1.0.20
+
+### Patch Changes
+
+- 175aa5b: update
+
 ## 1.0.19
 
 ### Patch Changes
